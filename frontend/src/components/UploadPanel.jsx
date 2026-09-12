@@ -5,7 +5,18 @@ export default function UploadPanel({ onFileSelect, loading, hasResult, onReset 
   const [fileName, setFileName] = useState('')
   const [selectedFile, setSelectedFile] = useState(null)
   const [dragOver, setDragOver] = useState(false)
+  const [wakingUp, setWakingUp] = useState(false)
   const inputRef = useRef(null)
+
+  // After 5s of loading, show the cold-start message (Render free tier).
+  useEffect(() => {
+    if (!loading) {
+      setWakingUp(false)
+      return
+    }
+    const t = setTimeout(() => setWakingUp(true), 5000)
+    return () => clearTimeout(t)
+  }, [loading])
 
   // Revoke old preview URL to avoid memory leaks
   useEffect(() => {
@@ -118,7 +129,7 @@ export default function UploadPanel({ onFileSelect, loading, hasResult, onReset 
             />
           </svg>
         )}
-        {loading ? 'Analyzing...' : 'Analyze Image'}
+        {loading ? (wakingUp ? 'Waking up the server, this may take up to a minute on first request...' : 'Analyzing...') : 'Analyze Image'}
       </button>
 
       {hasResult && !loading && (

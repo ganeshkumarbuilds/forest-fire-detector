@@ -28,6 +28,8 @@ function revokeIfBlob(url) {
 export default function App() {
   const [prediction, setPrediction] = useState(null)
   const [loading, setLoading] = useState(false)
+  // True while a /predict request has been in flight for >5s (Render cold start).
+  const [wakingUp, setWakingUp] = useState(false)
   const [error, setError] = useState('')
   const [history, setHistory] = useState([])
   const [liveMode, setLiveMode] = useState(false)
@@ -156,14 +158,27 @@ export default function App() {
   const handleFileSelect = async (file) => {
     if (!file) return
     setLoading(true)
+    setWakingUp(false)
     setError('')
     setPrediction(null)
+    // After 5s switch the loading text to the cold-start message.
+    const wakeTimer = setTimeout(() => setWakingUp(true), 5000)
     try {
       const formData = new FormData()
       formData.append('file', file)
-      const res = await axios.post(`${API_URL}/predict`, formData, {
-        headers: { 'Content-Type': 'multipart/form-data' },
-      })
+      const postPredict = () =>
+        axios.post(`${API_URL}/predict`, formData, {
+          headers: { 'Content-Type': 'multipart/form-data' },
+          timeout: 90000,
+        })
+      let res
+      try {
+        res = await postPredict()
+      } catch (firstErr) {
+        // Retry once after a 5s delay before surfacing the error.
+        await new Promise((r) => setTimeout(r, 5000))
+        res = await postPredict()
+      }
       setPrediction(res.data)
       addToHistory({
         imageUrl: URL.createObjectURL(file),
@@ -182,6 +197,8 @@ export default function App() {
     } catch (err) {
       setError(err.response?.data?.error || err.message || 'Prediction failed')
     } finally {
+      clearTimeout(wakeTimer)
+      setWakingUp(false)
       setLoading(false)
     }
   }
@@ -273,7 +290,7 @@ export default function App() {
                 <div className="h-3 bg-slate-700 rounded-full overflow-hidden">
                   <div className="h-full w-1/2 bg-gradient-to-r from-orange-500 to-red-500 rounded-full" />
                 </div>
-                <p className="text-center text-slate-400 text-sm">Analyzing image...</p>
+                <p className="text-center text-slate-400 text-sm">{wakingUp ? 'Waking up the server, this may take up to a minute on first request...' : 'Analyzing image...'}</p>
               </div>
             )}
             {error && (
