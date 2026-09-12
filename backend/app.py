@@ -3,7 +3,10 @@ import base64
 import io
 import json
 import os
+import re
+import smtplib
 from datetime import datetime, timezone
+from email.message import EmailMessage
 
 import numpy as np
 import tensorflow as tf
@@ -12,6 +15,12 @@ from flask_cors import CORS
 from PIL import Image
 from tensorflow.keras.models import load_model
 from tensorflow.keras.applications.mobilenet_v2 import preprocess_input
+
+try:
+    from dotenv import load_dotenv
+    load_dotenv()  # local dev: backend/.env or repo-root .env
+except ImportError:
+    pass
 
 app = Flask(__name__)
 CORS(app)  # allow React dev server to call the API
@@ -27,6 +36,12 @@ LOG_PATH = os.path.abspath(LOG_PATH)
 # Precomputed test-set metrics written by ml-model/train_model.py.
 METRICS_PATH = os.path.join(os.path.dirname(__file__), "..", "ml-model", "eval_metrics.json")
 METRICS_PATH = os.path.abspath(METRICS_PATH)
+
+# Alert-email recipient storage (single address, overwritten on each POST).
+ALERT_CONFIG_PATH = os.path.join(os.path.dirname(__file__), "alert_config.json")
+ALERT_CONFIG_PATH = os.path.abspath(ALERT_CONFIG_PATH)
+
+EMAIL_RE = re.compile(r"^[^@\s]+@[^@\s]+\.[^@\s]+$")
 
 # Load once at startup, not per-request.
 model = None
@@ -73,6 +88,62 @@ def _append_log(entry):
             json.dump(entries, f, indent=2)
     except OSError as e:
         print(f"WARNING: could not write detection log at {LOG_PATH}: {e}")
+
+
+def _read_alert_email():
+    """Return the configured alert email string, or None if not set."""
+    if not os.path.exists(ALERT_CONFIG_PATH):
+        return None
+    try:
+        with open(ALERT_CONFIG_PATH, "r", encoding="utf-8") as f:
+            data = json.load(f)
+        email = (data.get("email") or "").strip() if isinstance(data, dict) else ""
+        return email or None
+    except (json.JSONDecodeError, OSError) as e:
+        print(f"WARNING: could not read alert config at {ALERT_CONFIG_PATH}: {e}")
+        return None
+
+
+def _write_alert_email(email):
+    """Persist the alert email, overwriting any previous value."""
+    with open(ALERT_CONFIG_PATH, "w", encoding="utf-8") as f:
+        json.dump({"email": email}, f, indent=2)
+
+
+def _is_critical(fire_detected, confidence):
+    """Mirror frontend getRiskLevel critical band: fire + conf >= 0.85."""
+    try:
+        return bool(fire_detected) and float(confidence or 0) >= 0.85
+    except (TypeError, ValueError):
+        return False
+
+
+def _send_critical_alert_email(to_email, location, confidence, timestamp):
+    """Send a critical-risk alert via Gmail SMTP. Never raises (logs only)."""
+    try:
+        sender = (os.environ.get("GMAIL_ADDRESS") or "").strip()
+        app_password = (os.environ.get("GMAIL_APP_PASSWORD") or "").strip()
+        if not sender or not app_password:
+            print("WARNING: GMAIL_ADDRESS/GMAIL_APP_PASSWORD not set; skipping alert email.")
+            return
+        pct = f"{float(confidence or 0) * 100:.1f}%"
+        msg = EmailMessage()
+        msg["Subject"] = "🚨 Fire Alert - Critical Risk Detected"
+        msg["From"] = sender
+        msg["To"] = to_email
+        msg.set_content(
+            "Critical fire risk detected.\n\n"
+            f"Location: {location or 'Uploaded Image'}\n"
+            f"Confidence: {pct}\n"
+            f"Timestamp: {timestamp}\n"
+        )
+        with smtplib.SMTP("smtp.gmail.com", 587, timeout=20) as server:
+            server.starttls()
+            server.login(sender, app_password)
+            server.send_message(msg)
+        print(f"Critical alert email sent to {to_email}.")
+    except Exception as e:
+        print(f"WARNING: failed to send critical alert email: {e}")
 
 
 def _find_last_conv_layer_name(m):
@@ -220,6 +291,22 @@ def predict():
                 result["heatmap_image"] = heatmap
         except Exception as e:
             print(f"WARNING: Grad-CAM failed: {e}")
+        # Critical-risk email alert (never breaks the response).
+        try:
+            if _is_critical(fire_detected, confidence):
+                recipient = _read_alert_email()
+                if recipient:
+                    location = (
+                        request.form.get("location")
+                        or request.form.get("camera")
+                        or (file.filename or "").strip()
+                        or "Uploaded Image"
+                    )
+                    _send_critical_alert_email(
+                        recipient, location, confidence, timestamp
+                    )
+        except Exception as e:
+            print(f"WARNING: critical alert hook failed: {e}")
         return jsonify(result)
     except Exception as e:
         return jsonify({"error": f"Inference failed: {e}"}), 500
@@ -264,6 +351,26 @@ def model_info():
     except (json.JSONDecodeError, OSError) as e:
         print(f"WARNING: could not read eval metrics at {METRICS_PATH}: {e}")
         return jsonify({"available": False})
+
+
+@app.get("/configure-alert-email")
+def get_alert_email():
+    """Return the currently stored alert email (or null if not set)."""
+    return jsonify({"email": _read_alert_email()})
+
+
+@app.post("/configure-alert-email")
+def set_alert_email():
+    """Store the alert recipient, overwriting any previous value."""
+    data = request.get_json(silent=True) or {}
+    email = str(data.get("email") or "").strip()
+    if not email or not EMAIL_RE.match(email):
+        return jsonify({"error": "A valid 'email' is required."}), 400
+    try:
+        _write_alert_email(email)
+    except OSError as e:
+        return jsonify({"error": f"Could not save email: {e}"}), 500
+    return jsonify({"email": email})
 
 
 if __name__ == "__main__":

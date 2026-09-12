@@ -77,7 +77,7 @@ export default function MapView({ cameraStatus }) {
           const risk = status ? getRiskLevel(status.fire_detected, status.confidence) : null
           const pct = status ? ((status.confidence ?? 0) * 100).toFixed(1) : null
           return (
-            <Marker key={cam.id} position={[cam.lat, cam.lng]} icon={markerIcon(riskKey)}>
+            <Marker key={`${cam.id}-${riskKey}`} position={[cam.lat, cam.lng]} icon={markerIcon(riskKey)}>
               <Popup>
                 <div className="text-sm">
                   <p className="font-bold">{cam.name}</p>

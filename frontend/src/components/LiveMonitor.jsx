@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import axios from 'axios'
 import ResultCard from './ResultCard.jsx'
+import { getCameraById } from '../cameraLocations.js'
 
 // Place these 5 images in frontend/public/samples/ (see public/samples/README.md)
 // `id` values match frontend/src/cameraLocations.js so map markers stay in sync.
@@ -12,7 +13,7 @@ export const SAMPLE_IMAGES = [
   { id: 'camera-05', url: '/samples/sample-5.jpg', label: 'Camera 05' },
 ]
 
-const CYCLE_MS = 4000
+const CYCLE_MS = 6000
 
 function fileNameFromUrl(url) {
   return url.split('/').pop() || 'sample.jpg'
@@ -26,6 +27,7 @@ export default function LiveMonitor({ apiUrl, onLiveResult }) {
   const [imageError, setImageError] = useState(false)
   const processingRef = useRef(false)
   const onLiveResultRef = useRef(onLiveResult)
+  const nextIndexRef = useRef(1)
 
   // Keep latest callback without restarting the interval
   useEffect(() => {
@@ -38,13 +40,15 @@ export default function LiveMonitor({ apiUrl, onLiveResult }) {
     const analyzeSample = async (i) => {
       if (cancelled || processingRef.current) return
       processingRef.current = true
+      const normalized = ((i % SAMPLE_IMAGES.length) + SAMPLE_IMAGES.length) % SAMPLE_IMAGES.length
       if (!cancelled) {
+        setIndex(normalized)
         setScanning(true)
         setError('')
         setImageError(false)
       }
       try {
-        const sample = SAMPLE_IMAGES[i % SAMPLE_IMAGES.length]
+        const sample = SAMPLE_IMAGES[normalized]
         const imgRes = await fetch(sample.url)
         if (!imgRes.ok) {
           throw new Error(`Sample image not found (${fileNameFromUrl(sample.url)})`)
@@ -55,6 +59,8 @@ export default function LiveMonitor({ apiUrl, onLiveResult }) {
         })
         const formData = new FormData()
         formData.append('file', file)
+        const cam = getCameraById(sample.id)
+        formData.append('location', cam ? `${cam.name} (${cam.zone})` : sample.label)
         const res = await axios.post(`${apiUrl}/predict`, formData, {
           headers: { 'Content-Type': 'multipart/form-data' },
         })
@@ -77,18 +83,21 @@ export default function LiveMonitor({ apiUrl, onLiveResult }) {
       }
     }
 
-    // Analyze first sample immediately, then cycle every 4s
+    // Analyze first sample immediately, then cycle every CYCLE_MS.
+    // nextIndexRef tracks the upcoming camera so a slow /predict never
+    // skips a camera and StrictMode remounts can't lose the first sample.
+    nextIndexRef.current = 1
     analyzeSample(0)
     const id = setInterval(() => {
-      setIndex((prev) => {
-        const next = (prev + 1) % SAMPLE_IMAGES.length
-        analyzeSample(next)
-        return next
-      })
+      if (processingRef.current) return // wait for in-flight request, retry next tick
+      const next = nextIndexRef.current % SAMPLE_IMAGES.length
+      nextIndexRef.current += 1
+      analyzeSample(next)
     }, CYCLE_MS)
 
     return () => {
       cancelled = true
+      processingRef.current = false
       clearInterval(id)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -156,7 +165,7 @@ export default function LiveMonitor({ apiUrl, onLiveResult }) {
         </div>
 
         <p className="text-center text-slate-500 text-xs">
-          Auto-analyzing every 4s • each result is saved to Detection History
+          Auto-analyzing every 6s • each result is saved to Detection History
         </p>
       </div>
 

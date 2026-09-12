@@ -166,6 +166,7 @@ export default function App() {
     try {
       const formData = new FormData()
       formData.append('file', file)
+      formData.append('location', 'Uploaded Image')
       const postPredict = () =>
         axios.post(`${API_URL}/predict`, formData, {
           headers: { 'Content-Type': 'multipart/form-data' },
@@ -315,7 +316,7 @@ export default function App() {
         </div>
 
         <div className="pt-2">
-          <AlertLog alerts={alertLog} />
+          <AlertLog alerts={alertLog} apiUrl={API_URL} />
         </div>
       </main>
 

@@ -10,6 +10,7 @@ frontend/dist/
 
 # Logs
 backend/detection_log.json
+backend/alert_config.json
 
 # Environment files
 .env
