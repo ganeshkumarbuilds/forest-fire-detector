@@ -1,0 +1,23 @@
+{
+  "accuracy": 1.0,
+  "precision": 1.0,
+  "recall": 1.0,
+  "f1": 1.0,
+  "confusion_matrix": [
+    [
+      7,
+      0
+    ],
+    [
+      0,
+      4
+    ]
+  ],
+  "test_size": 11,
+  "dataset_size": {
+    "fire": 22,
+    "no_fire": 46
+  },
+  "warning": "small dataset (<100 images) \u2014 metrics may be unreliable/overfit.",
+  "trained_at": "2026-09-11T17:42:49.875237+00:00"
+}

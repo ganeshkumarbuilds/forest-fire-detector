@@ -1,0 +1,22 @@
+# Python - catch venv at any level
+venv/
+backend/venv/
+__pycache__/
+*.pyc
+
+# Node
+frontend/node_modules/
+frontend/dist/
+
+# Logs
+backend/detection_log.json
+
+# Environment files
+.env
+frontend/.env
+
+# OS
+.DS_Store
+Thumbs.db
+
+ml-model/dataset/
