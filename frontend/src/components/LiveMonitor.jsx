@@ -283,11 +283,11 @@ export default function LiveMonitor({ apiUrl, onLiveResult }) {
   return (
     <div className="space-y-5">
       {/* Mode switch */}
-      <div className="flex justify-center gap-2">
+      <div className="flex justify-center gap-2 animate-fade-in">
         <button
           type="button"
           onClick={() => setMode('samples')}
-          className={`px-4 py-2 rounded-xl font-bold text-xs sm:text-sm transition-all active:scale-[0.98] ${
+          className={`btn-lift px-4 py-2 rounded-xl font-bold text-xs sm:text-sm transition-all active:scale-[0.98] ${
             mode === 'samples'
               ? 'text-white bg-gradient-to-r from-orange-600 to-red-600 shadow-lg shadow-red-900/40'
               : 'text-slate-200 bg-slate-700 hover:bg-slate-600 border border-slate-600'
@@ -298,7 +298,7 @@ export default function LiveMonitor({ apiUrl, onLiveResult }) {
         <button
           type="button"
           onClick={() => setMode('webcam')}
-          className={`px-4 py-2 rounded-xl font-bold text-xs sm:text-sm transition-all active:scale-[0.98] ${
+          className={`btn-lift px-4 py-2 rounded-xl font-bold text-xs sm:text-sm transition-all active:scale-[0.98] ${
             mode === 'webcam'
               ? 'text-white bg-gradient-to-r from-orange-600 to-red-600 shadow-lg shadow-red-900/40'
               : 'text-slate-200 bg-slate-700 hover:bg-slate-600 border border-slate-600'
@@ -310,7 +310,7 @@ export default function LiveMonitor({ apiUrl, onLiveResult }) {
 
       {mode === 'samples' ? (
         <>
-          <div className="bg-slate-800 border border-slate-700 rounded-2xl shadow-xl shadow-black/30 p-4 sm:p-6 space-y-4">
+          <div className="glass-panel rounded-2xl shadow-xl shadow-black/30 p-4 sm:p-6 space-y-4 animate-fade-up">
             <div className="flex items-center justify-between">
               <span className="flex items-center gap-2 px-3 py-1 rounded-full bg-red-950/70 border border-red-500/50 text-red-200 text-xs sm:text-sm font-bold">
                 <span className="relative flex h-2.5 w-2.5">
@@ -324,7 +324,7 @@ export default function LiveMonitor({ apiUrl, onLiveResult }) {
               </span>
             </div>
 
-            <div className="relative rounded-xl overflow-hidden border border-slate-700 bg-slate-950">
+            <div className="video-frame"><div className="video-frame-inner relative bg-slate-950">
               {!imageError ? (
                 <img
                   key={sample.url}
@@ -352,7 +352,7 @@ export default function LiveMonitor({ apiUrl, onLiveResult }) {
                   </span>
                 </div>
               )}
-            </div>
+            </div></div>
 
             <div className="flex justify-center gap-1.5">
               {SAMPLE_IMAGES.map((s, i) => (
@@ -382,7 +382,7 @@ export default function LiveMonitor({ apiUrl, onLiveResult }) {
         </>
       ) : (
         <>
-          <div className="bg-slate-800 border border-slate-700 rounded-2xl shadow-xl shadow-black/30 p-4 sm:p-6 space-y-4">
+          <div className="glass-panel rounded-2xl shadow-xl shadow-black/30 p-4 sm:p-6 space-y-4 animate-fade-up">
             <div className="flex items-center justify-between flex-wrap gap-2">
               <span className="flex items-center gap-2 px-3 py-1 rounded-full bg-red-950/70 border border-red-500/50 text-red-200 text-xs sm:text-sm font-bold">
                 <span className="relative flex h-2.5 w-2.5">
@@ -406,7 +406,7 @@ export default function LiveMonitor({ apiUrl, onLiveResult }) {
               )}
             </div>
 
-            <div className="relative rounded-xl overflow-hidden border border-slate-700 bg-slate-950">
+            <div className="video-frame"><div className="video-frame-inner relative bg-slate-950">
               {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
               <video
                 ref={videoRef}
@@ -444,7 +444,7 @@ export default function LiveMonitor({ apiUrl, onLiveResult }) {
                   ✅ SAFE — no fire detected
                 </div>
               )}
-            </div>
+            </div></div>
 
             <div className="flex flex-wrap justify-center gap-2">
               {!webcamActive ? (

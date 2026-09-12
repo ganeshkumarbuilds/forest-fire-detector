@@ -28,6 +28,18 @@ except ImportError:
 app = Flask(__name__)
 CORS(app)  # allow React dev server to call the API
 
+# Postgres (your own account) — optional, falls back to JSON files.
+# Set DATABASE_URL in backend/.env to enable. Never raises.
+try:
+    import db as pgdb
+    try:
+        pgdb.init_db()
+    except Exception as _e:
+        print(f"WARNING: Postgres init skipped: {_e}")
+except ImportError as _e:
+    pgdb = None
+    print(f"WARNING: Postgres driver missing, using JSON storage: {_e}")
+
 MODEL_PATH = os.path.join(os.path.dirname(__file__), "..", "ml-model", "fire_model.h5")
 MODEL_PATH = os.path.abspath(MODEL_PATH)
 
@@ -78,7 +90,14 @@ def preprocess_image(file_storage):
 
 
 def _read_log():
-    """Read the detection log file safely. Returns [] if missing/empty/corrupt."""
+    """Postgres first (your account), JSON fallback. Never raises."""
+    try:
+        if pgdb is not None and pgdb.db_available():
+            rows = pgdb.db_read_log()
+            if rows is not None:
+                return rows
+    except Exception as e:
+        print(f"WARNING: Postgres log read skipped: {e}")
     if not os.path.exists(LOG_PATH):
         return []
     try:
@@ -94,9 +113,23 @@ def _read_log():
 
 
 def _append_log(entry):
-    """Append one entry to the log file (read-modify-write). Never raises."""
+    """Write to Postgres AND JSON mirror. Never raises."""
     try:
-        entries = _read_log()
+        if pgdb is not None and pgdb.db_available():
+            pgdb.db_append_log(entry)
+    except Exception as e:
+        print(f"WARNING: Postgres log write skipped: {e}")
+    try:
+        entries = []
+        if os.path.exists(LOG_PATH):
+            try:
+                with open(LOG_PATH, "r", encoding="utf-8") as f:
+                    content = f.read().strip()
+                    if content:
+                        data = json.loads(content)
+                        entries = data if isinstance(data, list) else []
+            except (json.JSONDecodeError, OSError):
+                entries = []
         entries.append(entry)
         with open(LOG_PATH, "w", encoding="utf-8") as f:
             json.dump(entries, f, indent=2)
@@ -106,6 +139,13 @@ def _append_log(entry):
 
 def _read_alert_email():
     """Return the configured alert email string, or None if not set."""
+    try:
+        if pgdb is not None and pgdb.db_available():
+            email = pgdb.db_read_alert_email()
+            if email:
+                return email
+    except Exception as e:
+        print(f"WARNING: Postgres alert read skipped: {e}")
     if not os.path.exists(ALERT_CONFIG_PATH):
         return None
     try:
@@ -119,7 +159,12 @@ def _read_alert_email():
 
 
 def _write_alert_email(email):
-    """Persist the alert email, overwriting any previous value."""
+    """Persist the alert email to Postgres + JSON mirror."""
+    try:
+        if pgdb is not None and pgdb.db_available():
+            pgdb.db_write_alert_email(email)
+    except Exception as e:
+        print(f"WARNING: Postgres alert write skipped: {e}")
     with open(ALERT_CONFIG_PATH, "w", encoding="utf-8") as f:
         json.dump({"email": email}, f, indent=2)
 
@@ -463,6 +508,11 @@ def _get_hotspots_payload():
                 json.dump(payload, f)
         except OSError as e:
             print(f"WARNING: could not write hotspots cache: {e}")
+        try:
+            if pgdb is not None and pgdb.db_available():
+                pgdb.db_write_hotspots(payload)
+        except Exception as e:
+            print(f"WARNING: Postgres hotspots write skipped: {e}")
         return payload
     except Exception as e:
         print(f"WARNING: FIRMS fetch failed: {e}")
@@ -470,6 +520,14 @@ def _get_hotspots_payload():
             stale = dict(_hotspots_mem["payload"])
             stale["stale"] = True
             return stale
+        try:
+            if pgdb is not None and pgdb.db_available():
+                cached = pgdb.db_read_hotspots()
+                if isinstance(cached, dict) and cached.get("hotspots"):
+                    cached["stale"] = True
+                    return cached
+        except Exception as ce:
+            print(f"WARNING: Postgres hotspots read skipped: {ce}")
         try:
             if os.path.exists(HOTSPOTS_CACHE_PATH):
                 with open(HOTSPOTS_CACHE_PATH, "r", encoding="utf-8") as f:
@@ -496,6 +554,24 @@ def hotspots():
         print(f"WARNING: /hotspots failed: {e}")
         return jsonify({"available": False, "reason": "unavailable",
                         "hotspots": [], "count": 0})
+
+
+@app.get("/db-health")
+def db_health():
+    """Check your Postgres account connection. Never fails the app."""
+    try:
+        if pgdb is None:
+            return jsonify({"postgres": False, "mode": "json-fallback", "reason": "driver-missing"})
+        if not pgdb.db_available():
+            return jsonify({"postgres": False, "mode": "json-fallback", "reason": "DATABASE_URL-not-set"})
+        ok = pgdb.init_db()
+        rows = pgdb.db_read_log(limit=1)
+        return jsonify({
+            "postgres": bool(ok and rows is not None),
+            "mode": "postgres" if (ok and rows is not None) else "json-fallback",
+        })
+    except Exception as e:
+        return jsonify({"postgres": False, "mode": "json-fallback", "reason": str(e)})
 
 
 if __name__ == "__main__":

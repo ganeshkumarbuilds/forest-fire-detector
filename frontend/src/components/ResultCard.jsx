@@ -71,7 +71,7 @@ export default function ResultCard({ result }) {
   }
 
   return (
-    <div className="bg-slate-800 border border-slate-700 rounded-2xl shadow-xl shadow-black/30 p-5 sm:p-6 space-y-4 animate-fade-in transition-all duration-300">
+    <div className="glass-panel rounded-2xl shadow-xl shadow-black/30 p-5 sm:p-6 space-y-4 animate-fade-up transition-all duration-300">
       <div className="flex justify-center">
         <span
           className={`px-6 py-3 rounded-full text-base sm:text-xl font-extrabold tracking-wide transition-all duration-300 flex items-center gap-2 ${getRiskBadgeClass(
@@ -93,7 +93,7 @@ export default function ResultCard({ result }) {
           <p className="text-slate-300 text-sm sm:text-base">Confidence</p>
           <p className="text-slate-100 font-bold text-sm sm:text-base">{pct}%</p>
         </div>
-        <div className="w-full h-3 bg-slate-700 rounded-full overflow-hidden">
+        <div className="w-full h-3 bg-slate-700 rounded-full overflow-hidden bar-shine">
           <div
             className={`h-full rounded-full transition-all duration-500 ${getRiskBarClass(
               risk.key

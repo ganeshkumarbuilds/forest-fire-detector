@@ -295,9 +295,16 @@ export default function App() {
   return (
     <div className="min-h-screen bg-slate-900 text-slate-100 flex flex-col transition-all duration-300">
       <AlertBanner alerts={activeAlerts} onDismiss={dismissAlert} />
-      <header className="px-4 pt-10 sm:pt-14 pb-4 text-center">
-        <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight">
-          🔥 Forest Fire Detection System
+      <header className="px-4 pt-10 sm:pt-14 pb-4 text-center animate-fade-up">
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-800/80 border border-slate-700 text-[11px] sm:text-xs font-semibold text-slate-300 tracking-wide">
+          <span className="relative flex h-2 w-2 text-emerald-400">
+            <span className="status-ping absolute inline-flex h-full w-full" />
+            <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-400" />
+          </span>
+          WORLDWIDE PROTECTION • 24 CAMERAS • NASA FIRMS LIVE
+        </div>
+        <h1 className="mt-3 text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight">
+          <span className="animate-gradient-text">🔥 Forest Fire Detection System</span>
         </h1>
         <p className="text-slate-400 text-sm sm:text-base md:text-lg mt-3">
           {liveMode
@@ -309,7 +316,7 @@ export default function App() {
             <button
               type="button"
               onClick={enterLiveMode}
-              className="px-5 py-2.5 rounded-xl font-bold text-sm sm:text-base text-white bg-gradient-to-r from-orange-600 to-red-600 hover:from-orange-500 hover:to-red-500 shadow-lg shadow-red-900/40 transition-all duration-300 active:scale-[0.99]"
+              className="btn-lift px-5 py-2.5 rounded-xl font-bold text-sm sm:text-base text-white bg-gradient-to-r from-orange-600 to-red-600 hover:from-orange-500 hover:to-red-500 shadow-lg shadow-red-900/40 transition-all duration-300 active:scale-[0.99]"
             >
               📡 Switch to Live Monitoring
             </button>
@@ -317,7 +324,7 @@ export default function App() {
             <button
               type="button"
               onClick={() => setLiveMode(false)}
-              className="px-5 py-2.5 rounded-xl font-bold text-sm sm:text-base text-slate-100 bg-slate-700 hover:bg-slate-600 border border-slate-600 shadow-lg transition-all duration-300 active:scale-[0.99]"
+              className="btn-lift px-5 py-2.5 rounded-xl font-bold text-sm sm:text-base text-slate-100 bg-slate-700 hover:bg-slate-600 border border-slate-600 shadow-lg transition-all duration-300 active:scale-[0.99]"
             >
               ⏹ Stop Monitoring
             </button>
@@ -325,7 +332,7 @@ export default function App() {
         </div>
       </header>
 
-      <main className="flex-1 w-full max-w-2xl mx-auto px-4 sm:px-6 pb-10 space-y-5">
+      <main className="flex-1 w-full max-w-2xl mx-auto px-4 sm:px-6 pb-10 space-y-5 stagger">
         <div className="pt-2">
           <ModelInfoPanel apiUrl={API_URL} />
         </div>
