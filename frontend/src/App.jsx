@@ -3,17 +3,18 @@ import axios from 'axios'
 import UploadPanel from './components/UploadPanel.jsx'
 import ResultCard, { getRiskLevel } from './components/ResultCard.jsx'
 import HistoryPanel from './components/HistoryPanel.jsx'
-import LiveMonitor from './components/LiveMonitor.jsx'
+import LiveMonitor, { SAMPLE_IMAGES as BG_SAMPLE_IMAGES } from './components/LiveMonitor.jsx'
 import MapView from './components/MapView.jsx'
 import AlertBanner from './components/AlertBanner.jsx'
 import AlertLog from './components/AlertLog.jsx'
 import ModelInfoPanel from './components/ModelInfoPanel.jsx'
-import { getCameraById } from './cameraLocations.js'
+import { CAMERA_LOCATIONS, getCameraById } from './cameraLocations.js'
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000'
 const MAX_HISTORY = 20
 const MAX_ALERTS = 15
 const ALERT_TTL_MS = 8000
+const BG_SIM_MS = 10000
 
 function revokeIfBlob(url) {
   if (typeof url === 'string' && url.startsWith('blob:')) {
@@ -36,8 +37,9 @@ export default function App() {
   // All-time server stats (GET /stats). Null until loaded or if backend
   // is unreachable — HistoryPanel then falls back to local-history stats.
   const [serverStats, setServerStats] = useState(null)
-  // Latest detection per camera for the map. Fed ONLY by live-monitoring
-  // results (manual uploads carry no camera, so they never touch the map).
+  // Latest detection per camera for the map. Fed by the background
+  // simulation (map-only) and by manual live-monitoring results.
+  // Manual uploads carry no camera, so they never touch the map.
   const [cameraStatus, setCameraStatus] = useState({})
   // Critical-risk alerts: active toasts + permanent session log.
   const [activeAlerts, setActiveAlerts] = useState([])
@@ -86,13 +88,15 @@ export default function App() {
             timestamp: e.timestamp,
           }))
         )
-        // Seed map markers from persisted live-mode filenames
-        // ("Camera 0X — ..."), most recent entry per camera wins.
+        // Seed map markers from persisted filenames ("Camera 0X — ..."),
+        // most recent entry per camera wins.
         const seeded = {}
         for (const e of items) {
-          const m = /Camera 0([1-5])/i.exec(e.filename ?? '')
+          const m = /Camera 0?(\d{1,2})/i.exec(e.filename ?? '')
           if (!m) continue
-          const id = `camera-0${m[1]}`
+          const n = parseInt(m[1], 10)
+          if (Number.isNaN(n) || n < 1 || n > CAMERA_LOCATIONS.length) continue
+          const id = `camera-${String(n).padStart(2, '0')}`
           if (!seeded[id]) {
             seeded[id] = {
               fire_detected: !!e.fire_detected,
@@ -110,6 +114,58 @@ export default function App() {
     load()
     return () => {
       cancelled = true
+    }
+  }, [])
+
+  // Background map simulation (auto-starts on page load, no click needed):
+  // every BG_SIM_MS analyzes ONE camera (rotating through all of them) with
+  // a randomly selected sample image, updating only marker colors. It never
+  // touches history, stats, or alerts — manual Live Monitoring is unchanged.
+  useEffect(() => {
+    let cancelled = false
+    let busy = false
+    let idx = 0
+    const tick = async () => {
+      if (cancelled || busy || CAMERA_LOCATIONS.length === 0) return
+      busy = true
+      try {
+        const cam = CAMERA_LOCATIONS[idx % CAMERA_LOCATIONS.length]
+        idx += 1
+        const sample =
+          BG_SAMPLE_IMAGES[Math.floor(Math.random() * BG_SAMPLE_IMAGES.length)]
+        const imgRes = await fetch(sample.url)
+        if (!imgRes.ok) return
+        const blob = await imgRes.blob()
+        const file = new File([blob], sample.url.split('/').pop() || 'sample.jpg', {
+          type: blob.type || 'image/jpeg',
+        })
+        const formData = new FormData()
+        formData.append('file', file)
+        formData.append('location', `${cam.name} (${cam.zone})`)
+        const res = await axios.post(`${API_URL}/predict`, formData, {
+          headers: { 'Content-Type': 'multipart/form-data' },
+          timeout: 90000,
+        })
+        if (cancelled) return
+        setCameraStatus((prev) => ({
+          ...prev,
+          [cam.id]: {
+            fire_detected: res.data.fire_detected,
+            confidence: res.data.confidence,
+            timestamp: res.data.timestamp,
+          },
+        }))
+      } catch {
+        // Silent — background liveliness must never surface errors.
+      } finally {
+        busy = false
+      }
+    }
+    tick()
+    const id = setInterval(tick, BG_SIM_MS)
+    return () => {
+      cancelled = true
+      clearInterval(id)
     }
   }, [])
 
@@ -312,7 +368,7 @@ export default function App() {
         </div>
 
         <div className="pt-2">
-          <MapView cameraStatus={cameraStatus} />
+          <MapView cameraStatus={cameraStatus} apiUrl={API_URL} />
         </div>
 
         <div className="pt-2">

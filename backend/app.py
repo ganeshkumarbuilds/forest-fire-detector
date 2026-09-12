@@ -1,10 +1,13 @@
 """Forest Fire Detection - Flask backend."""
 import base64
+import csv
 import io
 import json
 import os
 import re
 import smtplib
+import time
+import urllib.request
 from datetime import datetime, timezone
 from email.message import EmailMessage
 
@@ -42,6 +45,17 @@ ALERT_CONFIG_PATH = os.path.join(os.path.dirname(__file__), "alert_config.json")
 ALERT_CONFIG_PATH = os.path.abspath(ALERT_CONFIG_PATH)
 
 EMAIL_RE = re.compile(r"^[^@\s]+@[^@\s]+\.[^@\s]+$")
+
+# Genuine worldwide active-fire data: NASA FIRMS satellite hotspots.
+# Free MAP_KEY at https://firms.modaps.eosdis.nasa.gov/api/map_key/
+# Set FIRMS_MAP_KEY in backend/.env (never commit it).
+FIRMS_SOURCE = "VIIRS_SNPP_NRT"
+FIRMS_DAY_RANGE = 1
+FIRMS_CACHE_TTL_S = 30 * 60
+FIRMS_MAX_POINTS = 2000
+HOTSPOTS_CACHE_PATH = os.path.join(os.path.dirname(__file__), "hotspots_cache.json")
+HOTSPOTS_CACHE_PATH = os.path.abspath(HOTSPOTS_CACHE_PATH)
+_hotspots_mem = {"at": 0.0, "payload": None}
 
 # Load once at startup, not per-request.
 model = None
@@ -371,6 +385,117 @@ def set_alert_email():
     except OSError as e:
         return jsonify({"error": f"Could not save email: {e}"}), 500
     return jsonify({"email": email})
+
+
+def _parse_firms_csv(text):
+    """Parse FIRMS CSV into hotspot dicts. Skips malformed rows. Never raises."""
+    hotspots = []
+    try:
+        reader = csv.DictReader(io.StringIO(text))
+        for row in reader:
+            try:
+                lat = float((row.get("latitude") or "").strip())
+                lng = float((row.get("longitude") or "").strip())
+            except (ValueError, AttributeError):
+                continue
+            if not (-90 <= lat <= 90 and -180 <= lng <= 180):
+                continue
+            try:
+                brightness = float((row.get("brightness") or 0) or 0)
+            except (ValueError, TypeError):
+                brightness = 0.0
+            try:
+                frp = float((row.get("frp") or 0) or 0)
+            except (ValueError, TypeError):
+                frp = 0.0
+            hotspots.append({
+                "lat": round(lat, 4),
+                "lng": round(lng, 4),
+                "brightness": round(brightness, 1),
+                "frp": round(frp, 1),
+                "confidence": (row.get("confidence") or "").strip().lower(),
+                "satellite": (row.get("satellite") or "").strip(),
+                "acq_date": (row.get("acq_date") or "").strip(),
+                "acq_time": (row.get("acq_time") or "").strip(),
+                "daynight": (row.get("daynight") or "").strip(),
+            })
+    except Exception as e:
+        print(f"WARNING: FIRMS CSV parse failed: {e}")
+    return hotspots
+
+
+def _fetch_firms_world():
+    """Download 1-day global VIIRS hotspots from NASA FIRMS. May raise."""
+    key = (os.environ.get("FIRMS_MAP_KEY") or "").strip()
+    if not key:
+        raise RuntimeError("no_key")
+    url = (f"https://firms.modaps.eosdis.nasa.gov/api/area/csv/"
+           f"{key}/{FIRMS_SOURCE}/world/{FIRMS_DAY_RANGE}")
+    req = urllib.request.Request(url, headers={"User-Agent": "forest-fire-detector/1.0"})
+    with urllib.request.urlopen(req, timeout=25) as resp:
+        raw = resp.read().decode("utf-8", errors="replace")
+    if raw.lstrip().startswith(("Invalid", "Error", "<")):
+        raise RuntimeError(f"firms_rejected: {raw[:120]}")
+    return _parse_firms_csv(raw)
+
+
+def _get_hotspots_payload():
+    """Return cached-or-fresh hotspot payload. Never raises; always a dict."""
+    now = time.time()
+    if _hotspots_mem["payload"] and now - _hotspots_mem["at"] < FIRMS_CACHE_TTL_S:
+        return _hotspots_mem["payload"]
+    try:
+        all_points = _fetch_firms_world()
+        top = sorted(all_points, key=lambda p: p["brightness"], reverse=True)[:FIRMS_MAX_POINTS]
+        payload = {
+            "available": True,
+            "source": f"NASA FIRMS {FIRMS_SOURCE} (past 24h)",
+            "count": len(top),
+            "total": len(all_points),
+            "fetched_at": datetime.now(timezone.utc).isoformat(),
+            "stale": False,
+            "hotspots": top,
+        }
+        _hotspots_mem["at"] = now
+        _hotspots_mem["payload"] = payload
+        try:
+            with open(HOTSPOTS_CACHE_PATH, "w", encoding="utf-8") as f:
+                json.dump(payload, f)
+        except OSError as e:
+            print(f"WARNING: could not write hotspots cache: {e}")
+        return payload
+    except Exception as e:
+        print(f"WARNING: FIRMS fetch failed: {e}")
+        if _hotspots_mem["payload"]:
+            stale = dict(_hotspots_mem["payload"])
+            stale["stale"] = True
+            return stale
+        try:
+            if os.path.exists(HOTSPOTS_CACHE_PATH):
+                with open(HOTSPOTS_CACHE_PATH, "r", encoding="utf-8") as f:
+                    stale = json.load(f)
+                if isinstance(stale, dict) and stale.get("hotspots"):
+                    stale["stale"] = True
+                    return stale
+        except (json.JSONDecodeError, OSError) as ce:
+            print(f"WARNING: could not read hotspots cache: {ce}")
+        reason = "no_key" if "no_key" in str(e) else "unavailable"
+        return {"available": False, "reason": reason, "hotspots": [], "count": 0}
+
+
+@app.get("/hotspots")
+def hotspots():
+    """Genuine worldwide satellite fire detections (NASA FIRMS).
+
+    Returns cached data when fresh; never invents points — if NASA is
+    unreachable and nothing is cached, responds available:false.
+    """
+    try:
+        return jsonify(_get_hotspots_payload())
+    except Exception as e:
+        print(f"WARNING: /hotspots failed: {e}")
+        return jsonify({"available": False, "reason": "unavailable",
+                        "hotspots": [], "count": 0})
 
 
 if __name__ == "__main__":

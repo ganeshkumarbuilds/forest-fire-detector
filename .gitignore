@@ -11,6 +11,7 @@ frontend/dist/
 # Logs
 backend/detection_log.json
 backend/alert_config.json
+backend/hotspots_cache.json
 
 # Environment files
 .env
