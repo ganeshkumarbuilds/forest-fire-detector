@@ -91,6 +91,7 @@ export default function LiveMonitor({ apiUrl, onLiveResult }) {
         formData.append('location', cam ? `${cam.name} (${cam.zone})` : sample.label)
         const res = await axios.post(`${apiUrl}/predict`, formData, {
           headers: { 'Content-Type': 'multipart/form-data' },
+          timeout: 180000,
         })
         if (cancelled) return
         setResult(res.data)
@@ -236,7 +237,7 @@ export default function LiveMonitor({ apiUrl, onLiveResult }) {
       formData.append('location', 'Laptop Webcam')
       const res = await axios.post(`${apiUrl}/predict`, formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
-        timeout: 90000,
+        timeout: 180000,
       })
       const previewUrl = URL.createObjectURL(blob)
       setWebcamCaptureUrl((prev) => {

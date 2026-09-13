@@ -122,7 +122,7 @@ export default function MapView({ cameraStatus, apiUrl }) {
     const load = async () => {
       setHsState('loading')
       try {
-        const res = await axios.get(`${baseUrl}/hotspots`, { timeout: 30000 })
+        const res = await axios.get(`${baseUrl}/hotspots`, { timeout: 120000 })
         if (cancelled) return
         const d = res.data ?? {}
         if (d.available && Array.isArray(d.hotspots)) {

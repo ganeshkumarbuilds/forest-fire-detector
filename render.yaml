@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: forest-fire-detector
+    runtime: python
+    rootDir: backend
+    buildCommand: pip install -r requirements.txt
+    # Single worker (TF ~300-500MB), long timeout for cold start + first inference
+    startCommand: gunicorn app:app --bind 0.0.0.0:$PORT --workers 1 --threads 4 --timeout 180 --graceful-timeout 30
+    healthCheckPath: /health
+    plan: free
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.0

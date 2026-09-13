@@ -14,7 +14,10 @@ const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000'
 const MAX_HISTORY = 20
 const MAX_ALERTS = 15
 const ALERT_TTL_MS = 8000
-const BG_SIM_MS = 10000
+// Render free tier: cold start 50s+ + TF load. 3min timeout + retries.
+// Background sim throttled to 60s so free instance is never hammered.
+const PREDICT_TIMEOUT_MS = 180000
+const BG_SIM_MS = 60000
 
 function revokeIfBlob(url) {
   if (typeof url === 'string' && url.startsWith('blob:')) {
@@ -67,14 +70,34 @@ export default function App() {
     [dismissAlert]
   )
 
+  // Warm up Render free instance on page load so first Analyze rarely
+  // hits a cold start. Retries /health for up to ~2 min, fire-and-forget.
+  useEffect(() => {
+    let cancelled = false
+    const warm = async () => {
+      for (let i = 0; i < 12 && !cancelled; i++) {
+        try {
+          await axios.get(`${API_URL}/health`, { timeout: 30000 })
+          return
+        } catch {
+          await new Promise((r) => setTimeout(r, 10000))
+        }
+      }
+    }
+    warm()
+    return () => {
+      cancelled = true
+    }
+  }, [])
+
   // Load persisted history + stats once on page load so they survive refresh.
   useEffect(() => {
     let cancelled = false
     const load = async () => {
       try {
         const [hRes, sRes] = await Promise.all([
-          axios.get(`${API_URL}/history`),
-          axios.get(`${API_URL}/stats`),
+          axios.get(`${API_URL}/history`, { timeout: 60000 }),
+          axios.get(`${API_URL}/stats`, { timeout: 60000 }),
         ])
         if (cancelled) return
         const items = Array.isArray(hRes.data) ? hRes.data : []
@@ -144,7 +167,7 @@ export default function App() {
         formData.append('location', `${cam.name} (${cam.zone})`)
         const res = await axios.post(`${API_URL}/predict`, formData, {
           headers: { 'Content-Type': 'multipart/form-data' },
-          timeout: 90000,
+          timeout: PREDICT_TIMEOUT_MS,
         })
         if (cancelled) return
         setCameraStatus((prev) => ({
@@ -226,16 +249,23 @@ export default function App() {
       const postPredict = () =>
         axios.post(`${API_URL}/predict`, formData, {
           headers: { 'Content-Type': 'multipart/form-data' },
-          timeout: 90000,
+          timeout: PREDICT_TIMEOUT_MS,
         })
       let res
-      try {
-        res = await postPredict()
-      } catch (firstErr) {
-        // Retry once after a 5s delay before surfacing the error.
-        await new Promise((r) => setTimeout(r, 5000))
-        res = await postPredict()
+      let lastErr = null
+      // Retry up to 3 attempts with backoff — covers Render wake (50s+)
+      // plus TF first-inference latency without surfacing timeouts.
+      for (let attempt = 0; attempt < 3; attempt++) {
+        try {
+          res = await postPredict()
+          lastErr = null
+          break
+        } catch (e) {
+          lastErr = e
+          if (attempt < 2) await new Promise((r) => setTimeout(r, 8000))
+        }
       }
+      if (lastErr) throw lastErr
       setPrediction(res.data)
       addToHistory({
         imageUrl: URL.createObjectURL(file),
