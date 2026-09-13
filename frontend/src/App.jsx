@@ -17,7 +17,7 @@ const ALERT_TTL_MS = 8000
 // Render free tier: cold start 50s+ + TF load. 3min timeout + retries.
 // Background sim throttled to 60s so free instance is never hammered.
 const PREDICT_TIMEOUT_MS = 180000
-const BG_SIM_MS = 60000
+const BG_SIM_MS = 300000
 
 function revokeIfBlob(url) {
   if (typeof url === 'string' && url.startsWith('blob:')) {

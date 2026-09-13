@@ -354,9 +354,11 @@ def predict():
         }
         # Visual explainability (additive): omit the field if it fails.
         try:
-            heatmap = _gradcam_base64(file, x, fire_detected)
+            heatmap = request.args.get("heatmap", "0") == "1"
             if heatmap:
-                result["heatmap_image"] = heatmap
+                heatmap = _gradcam_base64(file, x, fire_detected)
+                if heatmap:
+                    result["heatmap_image"] = heatmap
         except Exception as e:
             print(f"WARNING: Grad-CAM failed: {e}")
         # Critical-risk email alert (never breaks the response).
