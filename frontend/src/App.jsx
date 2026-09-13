@@ -70,23 +70,38 @@ export default function App() {
     [dismissAlert]
   )
 
-  // Warm up Render free instance on page load so first Analyze rarely
-  // hits a cold start. Retries /health for up to ~2 min, fire-and-forget.
+  // Keep Render free instance warm:
+  // 1) Aggressive warm-up on page load (retry /health for ~2 min)
+  // 2) Heartbeat every 4 min while tab is open → prevents 15-min sleep
+  // This makes "Waking up..." happen ONCE, then instant.
   useEffect(() => {
     let cancelled = false
+    const ping = async () => {
+      try {
+        await axios.get(`${API_URL}/health`, { timeout: 15000 })
+        return true
+      } catch {
+        return false
+      }
+    }
     const warm = async () => {
       for (let i = 0; i < 12 && !cancelled; i++) {
-        try {
-          await axios.get(`${API_URL}/health`, { timeout: 30000 })
-          return
-        } catch {
-          await new Promise((r) => setTimeout(r, 10000))
-        }
+        if (await ping()) return
+        await new Promise((r) => setTimeout(r, 10000))
       }
     }
     warm()
+    const hb = setInterval(() => {
+      if (!document.hidden) ping()
+    }, 4 * 60 * 1000)
+    const onVisible = () => {
+      if (!document.hidden) ping()
+    }
+    document.addEventListener('visibilitychange', onVisible)
     return () => {
       cancelled = true
+      clearInterval(hb)
+      document.removeEventListener('visibilitychange', onVisible)
     }
   }, [])
 

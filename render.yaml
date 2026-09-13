@@ -4,10 +4,16 @@ services:
     runtime: python
     rootDir: backend
     buildCommand: pip install -r requirements.txt
-    # Single worker (TF ~300-500MB), long timeout for cold start + first inference
-    startCommand: gunicorn app:app --bind 0.0.0.0:$PORT --workers 1 --threads 4 --timeout 180 --graceful-timeout 30
+    # --preload: load TF model BEFORE worker boots (faster first request)
+    # --workers 1: TF ~500MB, free has 512MB; more workers = OOM/kill
+    # --timeout 180: cold start + first inference needs 60-90s on free
+    startCommand: gunicorn app:app --bind 0.0.0.0:$PORT --workers 1 --threads 4 --timeout 180 --graceful-timeout 30 --preload
     healthCheckPath: /health
     plan: free
     envVars:
       - key: PYTHON_VERSION
         value: 3.11.0
+      - key: TF_CPP_MIN_LOG_LEVEL
+        value: 2
+      - key: PYTHONUNBUFFERED
+        value: 1

@@ -75,6 +75,15 @@ if os.path.exists(MODEL_PATH):
     print(f"Loading model from {MODEL_PATH} ...")
     model = load_model(MODEL_PATH)
     print("Model loaded.")
+    # Warm up TF graph so first /predict is fast, not 20-30s compile.
+    # Full Grad-CAM warm-up happens lazily on first request (needs model graph).
+    try:
+        _dummy = np.zeros((1, 224, 224, 3), dtype="float32")
+        _dummy = preprocess_input(_dummy)
+        model.predict(_dummy, verbose=0)
+        print("Model warm-up done — first request will be fast.")
+    except Exception as _we:
+        print(f"WARNING: warm-up failed (first request will be slower): {_we}")
 else:
     print(f"WARNING: model file not found at {MODEL_PATH}. "
           "Run ml-model/train_model.py first. /predict will return 503.")
