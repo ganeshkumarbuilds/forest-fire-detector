@@ -13,6 +13,7 @@ from email.message import EmailMessage
 
 import numpy as np
 import tensorflow as tf
+import threading
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 from PIL import Image
@@ -69,24 +70,38 @@ HOTSPOTS_CACHE_PATH = os.path.join(os.path.dirname(__file__), "hotspots_cache.js
 HOTSPOTS_CACHE_PATH = os.path.abspath(HOTSPOTS_CACHE_PATH)
 _hotspots_mem = {"at": 0.0, "payload": None}
 
-# Load once at startup, not per-request.
+# Load in a BACKGROUND thread so the server boots instantly (fast /health).
+# Free hosting (Render) sleeps when idle: if TF (~500MB) loads before the
+# first response, proxies time the request out and the UI hangs for minutes.
+# With this, /health + /ready answer in <1s while the model warms up, and
+# the frontend waits for /ready before sending /predict. Never raises.
 model = None
-if os.path.exists(MODEL_PATH):
-    print(f"Loading model from {MODEL_PATH} ...")
-    model = load_model(MODEL_PATH)
-    print("Model loaded.")
-    # Warm up TF graph so first /predict is fast, not 20-30s compile.
-    # Full Grad-CAM warm-up happens lazily on first request (needs model graph).
+
+
+def _load_model_bg():
+    global model
+    if not os.path.exists(MODEL_PATH):
+        print(f"WARNING: model file not found at {MODEL_PATH}. "
+              "Run ml-model/train_model.py first. /predict will return 503.")
+        return
     try:
-        _dummy = np.zeros((1, 224, 224, 3), dtype="float32")
-        _dummy = preprocess_input(_dummy)
-        model.predict(_dummy, verbose=0)
-        print("Model warm-up done — first request will be fast.")
-    except Exception as _we:
-        print(f"WARNING: warm-up failed (first request will be slower): {_we}")
-else:
-    print(f"WARNING: model file not found at {MODEL_PATH}. "
-          "Run ml-model/train_model.py first. /predict will return 503.")
+        print(f"Loading model from {MODEL_PATH} ...")
+        m = load_model(MODEL_PATH)
+        # Warm up TF graph so first /predict is fast, not 20-30s compile.
+        try:
+            _dummy = np.zeros((1, 224, 224, 3), dtype="float32")
+            _dummy = preprocess_input(_dummy)
+            m.predict(_dummy, verbose=0)
+            print("Model warm-up done — first request will be fast.")
+        except Exception as _we:
+            print(f"WARNING: warm-up failed (first request will be slower): {_we}")
+        model = m
+        print("Model loaded.")
+    except Exception as e:
+        print(f"ERROR: model load failed, /predict will return 503: {e}")
+
+
+threading.Thread(target=_load_model_bg, daemon=True).start()
 
 
 def preprocess_image(file_storage):
@@ -322,10 +337,23 @@ def health():
     return jsonify({"status": "ok"})
 
 
+@app.get("/ready")
+def ready():
+    """True once the TF model finished background loading.
+
+    Lets the frontend wait for readiness with cheap fast polls instead
+    of hanging a big /predict through proxy timeouts on cold boot.
+    """
+    return jsonify({"ready": model is not None})
+
+
 @app.post("/predict")
 def predict():
     if model is None:
-        return jsonify({"error": "Model not loaded. Train it first."}), 503
+        # 503 (not a hang): server still warming up — frontend waits
+        # for /ready and retries. Proxies never time this out.
+        return jsonify({"error": "Server is warming up, please retry in a few seconds.",
+                        "retry": True}), 503
 
     if "file" not in request.files:
         return jsonify({"error": "No 'file' part in request."}), 400

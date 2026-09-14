@@ -9,6 +9,7 @@ import AlertBanner from './components/AlertBanner.jsx'
 import AlertLog from './components/AlertLog.jsx'
 import ModelInfoPanel from './components/ModelInfoPanel.jsx'
 import { CAMERA_LOCATIONS, getCameraById } from './cameraLocations.js'
+import waitForBackend from './waitForBackend.js'
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000'
 const MAX_HISTORY = 20
@@ -34,6 +35,8 @@ export default function App() {
   const [loading, setLoading] = useState(false)
   // True while a /predict request has been in flight for >5s (Render cold start).
   const [wakingUp, setWakingUp] = useState(false)
+  // Seconds elapsed while waiting for the sleeping backend to warm up.
+  const [warmSecs, setWarmSecs] = useState(0)
   const [error, setError] = useState('')
   const [history, setHistory] = useState([])
   const [liveMode, setLiveMode] = useState(false)
@@ -253,11 +256,26 @@ export default function App() {
     if (!file) return
     setLoading(true)
     setWakingUp(false)
+    setWarmSecs(0)
     setError('')
     setPrediction(null)
     // After 5s switch the loading text to the cold-start message.
     const wakeTimer = setTimeout(() => setWakingUp(true), 5000)
     try {
+      // Cold-boot gate: free hosting sleeps when idle and its proxy kills
+      // requests hanging >~100s. So wait for /ready with cheap fast polls
+      // FIRST (with a live seconds counter), then send /predict exactly
+      // once — it can no longer hang through a cold start.
+      setWakingUp(true)
+      const ready = await waitForBackend(API_URL, {
+        timeoutMs: 240000,
+        onTick: (s) => setWarmSecs(s),
+      })
+      if (!ready) {
+        throw new Error(
+          'Server is still starting (free hosting sleeps when idle). Please wait about a minute and press Analyze Image again.'
+        )
+      }
       const formData = new FormData()
       formData.append('file', file)
       formData.append('location', 'Uploaded Image')
@@ -267,20 +285,18 @@ export default function App() {
           timeout: PREDICT_TIMEOUT_MS,
         })
       let res
-      let lastErr = null
-      // Retry up to 3 attempts with backoff — covers Render wake (50s+)
-      // plus TF first-inference latency without surfacing timeouts.
-      for (let attempt = 0; attempt < 3; attempt++) {
-        try {
-          res = await postPredict()
-          lastErr = null
-          break
-        } catch (e) {
-          lastErr = e
-          if (attempt < 2) await new Promise((r) => setTimeout(r, 8000))
-        }
+      try {
+        res = await postPredict()
+      } catch (e) {
+        // 503 + retry flag = model still warming: brief re-wait, one retry.
+        if (e.response?.status !== 503 || !e.response?.data?.retry) throw e
+        const readyAgain = await waitForBackend(API_URL, {
+          timeoutMs: 120000,
+          onTick: (s) => setWarmSecs(s),
+        })
+        if (!readyAgain) throw e
+        res = await postPredict()
       }
-      if (lastErr) throw lastErr
       setPrediction(res.data)
       addToHistory({
         imageUrl: URL.createObjectURL(file),
@@ -399,7 +415,7 @@ export default function App() {
                 <div className="h-3 bg-slate-700 rounded-full overflow-hidden">
                   <div className="h-full w-1/2 bg-gradient-to-r from-orange-500 to-red-500 rounded-full" />
                 </div>
-                <p className="text-center text-slate-400 text-sm">{wakingUp ? 'Waking up the server, this may take up to a minute on first request...' : 'Analyzing image...'}</p>
+                <p className="text-center text-slate-400 text-sm">{wakingUp ? `Warming up the server… ${warmSecs}s (free hosting sleeps when idle, one moment)` : 'Analyzing image...'}</p>
               </div>
             )}
             {error && (

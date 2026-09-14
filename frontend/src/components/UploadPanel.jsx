@@ -129,7 +129,7 @@ export default function UploadPanel({ onFileSelect, loading, hasResult, onReset 
             />
           </svg>
         )}
-        {loading ? (wakingUp ? 'Waking up the server, this may take up to a minute on first request...' : 'Analyzing...') : 'Analyze Image'}
+        {loading ? (wakingUp ? 'Warming up the server… (free hosting sleeps when idle, one moment)' : 'Analyzing...') : 'Analyze Image'}
       </button>
 
       {hasResult && !loading && (

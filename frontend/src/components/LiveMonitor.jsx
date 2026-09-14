@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import axios from 'axios'
 import ResultCard, { getRiskLevel } from './ResultCard.jsx'
 import { getCameraById } from '../cameraLocations.js'
+import waitForBackend from '../waitForBackend.js'
 
 // Place these 5 images in frontend/public/samples/ (see public/samples/README.md)
 // `id` values match frontend/src/cameraLocations.js so map markers stay in sync.
@@ -112,11 +113,16 @@ export default function LiveMonitor({ apiUrl, onLiveResult }) {
       }
     }
 
-    // Analyze first sample immediately, then cycle every CYCLE_MS.
+    // Wait for a cold backend to warm up first (bounded, silent — a
+    // sleeping free host would otherwise fail every early sample), then
+    // analyze the first sample immediately and cycle every CYCLE_MS.
     // nextIndexRef tracks the upcoming camera so a slow /predict never
     // skips a camera and StrictMode remounts can't lose the first sample.
     nextIndexRef.current = 1
-    analyzeSample(0)
+    waitForBackend(apiUrl, { timeoutMs: 240000 }).then((ok) => {
+      if (cancelled || !ok) return
+      analyzeSample(0)
+    })
     const id = setInterval(() => {
       if (processingRef.current) return // wait for in-flight request, retry next tick
       const next = nextIndexRef.current % SAMPLE_IMAGES.length
