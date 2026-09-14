@@ -89,7 +89,7 @@ export default function LiveMonitor({ apiUrl, onLiveResult }) {
         formData.append('file', file)
         const cam = getCameraById(sample.id)
         formData.append('location', cam ? `${cam.name} (${cam.zone})` : sample.label)
-        const res = await axios.post(`${apiUrl}/predict`, formData, {
+        const res = await axios.post(`${apiUrl}/predict?heatmap=1`, formData, {
           headers: { 'Content-Type': 'multipart/form-data' },
           timeout: 180000,
         })
@@ -235,7 +235,7 @@ export default function LiveMonitor({ apiUrl, onLiveResult }) {
       const formData = new FormData()
       formData.append('file', file)
       formData.append('location', 'Laptop Webcam')
-      const res = await axios.post(`${apiUrl}/predict`, formData, {
+      const res = await axios.post(`${apiUrl}/predict?heatmap=1`, formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
         timeout: 180000,
       })

@@ -180,7 +180,7 @@ export default function App() {
         const formData = new FormData()
         formData.append('file', file)
         formData.append('location', `${cam.name} (${cam.zone})`)
-        const res = await axios.post(`${API_URL}/predict`, formData, {
+        const res = await axios.post(`${API_URL}/predict?heatmap=1`, formData, {
           headers: { 'Content-Type': 'multipart/form-data' },
           timeout: PREDICT_TIMEOUT_MS,
         })
@@ -262,7 +262,7 @@ export default function App() {
       formData.append('file', file)
       formData.append('location', 'Uploaded Image')
       const postPredict = () =>
-        axios.post(`${API_URL}/predict`, formData, {
+        axios.post(`${API_URL}/predict?heatmap=1`, formData, {
           headers: { 'Content-Type': 'multipart/form-data' },
           timeout: PREDICT_TIMEOUT_MS,
         })
