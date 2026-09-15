@@ -1,15 +1,10 @@
-"""Forest Fire Detection - Flask backend."""
+"""Forest Fire Detection - Flask backend (TFLite inference)."""
 import base64
 import csv
 import gc
 import io
 import json
 import os
-# TF env must be set BEFORE importing tensorflow (otherwise no effect on Render)
-# NOTE: oneDNN stays ENABLED (default) — it provides optimized x86 CPU kernels
-# (2-4x faster conv inference). Disabling it saved ~50MB RAM but made inference
-# pathologically slow on Render's 0.5 CPU. RSS budget (~275/512MB) allows it.
-os.environ.setdefault("TF_CPP_MIN_LOG_LEVEL", "2")        # reduce logging overhead
 import re
 import smtplib
 import threading
@@ -19,28 +14,20 @@ from datetime import datetime, timezone
 from email.message import EmailMessage
 
 import numpy as np
-import tensorflow as tf
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 from PIL import Image
-from tensorflow.keras.models import load_model
-from tensorflow.keras.applications.mobilenet_v2 import preprocess_input
 
-# ── TF threading config ──
-# 2 threads (not 1): intra/inter=1 serialized all TF ops onto a single thread
-# and stalled inference for minutes on Render's shared 0.5 CPU. Requests are
-# still serialized one-at-a-time by the in-app RLock; this only lets each
-# inference use 2 CPU threads internally. RSS impact is negligible.
-# Keep only layout_optimizer disable (saves ~30MB, no LLVM breakage).
+# ── TFLite interpreter (tiny, fast on weak CPU; no TensorFlow dependency) ──
+# Render (linux): tflite-runtime. Local Windows dev: TF's built-in interpreter
+# (tflite-runtime ships no Windows wheels). Both run the same .tflite bytes.
 try:
-    tf.config.threading.set_intra_op_parallelism_threads(2)
-    tf.config.threading.set_inter_op_parallelism_threads(2)
-except Exception:
-    pass
-try:
-    tf.config.optimizer.set_experimental_options({"layout_optimizer": False})
-except Exception:
-    pass
+    from tflite_runtime.interpreter import Interpreter as TFLiteInterpreter
+    _TFLITE_BACKEND = "tflite-runtime"
+except ImportError:  # local dev fallback (tf.lite.Interpreter attribute form)
+    import tensorflow as _tf
+    TFLiteInterpreter = _tf.lite.Interpreter
+    _TFLITE_BACKEND = "tensorflow"
 
 try:
     from dotenv import load_dotenv
@@ -61,8 +48,14 @@ except ImportError as _e:
     pgdb = None
     print(f"WARNING: Postgres driver missing, using JSON storage: {_e}")
 
-MODEL_PATH = os.path.join(os.path.dirname(__file__), "fire_model.h5")
+MODEL_PATH = os.path.join(os.path.dirname(__file__), "fire_model.tflite")
 MODEL_PATH = os.path.abspath(MODEL_PATH)
+
+FEAT_PATH = os.path.join(os.path.dirname(__file__), "fire_model_feat.tflite")
+FEAT_PATH = os.path.abspath(FEAT_PATH)
+
+HEAD_PATH = os.path.join(os.path.dirname(__file__), "fire_model_head.tflite")
+HEAD_PATH = os.path.abspath(HEAD_PATH)
 
 LOG_PATH = os.path.join(os.path.dirname(__file__), "detection_log.json")
 LOG_PATH = os.path.abspath(LOG_PATH)
@@ -85,29 +78,71 @@ _hotspots_mem = {"at": 0.0, "payload": None}
 
 # ── Inference lock ──
 # Gunicorn runs with >1 thread so /health and /ready stay responsive while
-# a /predict is computing. TF predict + Grad-CAM tape calls are serialized
-# through this lock (same single-threaded TF behavior as before, just safe
-# under threads). RLock (reentrant): _gradcam_base64 is called while the
-# caller already holds the lock, and model building takes it again.
-# No logic change — only mutual exclusion around TF calls.
+# a /predict is computing. TFLite interpreters are not thread-safe for
+# concurrent invoke(), so all interpreter calls are serialized here.
+# RLock (reentrant): heatmap helpers take it again while the caller holds it.
+# No logic change — only mutual exclusion around interpreter calls.
 _infer_lock = threading.RLock()
+
+# FD-CAM finite-difference step (validated: corr 0.997 vs GradientTape Grad-CAM).
+_FD_EPS = 0.1
+
+
+def _load_interpreter(path):
+    interp = TFLiteInterpreter(model_path=path)
+    interp.allocate_tensors()
+    return interp
+
+
+def _run_full(x):
+    """P(fire) for a preprocessed (1,224,224,3) batch. Caller holds _infer_lock."""
+    interp = model["full"]
+    det = interp.get_input_details()[0]
+    interp.set_tensor(det["index"], x.astype(np.float32))
+    interp.invoke()
+    out = interp.get_output_details()[0]
+    return float(interp.get_tensor(out["index"])[0][0])
+
+
+def _run_feat(x):
+    """Last-conv feature map (7,7,1280) for a preprocessed batch. Caller holds lock."""
+    interp = model["feat"]
+    det = interp.get_input_details()[0]
+    interp.set_tensor(det["index"], x.astype(np.float32))
+    interp.invoke()
+    out = interp.get_output_details()[0]
+    return interp.get_tensor(out["index"])[0]
+
+
+def _run_head(A):
+    """P(fire) for a (1,7,7,1280) feature batch. Caller holds _infer_lock."""
+    interp = model["head"]
+    det = interp.get_input_details()[0]
+    interp.set_tensor(det["index"], A.astype(np.float32))
+    interp.invoke()
+    out = interp.get_output_details()[0]
+    return float(interp.get_tensor(out["index"])[0][0])
+
 
 model = None
 try:
-    print(f"Loading model from {MODEL_PATH} ...", flush=True)
-    if not os.path.exists(MODEL_PATH):
-        print(f"WARNING: model file not found at {MODEL_PATH}.", flush=True)
+    print(f"Loading TFLite models ({_TFLITE_BACKEND}) ...", flush=True)
+    missing = [p for p in (MODEL_PATH, FEAT_PATH, HEAD_PATH) if not os.path.exists(p)]
+    if missing:
+        print(f"WARNING: model file(s) not found: {missing}", flush=True)
     else:
-        _m = load_model(MODEL_PATH, compile=False)
-        _m.compile(optimizer="adam", loss="binary_crossentropy")
-        model = _m
-        print(f"Model loaded at import -- {model.count_params():,} params", flush=True)
+        _full = _load_interpreter(MODEL_PATH)
+        _feat = _load_interpreter(FEAT_PATH)
+        _head = _load_interpreter(HEAD_PATH)
+        model = {"full": _full, "feat": _feat, "head": _head}
+        print("TFLite models loaded at import.", flush=True)
         try:
-            import numpy as _np
-            from tensorflow.keras.applications.mobilenet_v2 import preprocess_input as _pi
-            _dummy = _pi(_np.zeros((1, 224, 224, 3), dtype="float32"))
-            model.predict(_dummy, verbose=0)
-            print("Model graph warmed up at boot -- first /predict will be fast.", flush=True)
+            _dummy = np.zeros((1, 224, 224, 3), dtype=np.float32)
+            _t0 = time.time()
+            _run_full(_dummy)
+            _run_head(_run_feat(_dummy)[None])
+            print(f"TFLite warmed up at boot ({(time.time() - _t0) * 1000:.0f} ms)"
+                  " -- first /predict will be fast.", flush=True)
         except Exception as _we:
             print(f"WARNING: boot warm-up failed (first request slower): {_we}", flush=True)
 except Exception as e:
@@ -117,13 +152,17 @@ except Exception as e:
     print(f"Model load failed at import: {e}", flush=True)
 
 
+def _mobilenet_v2_preprocess(arr):
+    """Identical math to keras MobileNetV2 preprocess_input (mode 'tf'): x/127.5 - 1."""
+    return (arr / 127.5 - 1.0).astype(np.float32)
+
 
 def preprocess_image(file_storage):
     img = Image.open(file_storage.stream).convert("RGB")
     img = img.resize((224, 224))
     arr = np.array(img).astype("float32")
     arr = np.expand_dims(arr, axis=0)
-    arr = preprocess_input(arr)  # same normalization as training
+    arr = _mobilenet_v2_preprocess(arr)  # same normalization as training
     return arr
 
 
@@ -243,59 +282,33 @@ def _send_critical_alert_email(to_email, location, confidence, timestamp):
         print(f"WARNING: failed to send critical alert email: {e}")
 
 
-def _find_last_conv_layer_name(m):
-    """Find the last Conv2D layer by scanning in reverse (robust to naming).
+def _fd_gradcam_weights(A, fire_detected):
+    """Grad-CAM channel weights via finite differences (no gradients needed).
 
-    For this MobileNetV2 model that resolves to 'Conv_1'. Also searches
-    nested submodels in case the architecture ever changes. Returns None
-    if no convolutional layer exists.
+    w_k = (S(A + eps*e_k) - S(A)) / eps, where S is the explained class score:
+    P(fire) when fire was detected, else P(no fire) = 1 - output.
+    The head (GAP + Dense) is microscopic, so 1280 micro-forwards take ~1-2s.
+    Validated: corr 0.997 vs GradientTape Grad-CAM at eps=0.1.
+    Caller holds _infer_lock. Never raises (returns None on failure).
     """
-    def search(layers):
-        for layer in reversed(layers):
-            if isinstance(layer, tf.keras.layers.Conv2D):
-                return layer.name
-        for layer in reversed(layers):
-            sub = getattr(layer, "layers", None)
-            if sub:
-                found = search(sub)
-                if found:
-                    return found
-        return None
-
     try:
-        return search(m.layers)
-    except Exception:
-        return None
-
-
-_gradcam_model = None  # cached (conv_outputs, predictions) sub-model
-
-
-def _get_gradcam_model():
-    """Build (once) a sub-model exposing conv features + prediction. Never raises."""
-    global _gradcam_model
-    if _gradcam_model is not None:
-        return _gradcam_model
-    if model is None:
-        return None
-    # Serialize first-time construction with inference (same lock callers hold).
-    with _infer_lock:
-        if _gradcam_model is not None:
-            return _gradcam_model
-        try:
-            layer_name = _find_last_conv_layer_name(model)
-            if layer_name is None:
-                print("WARNING: no Conv2D layer found; Grad-CAM disabled.")
-                return None
-            _gradcam_model = tf.keras.models.Model(
-                inputs=model.inputs,
-                outputs=[model.get_layer(layer_name).output, model.output],
-            )
-            print(f"Grad-CAM target layer: {layer_name}")
-        except Exception as e:
-            print(f"WARNING: could not build Grad-CAM model: {e}")
+        if model is None:
             return None
-        return _gradcam_model
+        A = np.asarray(A, dtype=np.float32)
+        p = _run_head(A[None])
+        s0 = p if fire_detected else 1.0 - p
+        n_channels = A.shape[-1]
+        weights = np.zeros(n_channels, dtype=np.float64)
+        for k in range(n_channels):
+            Ap = A.copy()
+            Ap[:, :, k] += _FD_EPS
+            sk = _run_head(Ap[None])
+            sk = sk if fire_detected else 1.0 - sk
+            weights[k] = (sk - s0) / _FD_EPS
+        return weights, A.astype(np.float64)
+    except Exception as e:
+        print(f"WARNING: FD Grad-CAM weights failed: {e}")
+        return None
 
 
 def _apply_jet(heatmap):
@@ -313,18 +326,13 @@ def _gradcam_base64(file_storage, x, fire_detected):
     Never raises — callers treat None as 'no heatmap available'.
     """
     try:
-        grad_model = _get_gradcam_model()
-        if grad_model is None:
+        if model is None:
             return None
-        with tf.GradientTape() as tape:
-            conv_out, preds = grad_model(x, training=False)
-            # Explain the predicted class: P(fire), or P(no fire) = 1 - output.
-            target = preds[:, 0] if fire_detected else (1.0 - preds[:, 0])
-        grads = tape.gradient(target, conv_out)
-        if grads is None:
+        fmaps = _run_feat(x)
+        fd = _fd_gradcam_weights(fmaps, fire_detected)
+        if fd is None:
             return None
-        weights = tf.reduce_mean(grads, axis=(0, 1, 2)).numpy()
-        fmaps = conv_out[0].numpy()
+        weights, fmaps = fd
         cam = np.maximum(fmaps @ weights, 0.0)
         peak = cam.max()
         cam = cam / (peak + 1e-8) if peak > 0 else np.zeros_like(cam)
@@ -357,9 +365,9 @@ def health():
 
 @app.get("/ready")
 def ready():
-    """True once the TF model is loaded.
+    """True once the TFLite models are loaded.
 
-    With synchronous loading at import, model is always ready after import.
+    With synchronous loading at import, models are always ready after import.
     Frontend polls this endpoint to check if /predict will succeed.
     """
     return jsonify({"ready": model is not None})
@@ -382,6 +390,7 @@ def debug_model():
     import os
     return jsonify({
         "model_loaded": model is not None,
+        "engine": _TFLITE_BACKEND,
         "rss_mb": _rss_mb(),
         "cwd": os.getcwd(),
         "files_in_cwd": os.listdir(".")[:10],
@@ -390,19 +399,18 @@ def debug_model():
 
 @app.get("/debug/infer")
 def debug_infer():
-    """Run a dummy inference server-side; returns elapsed ms. Isolates TF speed."""
+    """Run a dummy inference server-side; returns elapsed ms. Isolates engine speed."""
     import time as _time
     if model is None:
         return jsonify({"ok": False, "error": "model not loaded"}), 503
     try:
-        from tensorflow.keras.applications.mobilenet_v2 import preprocess_input as _pi
-        x = _pi(__import__("numpy").zeros((1, 224, 224, 3), dtype="float32"))
+        x = np.zeros((1, 224, 224, 3), dtype=np.float32)
         t0 = _time.time()
         with _infer_lock:
-            out = model.predict(x, verbose=0)
+            prob = _run_full(x)
         dt = round((_time.time() - t0) * 1000)
         return jsonify({"ok": True, "elapsed_ms": dt, "rss_mb": _rss_mb(),
-                        "output": float(out[0][0])})
+                        "engine": _TFLITE_BACKEND, "output": prob})
     except Exception as e:
         import traceback
         traceback.print_exc()
@@ -427,8 +435,7 @@ def predict():
     try:
         x = preprocess_image(file)
         with _infer_lock:
-            pred = model.predict(x, verbose=0)
-        prob = float(pred[0][0])
+            prob = _run_full(x)
         fire_detected = prob >= 0.5
         confidence = round(prob if fire_detected else 1.0 - prob, 4)
         timestamp = datetime.now(timezone.utc).isoformat()

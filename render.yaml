@@ -4,11 +4,9 @@ services:
     runtime: python
     rootDir: backend
     buildCommand: pip install -r requirements.txt
-    # Sync model load at import (~20-60s on free-tier CPU); 1 worker/3 threads
-    # so /health and /ready stay responsive while a /predict computes
-    # (single sync worker wedged the whole service during slow inference).
-    # TF calls are serialized by an in-app RLock; RAM ~275MB, fits 512MB.
-    # Timeout 300 covers slow cold start + inference on throttled CPU.
+    # TFLite inference (~ms, ~50MB RAM): model loads in seconds at import,
+    # 1 worker/3 threads keeps /health and /ready responsive during a
+    # /predict. Timeout 300 is generous headroom for free-tier cold start.
     startCommand: gunicorn app:app --bind 0.0.0.0:$PORT --workers 1 --threads 3 --timeout 300 --graceful-timeout 60
     healthCheckPath: /health
     plan: free
