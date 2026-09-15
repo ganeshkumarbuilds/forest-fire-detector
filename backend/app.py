@@ -81,6 +81,14 @@ try:
         _m.compile(optimizer="adam", loss="binary_crossentropy")
         model = _m
         print(f"Model loaded at import -- {model.count_params():,} params", flush=True)
+        try:
+            import numpy as _np
+            from tensorflow.keras.applications.mobilenet_v2 import preprocess_input as _pi
+            _dummy = _pi(_np.zeros((1, 224, 224, 3), dtype="float32"))
+            model.predict(_dummy, verbose=0)
+            print("Model graph warmed up at boot -- first /predict will be fast.", flush=True)
+        except Exception as _we:
+            print(f"WARNING: boot warm-up failed (first request slower): {_we}", flush=True)
 except Exception as e:
     import traceback
     traceback.print_exc()
