@@ -3,7 +3,7 @@ services:
     name: forest-fire-detector
     runtime: python
     rootDir: backend
-    buildCommand: pip install -r requirements.txt && ls -la ../ml-model/ && cp ../ml-model/fire_model.h5 ./fire_model.h5 && ls -la ./fire_model.h5
+    buildCommand: pip install -r requirements.txt
     # No --preload: the model loads in a background thread per worker, so
     # the port + /health answer instantly (fast deploy health-checks, no
     # proxy timeouts on cold boot). --threads 2: TF is ~500MB and free has
