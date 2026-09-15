@@ -26,10 +26,22 @@ from tensorflow.keras.applications.mobilenet_v2 import preprocess_input
 # These settings keep peak RSS under the limit and prevent OOM kills.
 os.environ.setdefault("TF_ENABLE_ONEDNN_OPTS", "0")       # disable oneDNN (saves ~50MB)
 os.environ.setdefault("TF_CPP_MIN_LOG_LEVEL", "2")        # reduce logging overhead
+os.environ.setdefault("TF_FORCE_GPU_ALLOW_GROWTH", "true")
+os.environ.setdefault("TF_CPP_MIN_VLOG_LEVEL", "3")
 tf.config.threading.set_intra_op_parallelism_threads(1)   # single-threaded ops
 tf.config.threading.set_inter_op_parallelism_threads(1)   # single-threaded graph
 try:
-    tf.config.optimizer.set_experimental_options({"layout_optimizer": False})
+    tf.config.optimizer.set_experimental_options({
+        "layout_optimizer": False,
+        "constant_folding": False,
+        "shape_optimization": False,
+        "remapping": False,
+        "arithmetic_optimization": False,
+        "dependency_optimization": False,
+        "loop_optimization": False,
+        "function_optimization": False,
+        "debug_stripper": False,
+    })
 except Exception:
     pass  # older TF versions
 # ───────────────────────────────────────────────────────────────────────
