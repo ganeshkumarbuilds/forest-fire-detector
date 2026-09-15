@@ -364,6 +364,19 @@ def ready():
     return jsonify({"ready": model is not None})
 
 
+@app.get("/debug/model")
+def debug_model():
+    """Debug endpoint to check model file and loading status."""
+    import os
+    return jsonify({
+        "model_path": MODEL_PATH,
+        "model_exists": os.path.exists(MODEL_PATH),
+        "model_loaded": model is not None,
+        "cwd": os.getcwd(),
+        "files_in_cwd": os.listdir(".")[:20],
+    })
+
+
 @app.post("/predict")
 def predict():
     if model is None:
