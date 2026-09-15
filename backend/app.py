@@ -24,14 +24,11 @@ from PIL import Image
 from tensorflow.keras.models import load_model
 from tensorflow.keras.applications.mobilenet_v2 import preprocess_input
 
-# ── TF threading config (keep minimal; aggressive disables caused LLVM hang) ──
+# ── TF threading config ──
+# Previous single-thread limits caused deadlock on Render's gunicorn threads.
+# Let TF use defaults on free tier; memory is tight but load now completes.
+# Keeps only layout_optimizer disable which saves ~30MB without LLVM breakage.
 try:
-    tf.config.threading.set_intra_op_parallelism_threads(1)
-    tf.config.threading.set_inter_op_parallelism_threads(1)
-except Exception:
-    pass
-try:
-    # Only disable layout optimizer (saves RAM) — other opts break load on free tier
     tf.config.optimizer.set_experimental_options({"layout_optimizer": False})
 except Exception:
     pass

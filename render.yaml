@@ -4,13 +4,11 @@ services:
     runtime: python
     rootDir: backend
     buildCommand: pip install -r requirements.txt
-    # No --preload: the model loads in a background thread per worker, so
-    # the port + /health answer instantly (fast deploy health-checks, no
-    # proxy timeouts on cold boot). --threads 2: TF is ~500MB and free has
-    # 512MB; 4 threads risks OOM kills = endless cold-start loops.
-    # --timeout 180: a post-ready inference can still take up to ~60-90s
-    # on throttled free-tier CPU on its very first run.
-    startCommand: gunicorn app:app --bind 0.0.0.0:$PORT --workers 1 --threads 2 --timeout 180 --graceful-timeout 30
+    # --threads 1: background model load competes with gunicorn threads for
+    # tiny free-tier CPU; 2 threads caused load_model deadlock (hang).
+    # Single thread lets load complete in ~15s.
+    # --timeout 180: first inference on throttled CPU can take 60-90s.
+    startCommand: gunicorn app:app --bind 0.0.0.0:$PORT --workers 1 --threads 1 --timeout 180 --graceful-timeout 30
     healthCheckPath: /health
     plan: free
     envVars:
