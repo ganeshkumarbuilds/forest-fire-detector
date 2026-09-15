@@ -5,6 +5,9 @@ import gc
 import io
 import json
 import os
+# TF env must be set BEFORE importing tensorflow (otherwise no effect on Render)
+os.environ.setdefault("TF_ENABLE_ONEDNN_OPTS", "0")       # disable oneDNN (saves ~50MB)
+os.environ.setdefault("TF_CPP_MIN_LOG_LEVEL", "2")        # reduce logging overhead
 import re
 import smtplib
 import time
@@ -21,30 +24,18 @@ from PIL import Image
 from tensorflow.keras.models import load_model
 from tensorflow.keras.applications.mobilenet_v2 import preprocess_input
 
-# ─── Aggressive TF memory config (must be set BEFORE loading model) ───
-# Render free tier = 512MB hard limit. TF + Python + gunicorn + model ≈ 500MB.
-# These settings keep peak RSS under the limit and prevent OOM kills.
-os.environ.setdefault("TF_ENABLE_ONEDNN_OPTS", "0")       # disable oneDNN (saves ~50MB)
-os.environ.setdefault("TF_CPP_MIN_LOG_LEVEL", "2")        # reduce logging overhead
-os.environ.setdefault("TF_FORCE_GPU_ALLOW_GROWTH", "true")
-os.environ.setdefault("TF_CPP_MIN_VLOG_LEVEL", "3")
-tf.config.threading.set_intra_op_parallelism_threads(1)   # single-threaded ops
-tf.config.threading.set_inter_op_parallelism_threads(1)   # single-threaded graph
+# ── TF threading config (keep minimal; aggressive disables caused LLVM hang) ──
 try:
-    tf.config.optimizer.set_experimental_options({
-        "layout_optimizer": False,
-        "constant_folding": False,
-        "shape_optimization": False,
-        "remapping": False,
-        "arithmetic_optimization": False,
-        "dependency_optimization": False,
-        "loop_optimization": False,
-        "function_optimization": False,
-        "debug_stripper": False,
-    })
+    tf.config.threading.set_intra_op_parallelism_threads(1)
+    tf.config.threading.set_inter_op_parallelism_threads(1)
 except Exception:
-    pass  # older TF versions
-# ───────────────────────────────────────────────────────────────────────
+    pass
+try:
+    # Only disable layout optimizer (saves RAM) — other opts break load on free tier
+    tf.config.optimizer.set_experimental_options({"layout_optimizer": False})
+except Exception:
+    pass
+# ───────────────────────────────────────────────────────────────────────────
 
 try:
     from dotenv import load_dotenv
@@ -111,26 +102,29 @@ def _load_model_bg():
     model_loading = True
     if not os.path.exists(MODEL_PATH):
         msg = f"WARNING: model file not found at {MODEL_PATH}. Run ml-model/train_model.py first. /predict will return 503."
-        print(msg)
+        print(msg, flush=True)
         model_load_error = msg
         model_loading = False
         return
     try:
-        print(f"Loading model from {MODEL_PATH} ...")
-        print("About to call load_model...")
+        print(f"Loading model from {MODEL_PATH} ...", flush=True)
+        print("About to call load_model...", flush=True)
         # Load with compile=False to avoid optimizer memory overhead
         m = load_model(MODEL_PATH, compile=False)
-        print("load_model returned successfully")
+        print("load_model returned successfully", flush=True)
         # Recompile minimally for inference only
         m.compile(optimizer="adam", loss="binary_crossentropy")
-        print("Model compiled")
-        # Skip warm-up on free tier to avoid hanging during load
+        print("Model compiled", flush=True)
+        # Warm-up disabled on free tier to avoid extra CPU during cold start;
+        # first /predict will still work, just ~2s slower.
         model = m
         model_load_error = None
-        print("Model loaded.")
+        print("Model loaded.", flush=True)
     except Exception as e:
+        import traceback
+        traceback.print_exc()
         msg = f"ERROR: model load failed, /predict will return 503: {e}"
-        print(msg)
+        print(msg, flush=True)
         model_load_error = msg
     finally:
         model_loading = False
@@ -455,13 +449,11 @@ def predict():
                     )
         except Exception as e:
             print(f"WARNING: critical alert hook failed: {e}")
-        # ─── Memory cleanup after each prediction (critical for 512MB limit) ───
+        # Memory cleanup: only gc, do NOT clear_session (destroys loaded model)
         try:
-            tf.keras.backend.clear_session()
             gc.collect()
         except Exception:
             pass
-        # ──────────────────────────────────────────────────────────────────────
         return jsonify(result)
     except Exception as e:
         return jsonify({"error": f"Inference failed: {e}"}), 500
