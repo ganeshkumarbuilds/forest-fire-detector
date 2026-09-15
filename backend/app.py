@@ -6,7 +6,9 @@ import io
 import json
 import os
 # TF env must be set BEFORE importing tensorflow (otherwise no effect on Render)
-os.environ.setdefault("TF_ENABLE_ONEDNN_OPTS", "0")       # disable oneDNN (saves ~50MB)
+# NOTE: oneDNN stays ENABLED (default) — it provides optimized x86 CPU kernels
+# (2-4x faster conv inference). Disabling it saved ~50MB RAM but made inference
+# pathologically slow on Render's 0.5 CPU. RSS budget (~275/512MB) allows it.
 os.environ.setdefault("TF_CPP_MIN_LOG_LEVEL", "2")        # reduce logging overhead
 import re
 import smtplib
@@ -25,10 +27,14 @@ from tensorflow.keras.models import load_model
 from tensorflow.keras.applications.mobilenet_v2 import preprocess_input
 
 # ── TF threading config ──
+# 2 threads (not 1): intra/inter=1 serialized all TF ops onto a single thread
+# and stalled inference for minutes on Render's shared 0.5 CPU. Requests are
+# still serialized one-at-a-time by the in-app RLock; this only lets each
+# inference use 2 CPU threads internally. RSS impact is negligible.
 # Keep only layout_optimizer disable (saves ~30MB, no LLVM breakage).
 try:
-    tf.config.threading.set_intra_op_parallelism_threads(1)
-    tf.config.threading.set_inter_op_parallelism_threads(1)
+    tf.config.threading.set_intra_op_parallelism_threads(2)
+    tf.config.threading.set_inter_op_parallelism_threads(2)
 except Exception:
     pass
 try:
