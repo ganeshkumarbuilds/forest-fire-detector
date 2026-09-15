@@ -405,17 +405,55 @@ def predict():
 
     try:
         x = preprocess_image(file)
-        prob = float(model.predict(x, verbose=0)[0][0])  # P(fire)
+        pred = model.predict(x, verbose=0)
+        prob = float(pred[0][0])
         fire_detected = prob >= 0.5
         confidence = round(prob if fire_detected else 1.0 - prob, 4)
         timestamp = datetime.now(timezone.utc).isoformat()
-        # Persist to server-side log (must not change the response shape).
         _append_log({
             "filename": file.filename,
             "fire_detected": fire_detected,
             "confidence": confidence,
             "timestamp": timestamp,
         })
+        result = {
+            "fire_detected": fire_detected,
+            "confidence": confidence,
+            "timestamp": timestamp,
+        }
+        try:
+            heatmap = request.args.get("heatmap", "0") == "1"
+            if heatmap:
+                heatmap = _gradcam_base64(file, x, fire_detected)
+                if heatmap:
+                    result["heatmap_image"] = heatmap
+        except Exception as e:
+            print(f"WARNING: Grad-CAM failed: {e}")
+        try:
+            if _is_critical(fire_detected, confidence):
+                recipient = _read_alert_email()
+                if recipient:
+                    location = (
+                        request.form.get("location")
+                        or request.form.get("camera")
+                        or (file.filename or "").strip()
+                        or "Uploaded Image"
+                    )
+                    _send_critical_alert_email(
+                        recipient, location, confidence, timestamp
+                    )
+        except Exception as e:
+            print(f"WARNING: critical alert hook failed: {e}")
+        try:
+            gc.collect()
+        except Exception:
+            pass
+        return jsonify(result)
+    except Exception as e:
+        import traceback
+        traceback.print_exc()
+        return jsonify({"error": f"Inference failed: {e}",
+                        "detail": str(e)}), 500
         result = {
             "fire_detected": fire_detected,
             "confidence": confidence,
