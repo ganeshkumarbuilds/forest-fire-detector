@@ -109,14 +109,7 @@ def _load_model_bg():
         m = load_model(MODEL_PATH, compile=False)
         # Recompile minimally for inference only
         m.compile(optimizer="adam", loss="binary_crossentropy")
-        # Warm up TF graph so first /predict is fast, not 20-30s compile.
-        try:
-            _dummy = np.zeros((1, 224, 224, 3), dtype="float32")
-            _dummy = preprocess_input(_dummy)
-            m.predict(_dummy, verbose=0)
-            print("Model warm-up done — first request will be fast.")
-        except Exception as _we:
-            print(f"WARNING: warm-up failed (first request will be slower): {_we}")
+        # Skip warm-up on free tier to avoid hanging during load
         model = m
         model_load_error = None
         print("Model loaded.")
