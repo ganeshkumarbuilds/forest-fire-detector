@@ -105,10 +105,13 @@ def _load_model_bg():
         return
     try:
         print(f"Loading model from {MODEL_PATH} ...")
+        print("About to call load_model...")
         # Load with compile=False to avoid optimizer memory overhead
         m = load_model(MODEL_PATH, compile=False)
+        print("load_model returned successfully")
         # Recompile minimally for inference only
         m.compile(optimizer="adam", loss="binary_crossentropy")
+        print("Model compiled")
         # Skip warm-up on free tier to avoid hanging during load
         model = m
         model_load_error = None
