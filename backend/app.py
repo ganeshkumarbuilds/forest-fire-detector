@@ -90,13 +90,15 @@ _hotspots_mem = {"at": 0.0, "payload": None}
 # With this, /health + /ready answer in <1s while the model warms up, and
 # the frontend waits for /ready before sending /predict. Never raises.
 model = None
+model_load_error = None
 
 
 def _load_model_bg():
-    global model
+    global model, model_load_error
     if not os.path.exists(MODEL_PATH):
-        print(f"WARNING: model file not found at {MODEL_PATH}. "
-              "Run ml-model/train_model.py first. /predict will return 503.")
+        msg = f"WARNING: model file not found at {MODEL_PATH}. Run ml-model/train_model.py first. /predict will return 503."
+        print(msg)
+        model_load_error = msg
         return
     try:
         print(f"Loading model from {MODEL_PATH} ...")
@@ -113,9 +115,12 @@ def _load_model_bg():
         except Exception as _we:
             print(f"WARNING: warm-up failed (first request will be slower): {_we}")
         model = m
+        model_load_error = None
         print("Model loaded.")
     except Exception as e:
-        print(f"ERROR: model load failed, /predict will return 503: {e}")
+        msg = f"ERROR: model load failed, /predict will return 503: {e}"
+        print(msg)
+        model_load_error = msg
 
 
 threading.Thread(target=_load_model_bg, daemon=True).start()
@@ -372,6 +377,7 @@ def debug_model():
         "model_path": MODEL_PATH,
         "model_exists": os.path.exists(MODEL_PATH),
         "model_loaded": model is not None,
+        "model_load_error": model_load_error,
         "cwd": os.getcwd(),
         "files_in_cwd": os.listdir(".")[:20],
     })
