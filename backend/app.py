@@ -592,18 +592,107 @@ def _fetch_firms_world():
     url = (f"https://firms.modaps.eosdis.nasa.gov/api/area/csv/"
            f"{key}/{FIRMS_SOURCE}/world/{FIRMS_DAY_RANGE}")
     req = urllib.request.Request(url, headers={"User-Agent": "forest-fire-detector/1.0"})
-    with urllib.request.urlopen(req, timeout=25) as resp:
+    # Short timeout: /hotspots must never block a request near proxy limits.
+    # Stale cache is served instantly while a background thread refreshes.
+    with urllib.request.urlopen(req, timeout=12) as resp:
         raw = resp.read().decode("utf-8", errors="replace")
     if raw.lstrip().startswith(("Invalid", "Error", "<")):
         raise RuntimeError(f"firms_rejected: {raw[:120]}")
     return _parse_firms_csv(raw)
 
 
+def _store_hotspots_payload(payload):
+    """Persist a fresh payload to memory + disk + Postgres. Never raises."""
+    import copy
+    _hotspots_mem["at"] = time.time()
+    _hotspots_mem["payload"] = copy.deepcopy(payload)
+    try:
+        with open(HOTSPOTS_CACHE_PATH, "w", encoding="utf-8") as f:
+            json.dump(payload, f)
+    except OSError as e:
+        print(f"WARNING: could not write hotspots cache: {e}")
+    try:
+        if pgdb is not None and pgdb.db_available():
+            pgdb.db_write_hotspots(payload)
+    except Exception as e:
+        print(f"WARNING: Postgres hotspots write skipped: {e}")
+
+
+def _read_stale_hotspots():
+    """Best-effort stale payload from memory, Postgres, or disk. May be None."""
+    if _hotspots_mem["payload"]:
+        return dict(_hotspots_mem["payload"])
+    try:
+        if pgdb is not None and pgdb.db_available():
+            cached = pgdb.db_read_hotspots()
+            if isinstance(cached, dict) and cached.get("hotspots"):
+                return cached
+    except Exception as ce:
+        print(f"WARNING: Postgres hotspots read skipped: {ce}")
+    try:
+        if os.path.exists(HOTSPOTS_CACHE_PATH):
+            with open(HOTSPOTS_CACHE_PATH, "r", encoding="utf-8") as f:
+                stale = json.load(f)
+            if isinstance(stale, dict) and stale.get("hotspots"):
+                return stale
+    except (json.JSONDecodeError, OSError) as ce:
+        print(f"WARNING: could not read hotspots cache: {ce}")
+    return None
+
+
+_hotspots_refresh_lock = threading.Lock()
+_hotspots_refreshing = False
+
+
+def _refresh_hotspots_async():
+    """Refresh NASA FIRMS data in a daemon thread; never blocks a request."""
+    global _hotspots_refreshing
+    with _hotspots_refresh_lock:
+        if _hotspots_refreshing:
+            return
+        _hotspots_refreshing = True
+
+    def _work():
+        global _hotspots_refreshing
+        try:
+            all_points = _fetch_firms_world()
+            top = sorted(all_points, key=lambda p: p["brightness"], reverse=True)[:FIRMS_MAX_POINTS]
+            _store_hotspots_payload({
+                "available": True,
+                "source": f"NASA FIRMS {FIRMS_SOURCE} (past 24h)",
+                "count": len(top),
+                "total": len(all_points),
+                "fetched_at": datetime.now(timezone.utc).isoformat(),
+                "stale": False,
+                "hotspots": top,
+            })
+        except Exception as e:
+            print(f"WARNING: background FIRMS refresh failed: {e}")
+        finally:
+            with _hotspots_refresh_lock:
+                _hotspots_refreshing = False
+
+    t = threading.Thread(target=_work, daemon=True)
+    t.start()
+
+
 def _get_hotspots_payload():
-    """Return cached-or-fresh hotspot payload. Never raises; always a dict."""
+    """Return cached-or-fresh hotspot payload. Never raises; always a dict.
+
+    Stale-while-revalidate: when the cache is expired but a stale copy
+    exists, it is returned instantly (stale:true) while a background
+    thread refreshes — so /hotspots can never hang a request near
+    proxy timeouts even when NASA FIRMS is slow. Only when no cache
+    exists at all do we fetch synchronously (bounded by short timeout).
+    """
     now = time.time()
     if _hotspots_mem["payload"] and now - _hotspots_mem["at"] < FIRMS_CACHE_TTL_S:
         return _hotspots_mem["payload"]
+    stale = _read_stale_hotspots()
+    if stale is not None:
+        stale["stale"] = True
+        _refresh_hotspots_async()
+        return stale
     try:
         all_points = _fetch_firms_world()
         top = sorted(all_points, key=lambda p: p["brightness"], reverse=True)[:FIRMS_MAX_POINTS]
@@ -616,42 +705,10 @@ def _get_hotspots_payload():
             "stale": False,
             "hotspots": top,
         }
-        _hotspots_mem["at"] = now
-        _hotspots_mem["payload"] = payload
-        try:
-            with open(HOTSPOTS_CACHE_PATH, "w", encoding="utf-8") as f:
-                json.dump(payload, f)
-        except OSError as e:
-            print(f"WARNING: could not write hotspots cache: {e}")
-        try:
-            if pgdb is not None and pgdb.db_available():
-                pgdb.db_write_hotspots(payload)
-        except Exception as e:
-            print(f"WARNING: Postgres hotspots write skipped: {e}")
+        _store_hotspots_payload(payload)
         return payload
     except Exception as e:
         print(f"WARNING: FIRMS fetch failed: {e}")
-        if _hotspots_mem["payload"]:
-            stale = dict(_hotspots_mem["payload"])
-            stale["stale"] = True
-            return stale
-        try:
-            if pgdb is not None and pgdb.db_available():
-                cached = pgdb.db_read_hotspots()
-                if isinstance(cached, dict) and cached.get("hotspots"):
-                    cached["stale"] = True
-                    return cached
-        except Exception as ce:
-            print(f"WARNING: Postgres hotspots read skipped: {ce}")
-        try:
-            if os.path.exists(HOTSPOTS_CACHE_PATH):
-                with open(HOTSPOTS_CACHE_PATH, "r", encoding="utf-8") as f:
-                    stale = json.load(f)
-                if isinstance(stale, dict) and stale.get("hotspots"):
-                    stale["stale"] = True
-                    return stale
-        except (json.JSONDecodeError, OSError) as ce:
-            print(f"WARNING: could not read hotspots cache: {ce}")
         reason = "no_key" if "no_key" in str(e) else "unavailable"
         return {"available": False, "reason": reason, "hotspots": [], "count": 0}
 
