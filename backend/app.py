@@ -26,6 +26,11 @@ from tensorflow.keras.applications.mobilenet_v2 import preprocess_input
 # ── TF threading config ──
 # Keep only layout_optimizer disable (saves ~30MB, no LLVM breakage).
 try:
+    tf.config.threading.set_intra_op_parallelism_threads(1)
+    tf.config.threading.set_inter_op_parallelism_threads(1)
+except Exception:
+    pass
+try:
     tf.config.optimizer.set_experimental_options({"layout_optimizer": False})
 except Exception:
     pass
@@ -340,15 +345,47 @@ def ready():
     return jsonify({"ready": model is not None})
 
 
+def _rss_mb():
+    try:
+        with open("/proc/self/status") as f:
+            for line in f:
+                if line.startswith("VmRSS:"):
+                    return round(int(line.split()[1]) / 1024, 1)
+    except Exception:
+        pass
+    return None
+
+
 @app.get("/debug/model")
 def debug_model():
     """Debug endpoint to check model status."""
     import os
     return jsonify({
         "model_loaded": model is not None,
+        "rss_mb": _rss_mb(),
         "cwd": os.getcwd(),
         "files_in_cwd": os.listdir(".")[:10],
     })
+
+
+@app.get("/debug/infer")
+def debug_infer():
+    """Run a dummy inference server-side; returns elapsed ms. Isolates TF speed."""
+    import time as _time
+    if model is None:
+        return jsonify({"ok": False, "error": "model not loaded"}), 503
+    try:
+        from tensorflow.keras.applications.mobilenet_v2 import preprocess_input as _pi
+        x = _pi(__import__("numpy").zeros((1, 224, 224, 3), dtype="float32"))
+        t0 = _time.time()
+        out = model.predict(x, verbose=0)
+        dt = round((_time.time() - t0) * 1000)
+        return jsonify({"ok": True, "elapsed_ms": dt, "rss_mb": _rss_mb(),
+                        "output": float(out[0][0])})
+    except Exception as e:
+        import traceback
+        traceback.print_exc()
+        return jsonify({"ok": False, "error": str(e), "rss_mb": _rss_mb()}), 500
 
 
 @app.post("/predict")
