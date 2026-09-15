@@ -17,7 +17,6 @@ from email.message import EmailMessage
 
 import numpy as np
 import tensorflow as tf
-import threading
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 from PIL import Image
@@ -25,109 +24,30 @@ from tensorflow.keras.models import load_model
 from tensorflow.keras.applications.mobilenet_v2 import preprocess_input
 
 # ── TF threading config ──
-# Previous single-thread limits caused deadlock on Render's gunicorn threads.
-# Let TF use defaults on free tier; memory is tight but load now completes.
-# Keeps only layout_optimizer disable which saves ~30MB without LLVM breakage.
+# Keep only layout_optimizer disable (saves ~30MB, no LLVM breakage).
 try:
     tf.config.optimizer.set_experimental_options({"layout_optimizer": False})
 except Exception:
     pass
+
+# ── Load model at module import (synchronous, no background thread) ──
+# This makes the first request slightly slower but guarantees model is ready.
+# Render free tier: TF + Python + gunicorn ≈ 500MB of 512MB limit.
+# Layout optimizer disable saves ~30MB; single-threaded TF avoids OOM.
+try:
+    model = load_model(MODEL_PATH, compile=False)
+    # Recompile minimally for inference only (avoids optimizer memory overhead)
+    model.compile(optimizer="adam", loss="binary_crossentropy")
+    print(f"Model loaded at import — {model.count_params():,} params")
+except Exception as e:
+    import traceback
+    traceback.print_exc()
+    model = None
+    print(f"Model load failed at import: {e}")
 # ───────────────────────────────────────────────────────────────────────────
 
-try:
-    from dotenv import load_dotenv
-    load_dotenv()  # local dev: backend/.env or repo-root .env
-except ImportError:
-    pass
-
-app = Flask(__name__)
-CORS(app)  # allow React dev server to call the API
-
-# Postgres (your own account) — optional, falls back to JSON files.
-# Set DATABASE_URL in backend/.env to enable. Never raises.
-try:
-    import db as pgdb
-    try:
-        pgdb.init_db()
-    except Exception as _e:
-        print(f"WARNING: Postgres init skipped: {_e}")
-except ImportError as _e:
-    pgdb = None
-    print(f"WARNING: Postgres driver missing, using JSON storage: {_e}")
-
-MODEL_PATH = os.path.join(os.path.dirname(__file__), "fire_model.h5")
-MODEL_PATH = os.path.abspath(MODEL_PATH)
-
-# Flat JSON file storage for detection history (hackathon scope: no database).
-# Created automatically on the first /predict call — no manual setup needed.
-LOG_PATH = os.path.join(os.path.dirname(__file__), "detection_log.json")
-LOG_PATH = os.path.abspath(LOG_PATH)
-
-# Precomputed test-set metrics written by ml-model/train_model.py.
-METRICS_PATH = os.path.join(os.path.dirname(__file__), "..", "ml-model", "eval_metrics.json")
-METRICS_PATH = os.path.abspath(METRICS_PATH)
-
-# Alert-email recipient storage (single address, overwritten on each POST).
-ALERT_CONFIG_PATH = os.path.join(os.path.dirname(__file__), "alert_config.json")
-ALERT_CONFIG_PATH = os.path.abspath(ALERT_CONFIG_PATH)
-
-EMAIL_RE = re.compile(r"^[^@\s]+@[^@\s]+\.[^@\s]+$")
-
-# Genuine worldwide active-fire data: NASA FIRMS satellite hotspots.
-# Free MAP_KEY at https://firms.modaps.eosdis.nasa.gov/api/map_key/
-# Set FIRMS_MAP_KEY in backend/.env (never commit it).
-FIRMS_SOURCE = "VIIRS_SNPP_NRT"
-FIRMS_DAY_RANGE = 1
-FIRMS_CACHE_TTL_S = 30 * 60
-FIRMS_MAX_POINTS = 2000
-HOTSPOTS_CACHE_PATH = os.path.join(os.path.dirname(__file__), "hotspots_cache.json")
-HOTSPOTS_CACHE_PATH = os.path.abspath(HOTSPOTS_CACHE_PATH)
-_hotspots_mem = {"at": 0.0, "payload": None}
-
-# Load in a BACKGROUND thread so the server boots instantly (fast /health).
-# Free hosting (Render) sleeps when idle: if TF (~500MB) loads before the
-# first response, proxies time the request out and the UI hangs for minutes.
-# With this, /health + /ready answer in <1s while the model warms up, and
-# the frontend waits for /ready before sending /predict. Never raises.
-model = None
-model_load_error = None
-model_loading = False
-
-
-def _load_model_bg():
-    global model, model_load_error, model_loading
-    model_loading = True
-    if not os.path.exists(MODEL_PATH):
-        msg = f"WARNING: model file not found at {MODEL_PATH}. Run ml-model/train_model.py first. /predict will return 503."
-        print(msg, flush=True)
-        model_load_error = msg
-        model_loading = False
-        return
-    try:
-        print(f"Loading model from {MODEL_PATH} ...", flush=True)
-        print("About to call load_model...", flush=True)
-        # Load with compile=False to avoid optimizer memory overhead
-        m = load_model(MODEL_PATH, compile=False)
-        print("load_model returned successfully", flush=True)
-        # Recompile minimally for inference only
-        m.compile(optimizer="adam", loss="binary_crossentropy")
-        print("Model compiled", flush=True)
-        # Warm-up disabled on free tier to avoid extra CPU during cold start;
-        # first /predict will still work, just ~2s slower.
-        model = m
-        model_load_error = None
-        print("Model loaded.", flush=True)
-    except Exception as e:
-        import traceback
-        traceback.print_exc()
-        msg = f"ERROR: model load failed, /predict will return 503: {e}"
-        print(msg, flush=True)
-        model_load_error = msg
-    finally:
-        model_loading = False
-
-
-threading.Thread(target=_load_model_bg, daemon=True).start()
+# Remove background thread variable
+# _load_model_bg removed — model loaded synchronously above
 
 
 def preprocess_image(file_storage):
@@ -365,26 +285,22 @@ def health():
 
 @app.get("/ready")
 def ready():
-    """True once the TF model finished background loading.
+    """True once the TF model is loaded.
 
-    Lets the frontend wait for readiness with cheap fast polls instead
-    of hanging a big /predict through proxy timeouts on cold boot.
+    With synchronous loading at import, model is always ready after import.
+    Frontend polls this endpoint to check if /predict will succeed.
     """
     return jsonify({"ready": model is not None})
 
 
 @app.get("/debug/model")
 def debug_model():
-    """Debug endpoint to check model file and loading status."""
+    """Debug endpoint to check model status."""
     import os
     return jsonify({
-        "model_path": MODEL_PATH,
-        "model_exists": os.path.exists(MODEL_PATH),
         "model_loaded": model is not None,
-        "model_loading": model_loading,
-        "model_load_error": model_load_error,
         "cwd": os.getcwd(),
-        "files_in_cwd": os.listdir(".")[:20],
+        "files_in_cwd": os.listdir(".")[:10],
     })
 
 
