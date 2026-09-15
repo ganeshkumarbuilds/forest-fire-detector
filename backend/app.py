@@ -1,6 +1,7 @@
 """Forest Fire Detection - Flask backend."""
 import base64
 import csv
+import gc
 import io
 import json
 import os
@@ -19,6 +20,19 @@ from flask_cors import CORS
 from PIL import Image
 from tensorflow.keras.models import load_model
 from tensorflow.keras.applications.mobilenet_v2 import preprocess_input
+
+# ─── Aggressive TF memory config (must be set BEFORE loading model) ───
+# Render free tier = 512MB hard limit. TF + Python + gunicorn + model ≈ 500MB.
+# These settings keep peak RSS under the limit and prevent OOM kills.
+os.environ.setdefault("TF_ENABLE_ONEDNN_OPTS", "0")       # disable oneDNN (saves ~50MB)
+os.environ.setdefault("TF_CPP_MIN_LOG_LEVEL", "2")        # reduce logging overhead
+tf.config.threading.set_intra_op_parallelism_threads(1)   # single-threaded ops
+tf.config.threading.set_inter_op_parallelism_threads(1)   # single-threaded graph
+try:
+    tf.config.optimizer.set_experimental_options({"layout_optimizer": False})
+except Exception:
+    pass  # older TF versions
+# ───────────────────────────────────────────────────────────────────────
 
 try:
     from dotenv import load_dotenv
@@ -41,7 +55,7 @@ except ImportError as _e:
     pgdb = None
     print(f"WARNING: Postgres driver missing, using JSON storage: {_e}")
 
-MODEL_PATH = os.path.join(os.path.dirname(__file__), "..", "ml-model", "fire_model.h5")
+MODEL_PATH = os.path.join(os.path.dirname(__file__), "fire_model.h5")
 MODEL_PATH = os.path.abspath(MODEL_PATH)
 
 # Flat JSON file storage for detection history (hackathon scope: no database).
@@ -86,7 +100,10 @@ def _load_model_bg():
         return
     try:
         print(f"Loading model from {MODEL_PATH} ...")
-        m = load_model(MODEL_PATH)
+        # Load with compile=False to avoid optimizer memory overhead
+        m = load_model(MODEL_PATH, compile=False)
+        # Recompile minimally for inference only
+        m.compile(optimizer="adam", loss="binary_crossentropy")
         # Warm up TF graph so first /predict is fast, not 20-30s compile.
         try:
             _dummy = np.zeros((1, 224, 224, 3), dtype="float32")
@@ -405,6 +422,13 @@ def predict():
                     )
         except Exception as e:
             print(f"WARNING: critical alert hook failed: {e}")
+        # ─── Memory cleanup after each prediction (critical for 512MB limit) ───
+        try:
+            tf.keras.backend.clear_session()
+            gc.collect()
+        except Exception:
+            pass
+        # ──────────────────────────────────────────────────────────────────────
         return jsonify(result)
     except Exception as e:
         return jsonify({"error": f"Inference failed: {e}"}), 500
@@ -593,6 +617,12 @@ def hotspots():
         print(f"WARNING: /hotspots failed: {e}")
         return jsonify({"available": False, "reason": "unavailable",
                         "hotspots": [], "count": 0})
+    finally:
+        # Cleanup large payload memory
+        try:
+            gc.collect()
+        except Exception:
+            pass
 
 
 @app.get("/db-health")
