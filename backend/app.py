@@ -10,6 +10,7 @@ os.environ.setdefault("TF_ENABLE_ONEDNN_OPTS", "0")       # disable oneDNN (save
 os.environ.setdefault("TF_CPP_MIN_LOG_LEVEL", "2")        # reduce logging overhead
 import re
 import smtplib
+import threading
 import time
 import urllib.request
 from datetime import datetime, timezone
@@ -75,6 +76,15 @@ FIRMS_MAX_POINTS = 2000
 HOTSPOTS_CACHE_PATH = os.path.join(os.path.dirname(__file__), "hotspots_cache.json")
 HOTSPOTS_CACHE_PATH = os.path.abspath(HOTSPOTS_CACHE_PATH)
 _hotspots_mem = {"at": 0.0, "payload": None}
+
+# ── Inference lock ──
+# Gunicorn runs with >1 thread so /health and /ready stay responsive while
+# a /predict is computing. TF predict + Grad-CAM tape calls are serialized
+# through this lock (same single-threaded TF behavior as before, just safe
+# under threads). RLock (reentrant): _gradcam_base64 is called while the
+# caller already holds the lock, and model building takes it again.
+# No logic change — only mutual exclusion around TF calls.
+_infer_lock = threading.RLock()
 
 model = None
 try:
@@ -262,20 +272,24 @@ def _get_gradcam_model():
         return _gradcam_model
     if model is None:
         return None
-    try:
-        layer_name = _find_last_conv_layer_name(model)
-        if layer_name is None:
-            print("WARNING: no Conv2D layer found; Grad-CAM disabled.")
+    # Serialize first-time construction with inference (same lock callers hold).
+    with _infer_lock:
+        if _gradcam_model is not None:
+            return _gradcam_model
+        try:
+            layer_name = _find_last_conv_layer_name(model)
+            if layer_name is None:
+                print("WARNING: no Conv2D layer found; Grad-CAM disabled.")
+                return None
+            _gradcam_model = tf.keras.models.Model(
+                inputs=model.inputs,
+                outputs=[model.get_layer(layer_name).output, model.output],
+            )
+            print(f"Grad-CAM target layer: {layer_name}")
+        except Exception as e:
+            print(f"WARNING: could not build Grad-CAM model: {e}")
             return None
-        _gradcam_model = tf.keras.models.Model(
-            inputs=model.inputs,
-            outputs=[model.get_layer(layer_name).output, model.output],
-        )
-        print(f"Grad-CAM target layer: {layer_name}")
-    except Exception as e:
-        print(f"WARNING: could not build Grad-CAM model: {e}")
-        return None
-    return _gradcam_model
+        return _gradcam_model
 
 
 def _apply_jet(heatmap):
@@ -378,7 +392,8 @@ def debug_infer():
         from tensorflow.keras.applications.mobilenet_v2 import preprocess_input as _pi
         x = _pi(__import__("numpy").zeros((1, 224, 224, 3), dtype="float32"))
         t0 = _time.time()
-        out = model.predict(x, verbose=0)
+        with _infer_lock:
+            out = model.predict(x, verbose=0)
         dt = round((_time.time() - t0) * 1000)
         return jsonify({"ok": True, "elapsed_ms": dt, "rss_mb": _rss_mb(),
                         "output": float(out[0][0])})
@@ -405,7 +420,8 @@ def predict():
 
     try:
         x = preprocess_image(file)
-        pred = model.predict(x, verbose=0)
+        with _infer_lock:
+            pred = model.predict(x, verbose=0)
         prob = float(pred[0][0])
         fire_detected = prob >= 0.5
         confidence = round(prob if fire_detected else 1.0 - prob, 4)
@@ -424,7 +440,8 @@ def predict():
         try:
             heatmap = request.args.get("heatmap", "0") == "1"
             if heatmap:
-                heatmap = _gradcam_base64(file, x, fire_detected)
+                with _infer_lock:
+                    heatmap = _gradcam_base64(file, x, fire_detected)
                 if heatmap:
                     result["heatmap_image"] = heatmap
         except Exception as e:

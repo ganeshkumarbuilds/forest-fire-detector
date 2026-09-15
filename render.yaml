@@ -4,10 +4,12 @@ services:
     runtime: python
     rootDir: backend
     buildCommand: pip install -r requirements.txt
-    # Sync model load at import (~20-60s on free-tier CPU); 1 worker/1 thread
-    # avoids TF deadlock and fits 512MB. Timeout 300 covers slow cold start
-    # + first inference on throttled CPU.
-    startCommand: gunicorn app:app --bind 0.0.0.0:$PORT --workers 1 --threads 1 --timeout 300 --graceful-timeout 60
+    # Sync model load at import (~20-60s on free-tier CPU); 1 worker/3 threads
+    # so /health and /ready stay responsive while a /predict computes
+    # (single sync worker wedged the whole service during slow inference).
+    # TF calls are serialized by an in-app RLock; RAM ~275MB, fits 512MB.
+    # Timeout 300 covers slow cold start + inference on throttled CPU.
+    startCommand: gunicorn app:app --bind 0.0.0.0:$PORT --workers 1 --threads 3 --timeout 300 --graceful-timeout 60
     healthCheckPath: /health
     plan: free
     envVars:
