@@ -3,7 +3,7 @@ services:
     name: forest-fire-detector
     runtime: python
     rootDir: backend
-    buildCommand: pip install -r requirements.txt
+    buildCommand: pip install --upgrade pip && pip install -r requirements.txt && ls -lh *.tflite && echo "build ok: tflite models present"
     # TFLite inference (~ms, ~50MB RAM): model loads in seconds at import,
     # 1 worker/3 threads keeps /health and /ready responsive during a
     # /predict. Timeout 300 is generous headroom for free-tier cold start.
