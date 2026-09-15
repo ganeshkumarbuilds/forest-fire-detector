@@ -30,24 +30,63 @@ try:
 except Exception:
     pass
 
-# ── Load model at module import (synchronous, no background thread) ──
-# This makes the first request slightly slower but guarantees model is ready.
-# Render free tier: TF + Python + gunicorn ≈ 500MB of 512MB limit.
-# Layout optimizer disable saves ~30MB; single-threaded TF avoids OOM.
 try:
-    model = load_model(MODEL_PATH, compile=False)
-    # Recompile minimally for inference only (avoids optimizer memory overhead)
-    model.compile(optimizer="adam", loss="binary_crossentropy")
-    print(f"Model loaded at import — {model.count_params():,} params")
+    from dotenv import load_dotenv
+    load_dotenv()
+except ImportError:
+    pass
+
+app = Flask(__name__)
+CORS(app)
+
+try:
+    import db as pgdb
+    try:
+        pgdb.init_db()
+    except Exception as _e:
+        print(f"WARNING: Postgres init skipped: {_e}")
+except ImportError as _e:
+    pgdb = None
+    print(f"WARNING: Postgres driver missing, using JSON storage: {_e}")
+
+MODEL_PATH = os.path.join(os.path.dirname(__file__), "fire_model.h5")
+MODEL_PATH = os.path.abspath(MODEL_PATH)
+
+LOG_PATH = os.path.join(os.path.dirname(__file__), "detection_log.json")
+LOG_PATH = os.path.abspath(LOG_PATH)
+
+METRICS_PATH = os.path.join(os.path.dirname(__file__), "..", "ml-model", "eval_metrics.json")
+METRICS_PATH = os.path.abspath(METRICS_PATH)
+
+ALERT_CONFIG_PATH = os.path.join(os.path.dirname(__file__), "alert_config.json")
+ALERT_CONFIG_PATH = os.path.abspath(ALERT_CONFIG_PATH)
+
+EMAIL_RE = re.compile(r"^[^@\s]+@[^@\s]+\.[^@\s]+$")
+
+FIRMS_SOURCE = "VIIRS_SNPP_NRT"
+FIRMS_DAY_RANGE = 1
+FIRMS_CACHE_TTL_S = 30 * 60
+FIRMS_MAX_POINTS = 2000
+HOTSPOTS_CACHE_PATH = os.path.join(os.path.dirname(__file__), "hotspots_cache.json")
+HOTSPOTS_CACHE_PATH = os.path.abspath(HOTSPOTS_CACHE_PATH)
+_hotspots_mem = {"at": 0.0, "payload": None}
+
+model = None
+try:
+    print(f"Loading model from {MODEL_PATH} ...", flush=True)
+    if not os.path.exists(MODEL_PATH):
+        print(f"WARNING: model file not found at {MODEL_PATH}.", flush=True)
+    else:
+        _m = load_model(MODEL_PATH, compile=False)
+        _m.compile(optimizer="adam", loss="binary_crossentropy")
+        model = _m
+        print(f"Model loaded at import -- {model.count_params():,} params", flush=True)
 except Exception as e:
     import traceback
     traceback.print_exc()
     model = None
-    print(f"Model load failed at import: {e}")
-# ───────────────────────────────────────────────────────────────────────────
+    print(f"Model load failed at import: {e}", flush=True)
 
-# Remove background thread variable
-# _load_model_bg removed — model loaded synchronously above
 
 
 def preprocess_image(file_storage):

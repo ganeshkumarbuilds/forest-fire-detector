@@ -4,11 +4,10 @@ services:
     runtime: python
     rootDir: backend
     buildCommand: pip install -r requirements.txt
-    # --threads 1: background model load competes with gunicorn threads for
-    # tiny free-tier CPU; 2 threads caused load_model deadlock (hang).
-    # Single thread lets load complete in ~15s.
-    # --timeout 180: first inference on throttled CPU can take 60-90s.
-    startCommand: gunicorn app:app --bind 0.0.0.0:$PORT --workers 1 --threads 1 --timeout 180 --graceful-timeout 30
+    # Sync model load at import (~20-60s on free-tier CPU); 1 worker/1 thread
+    # avoids TF deadlock and fits 512MB. Timeout 300 covers slow cold start
+    # + first inference on throttled CPU.
+    startCommand: gunicorn app:app --bind 0.0.0.0:$PORT --workers 1 --threads 1 --timeout 300 --graceful-timeout 60
     healthCheckPath: /health
     plan: free
     envVars:
