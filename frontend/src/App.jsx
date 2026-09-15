@@ -183,7 +183,10 @@ export default function App() {
         const formData = new FormData()
         formData.append('file', file)
         formData.append('location', `${cam.name} (${cam.zone})`)
-        const res = await axios.post(`${API_URL}/predict?heatmap=1`, formData, {
+        // Map-only tick: skip heatmap (Grad-CAM costs a 2nd inference
+        // pass; the map only uses fire/confidence/timestamp). Manual
+        // uploads and LiveMonitor still request heatmap=1 unchanged.
+        const res = await axios.post(`${API_URL}/predict`, formData, {
           headers: { 'Content-Type': 'multipart/form-data' },
           timeout: PREDICT_TIMEOUT_MS,
         })
@@ -202,7 +205,14 @@ export default function App() {
         busy = false
       }
     }
-    tick()
+    // Wait for a cold backend to finish warming up BEFORE the first
+    // background /predict — firing immediately on page load hammers a
+    // still-loading free-tier instance (503s + long waits). Interval,
+    // rotation, and map-only updates are unchanged.
+    waitForBackend(API_URL, { timeoutMs: 240000 }).then((ok) => {
+      if (cancelled || !ok) return
+      tick()
+    })
     const id = setInterval(tick, BG_SIM_MS)
     return () => {
       cancelled = true

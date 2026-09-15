@@ -454,44 +454,6 @@ def predict():
         traceback.print_exc()
         return jsonify({"error": f"Inference failed: {e}",
                         "detail": str(e)}), 500
-        result = {
-            "fire_detected": fire_detected,
-            "confidence": confidence,
-            "timestamp": timestamp,
-        }
-        # Visual explainability (additive): omit the field if it fails.
-        try:
-            heatmap = request.args.get("heatmap", "0") == "1"
-            if heatmap:
-                heatmap = _gradcam_base64(file, x, fire_detected)
-                if heatmap:
-                    result["heatmap_image"] = heatmap
-        except Exception as e:
-            print(f"WARNING: Grad-CAM failed: {e}")
-        # Critical-risk email alert (never breaks the response).
-        try:
-            if _is_critical(fire_detected, confidence):
-                recipient = _read_alert_email()
-                if recipient:
-                    location = (
-                        request.form.get("location")
-                        or request.form.get("camera")
-                        or (file.filename or "").strip()
-                        or "Uploaded Image"
-                    )
-                    _send_critical_alert_email(
-                        recipient, location, confidence, timestamp
-                    )
-        except Exception as e:
-            print(f"WARNING: critical alert hook failed: {e}")
-        # Memory cleanup: only gc, do NOT clear_session (destroys loaded model)
-        try:
-            gc.collect()
-        except Exception:
-            pass
-        return jsonify(result)
-    except Exception as e:
-        return jsonify({"error": f"Inference failed: {e}"}), 500
 
 
 @app.get("/history")
