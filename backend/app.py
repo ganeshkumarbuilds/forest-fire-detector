@@ -91,14 +91,17 @@ _hotspots_mem = {"at": 0.0, "payload": None}
 # the frontend waits for /ready before sending /predict. Never raises.
 model = None
 model_load_error = None
+model_loading = False
 
 
 def _load_model_bg():
-    global model, model_load_error
+    global model, model_load_error, model_loading
+    model_loading = True
     if not os.path.exists(MODEL_PATH):
         msg = f"WARNING: model file not found at {MODEL_PATH}. Run ml-model/train_model.py first. /predict will return 503."
         print(msg)
         model_load_error = msg
+        model_loading = False
         return
     try:
         print(f"Loading model from {MODEL_PATH} ...")
@@ -121,6 +124,8 @@ def _load_model_bg():
         msg = f"ERROR: model load failed, /predict will return 503: {e}"
         print(msg)
         model_load_error = msg
+    finally:
+        model_loading = False
 
 
 threading.Thread(target=_load_model_bg, daemon=True).start()
@@ -377,6 +382,7 @@ def debug_model():
         "model_path": MODEL_PATH,
         "model_exists": os.path.exists(MODEL_PATH),
         "model_loaded": model is not None,
+        "model_loading": model_loading,
         "model_load_error": model_load_error,
         "cwd": os.getcwd(),
         "files_in_cwd": os.listdir(".")[:20],
