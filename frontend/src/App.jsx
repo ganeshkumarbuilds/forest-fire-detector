@@ -373,38 +373,61 @@ export default function App() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-900 text-slate-100 flex flex-col transition-all duration-300">
+    <div className="min-h-screen bg-[#0b1220] text-slate-100 flex flex-col selection:bg-orange-500/30">
+      <div className="pointer-events-none fixed inset-0 -z-10 bg-[radial-gradient(60%_60%_at_50%_0%,rgba(249,115,22,0.08),transparent_60%),radial-gradient(40%_30%_at_90%_10%,rgba(34,211,238,0.06),transparent_60%)]" />
       <AlertBanner alerts={activeAlerts} onDismiss={dismissAlert} />
-      <header className="px-4 pt-10 sm:pt-14 pb-4 text-center animate-fade-up">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-800/80 border border-slate-700 text-[11px] sm:text-xs font-semibold text-slate-300 tracking-wide">
+      <nav className="sticky top-0 z-40 backdrop-blur-xl bg-slate-900/65 border-b border-slate-800/80">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 h-[56px] flex items-center justify-between gap-4">
+          <div className="flex items-center gap-3 min-w-0">
+            <span className="h-9 w-9 shrink-0 rounded-xl bg-gradient-to-br from-orange-500 to-red-600 grid place-items-center shadow-lg shadow-orange-900/20 text-[16px]">🔥</span>
+            <div className="leading-tight">
+              <p className="font-bold tracking-tight text-[15px] sm:text-[16px]">Forest Fire Detection</p>
+              <p className="hidden sm:block text-[11px] text-slate-400 -mt-0.5">AI monitoring • TFLite • FD-CAM</p>
+            </div>
+            <span className="hidden sm:inline-flex items-center gap-1.5 text-[11px] font-semibold px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-300 border border-emerald-500/20">
+              <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" /> Live
+            </span>
+          </div>
+          <div className="flex items-center gap-2">
+            <span className="hidden md:inline-flex items-center gap-1.5 text-xs text-slate-400 border border-slate-700/60 rounded-full px-3 py-1.5 bg-slate-800/40">
+              <span className="h-2 w-2 rounded-full bg-emerald-400" /> NASA FIRMS • 24 cameras
+            </span>
+            <span className="text-xs text-slate-500 hidden sm:inline">v1.0</span>
+          </div>
+        </div>
+      </nav>
+
+      <header className="max-w-5xl mx-auto w-full px-4 sm:px-6 pt-8 sm:pt-10 pb-6 text-center">
+        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-800/60 border border-slate-700/60 text-[11px] sm:text-xs font-semibold tracking-widest text-slate-300 backdrop-blur">
           <span className="relative flex h-2 w-2 text-emerald-400">
             <span className="status-ping absolute inline-flex h-full w-full" />
             <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-400" />
           </span>
           WORLDWIDE PROTECTION • 24 CAMERAS • NASA FIRMS LIVE
         </div>
-        <h1 className="mt-3 text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight">
-          <span className="animate-gradient-text">🔥 Forest Fire Detection System</span>
+        <h1 className="mt-4 text-[28px] sm:text-[36px] md:text-[44px] font-extrabold tracking-[-0.02em] leading-[0.95]">
+          <span className="bg-gradient-to-r from-orange-300 via-amber-300 to-orange-400 bg-clip-text text-transparent">Forest Fire</span>
+          <span className="text-white"> Detection System</span>
         </h1>
-        <p className="text-slate-400 text-sm sm:text-base md:text-lg mt-3">
+        <p className="mx-auto max-w-2xl text-slate-400 text-[14px] sm:text-[15px] leading-relaxed mt-3">
           {liveMode
-            ? 'Live monitoring station — auto-scanning camera feeds'
-            : 'Upload a satellite or forest image to detect fire risk'}
+            ? 'Live monitoring station — auto-scanning camera feeds across 24 worldwide zones.'
+            : 'Upload a satellite or forest image to detect fire risk — instant prediction with visual explainability.'}
         </p>
-        <div className="mt-4 flex justify-center">
+        <div className="mt-6 flex justify-center">
           {!liveMode ? (
             <button
               type="button"
               onClick={enterLiveMode}
-              className="btn-lift px-5 py-2.5 rounded-xl font-bold text-sm sm:text-base text-white bg-gradient-to-r from-orange-600 to-red-600 hover:from-orange-500 hover:to-red-500 shadow-lg shadow-red-900/40 transition-all duration-300 active:scale-[0.99]"
+              className="btn-lift inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-sm text-white bg-gradient-to-r from-orange-600 to-red-600 hover:from-orange-500 hover:to-red-500 shadow-lg shadow-red-900/25"
             >
-              📡 Switch to Live Monitoring
+              <span className="text-base">📡</span> Switch to Live Monitoring
             </button>
           ) : (
             <button
               type="button"
               onClick={() => setLiveMode(false)}
-              className="btn-lift px-5 py-2.5 rounded-xl font-bold text-sm sm:text-base text-slate-100 bg-slate-700 hover:bg-slate-600 border border-slate-600 shadow-lg transition-all duration-300 active:scale-[0.99]"
+              className="btn-lift inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-sm text-slate-100 bg-slate-800 hover:bg-slate-700 border border-slate-700 shadow"
             >
               ⏹ Stop Monitoring
             </button>
@@ -412,7 +435,7 @@ export default function App() {
         </div>
       </header>
 
-      <main className="flex-1 w-full max-w-2xl mx-auto px-4 sm:px-6 pb-10 space-y-5 stagger">
+      <main className="flex-1 w-full max-w-3xl mx-auto px-4 sm:px-6 pb-10 space-y-6">
         <div className="pt-2">
           <ModelInfoPanel apiUrl={API_URL} />
         </div>
@@ -544,8 +567,9 @@ export default function App() {
         </div>
       </main>
 
-      <footer className="py-6 text-center text-xs sm:text-sm text-slate-500">
-        Built with TensorFlow, Flask &amp; React
+      <footer className="mt-2 border-t border-slate-800/80 py-6 text-center">
+        <p className="text-xs tracking-wide text-slate-500">Built with TensorFlow • Flask • React • Tailwind • Leaflet</p>
+        <p className="text-[11px] text-slate-600 mt-1">Offline evaluation artifacts • Deterministic 70/15/15 split • Threshold 0.5</p>
       </footer>
     </div>
   )
