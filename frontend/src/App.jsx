@@ -424,8 +424,8 @@ export default function App() {
         </h1>
         <p className="mx-auto max-w-2xl text-slate-400/95 text-[14px] sm:text-[14.5px] leading-relaxed mt-3 font-normal">
           {liveMode
-            ? 'Live monitoring station — auto-scanning camera feeds across 24 worldwide zones.'
-            : 'Upload a satellite or forest image to detect fire risk — instant prediction with visual explainability.'}
+            ? 'Live — 24 cameras on every continent. Same model predicts everywhere (no region lock). Satellite layer is 100% NASA, cameras are 100% TFLite.'
+            : 'Upload any forest or satellite image from any country — same model predicts instantly with FD-CAM explainability. No single-location limit.'}
         </p>
         <div className="mt-7 flex justify-center">
           {!liveMode ? (
