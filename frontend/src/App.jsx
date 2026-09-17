@@ -386,61 +386,61 @@ export default function App() {
   }, [liveMode])
 
   return (
-    <div className="min-h-screen bg-[#0b1220] text-slate-100 flex flex-col selection:bg-orange-500/30">
-      <div className="pointer-events-none fixed inset-0 -z-10 bg-[radial-gradient(60%_60%_at_50%_0%,rgba(249,115,22,0.08),transparent_60%),radial-gradient(40%_30%_at_90%_10%,rgba(34,211,238,0.06),transparent_60%)]" />
+    <div className="min-h-screen text-slate-100 flex flex-col selection:bg-amber-500/20">
+      {/* soft ambient via index.css — no extra overlay needed */}
       <AlertBanner alerts={activeAlerts} onDismiss={dismissAlert} />
-      <nav className="sticky top-0 z-40 backdrop-blur-xl bg-slate-900/65 border-b border-slate-800/80">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 h-[56px] flex items-center justify-between gap-4">
+      <nav className="sticky top-0 z-40 backdrop-blur-[10px] bg-[#0e1526]/75 border-b border-white/[0.06]">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 h-[58px] flex items-center justify-between gap-4">
           <div className="flex items-center gap-3 min-w-0">
-            <span className="h-9 w-9 shrink-0 rounded-xl bg-gradient-to-br from-orange-500 to-red-600 grid place-items-center shadow-lg shadow-orange-900/20 text-[16px]">🔥</span>
+            <span className="h-8 w-8 shrink-0 rounded-lg bg-gradient-to-br from-[#e8a04b] to-[#c97a2a] grid place-items-center shadow-md shadow-black/20 text-[14px]">🔥</span>
             <div className="leading-tight">
-              <p className="font-bold tracking-tight text-[15px] sm:text-[16px]">Forest Fire Detection</p>
-              <p className="hidden sm:block text-[11px] text-slate-400 -mt-0.5">AI monitoring • TFLite • FD-CAM</p>
+              <p className="font-semibold tracking-tight text-[14.5px]">Forest Fire Detection</p>
+              <p className="hidden sm:block text-[11px] text-slate-400/90 -mt-0.5 font-normal">AI monitoring • TFLite • FD-CAM</p>
             </div>
-            <span className="hidden sm:inline-flex items-center gap-1.5 text-[11px] font-semibold px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-300 border border-emerald-500/20">
-              <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" /> Live
+            <span className="hidden sm:inline-flex items-center gap-1.5 text-[11px] font-medium px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-300 border border-emerald-500/15">
+              <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" /> Live
             </span>
           </div>
           <div className="flex items-center gap-2">
-            <span className="hidden md:inline-flex items-center gap-1.5 text-xs text-slate-400 border border-slate-700/60 rounded-full px-3 py-1.5 bg-slate-800/40">
-              <span className="h-2 w-2 rounded-full bg-emerald-400" /> NASA FIRMS • 24 cameras
+            <span className="hidden md:inline-flex items-center gap-1.5 text-[11.5px] tracking-wide text-slate-300/80 border border-white/10 rounded-full px-3 py-1 bg-white/[0.04]">
+              <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" /> NASA FIRMS • 24 cameras
             </span>
-            <span className="text-xs text-slate-500 hidden sm:inline">v1.0</span>
+            <span className="text-xs text-slate-500 hidden sm:inline font-medium">v1.0</span>
           </div>
         </div>
       </nav>
 
-      <header className="max-w-5xl mx-auto w-full px-4 sm:px-6 pt-8 sm:pt-10 pb-6 text-center">
-        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-800/60 border border-slate-700/60 text-[11px] sm:text-xs font-semibold tracking-widest text-slate-300 backdrop-blur">
-          <span className="relative flex h-2 w-2 text-emerald-400">
+      <header className="max-w-5xl mx-auto w-full px-4 sm:px-6 pt-9 sm:pt-11 pb-7 text-center">
+        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/[0.05] border border-white/10 text-[11px] sm:text-[11.5px] font-medium tracking-[0.14em] text-slate-300/90">
+          <span className="relative flex h-1.5 w-1.5 text-emerald-400">
             <span className="status-ping absolute inline-flex h-full w-full" />
-            <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-400" />
+            <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-400" />
           </span>
           WORLDWIDE PROTECTION • 24 CAMERAS • NASA FIRMS LIVE
         </div>
-        <h1 className="mt-4 text-[28px] sm:text-[36px] md:text-[44px] font-extrabold tracking-[-0.02em] leading-[0.95]">
-          <span className="bg-gradient-to-r from-orange-300 via-amber-300 to-orange-400 bg-clip-text text-transparent">Forest Fire</span>
-          <span className="text-white"> Detection System</span>
+        <h1 className="mt-5 text-[28px] sm:text-[36px] md:text-[42px] font-bold tracking-[-0.025em] leading-[0.96]">
+          <span className="bg-gradient-to-r from-[#f5c48a] via-[#e8a04b] to-[#d98c2b] bg-clip-text text-transparent">Forest Fire</span>
+          <span className="text-[#f1f5f9] font-semibold"> Detection System</span>
         </h1>
-        <p className="mx-auto max-w-2xl text-slate-400 text-[14px] sm:text-[15px] leading-relaxed mt-3">
+        <p className="mx-auto max-w-2xl text-slate-400/95 text-[14px] sm:text-[14.5px] leading-relaxed mt-3 font-normal">
           {liveMode
             ? 'Live monitoring station — auto-scanning camera feeds across 24 worldwide zones.'
             : 'Upload a satellite or forest image to detect fire risk — instant prediction with visual explainability.'}
         </p>
-        <div className="mt-6 flex justify-center">
+        <div className="mt-7 flex justify-center">
           {!liveMode ? (
             <button
               type="button"
               onClick={enterLiveMode}
-              className="btn-lift inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-sm text-white bg-gradient-to-r from-orange-600 to-red-600 hover:from-orange-500 hover:to-red-500 shadow-lg shadow-red-900/25"
+              className="btn-lift btn-primary inline-flex items-center gap-2 px-6 py-2.5 rounded-xl text-[13.5px]"
             >
-              <span className="text-base">📡</span> Switch to Live Monitoring
+              <span className="text-[15px]">📡</span> Switch to Live Monitoring
             </button>
           ) : (
             <button
               type="button"
               onClick={() => setLiveMode(false)}
-              className="btn-lift inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-sm text-slate-100 bg-slate-800 hover:bg-slate-700 border border-slate-700 shadow"
+              className="btn-lift btn-ghost inline-flex items-center gap-2 px-6 py-2.5 rounded-xl text-[13.5px] font-medium"
             >
               ⏹ Stop Monitoring
             </button>
@@ -448,13 +448,13 @@ export default function App() {
         </div>
       </header>
 
-      <main className="flex-1 w-full max-w-3xl mx-auto px-4 sm:px-6 pb-10 space-y-6">
+      <main className="flex-1 w-full max-w-3xl mx-auto px-4 sm:px-6 pb-10 space-y-5">
         {liveMode && (
-          <div ref={liveRef} className="scroll-mt-20 space-y-4">
-            <div className="flex items-center gap-2">
-              <span className="h-2 w-2 rounded-full bg-red-500 animate-pulse" />
-              <h2 className="text-sm font-extrabold tracking-widest text-slate-200">LIVE CAMERAS</h2>
-              <span className="text-xs text-slate-500">• 5 feeds cycle every 6s • worldwide 24 zones</span>
+          <div ref={liveRef} className="scroll-mt-20 space-y-3">
+            <div className="flex items-center gap-2.5 px-1">
+              <span className="h-1.5 w-1.5 rounded-full bg-red-500/90" />
+              <h2 className="text-[11.5px] font-semibold tracking-[0.16em] text-slate-300">LIVE CAMERAS</h2>
+              <span className="text-[11.5px] text-slate-500 font-normal">• 5 feeds cycle every 6s • 24 zones</span>
             </div>
             <LiveMonitor apiUrl={API_URL} onLiveResult={handleLiveResult} />
           </div>
@@ -581,27 +581,27 @@ export default function App() {
           <button
             type="button"
             onClick={() => setLiveMode(false)}
-            className="w-full py-2.5 rounded-xl text-sm font-semibold text-slate-300 bg-slate-800/60 hover:bg-slate-700 border border-slate-700"
+            className="w-full py-2.5 rounded-xl text-[13px] font-medium text-slate-300 bg-white/[0.04] hover:bg-white/[0.07] border border-white/10 transition-colors"
           >
             ↑ Back to upload mode
           </button>
         )}
 
-        <div className="pt-2">
+        <div className="pt-1">
           <HistoryPanel history={history} onClear={clearHistory} stats={serverStats} />
         </div>
 
-        <div className="pt-2">
+        <div className="pt-1">
           <MapView cameraStatus={cameraStatus} apiUrl={API_URL} />
         </div>
 
-        <div className="pt-2">
+        <div className="pt-1">
           <AlertLog alerts={alertLog} apiUrl={API_URL} />
         </div>
       </main>
 
-      <footer className="mt-2 border-t border-slate-800/80 py-6 text-center">
-        <p className="text-xs tracking-wide text-slate-500">Built with TensorFlow • Flask • React • Tailwind • Leaflet</p>
+      <footer className="mt-2 border-t border-white/5 py-7 text-center">
+        <p className="text-xs tracking-wide text-slate-500 font-normal">Built with TensorFlow • Flask • React • Tailwind • Leaflet</p>
         <p className="text-[11px] text-slate-600 mt-1">Offline evaluation artifacts • Deterministic 70/15/15 split • Threshold 0.5</p>
       </footer>
     </div>

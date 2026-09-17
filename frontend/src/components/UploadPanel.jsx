@@ -47,13 +47,13 @@ export default function UploadPanel({ onFileSelect, loading, hasResult, onReset 
   }
 
   return (
-    <div className="bg-slate-800/80 backdrop-blur border border-slate-700/60 rounded-2xl shadow-xl shadow-black/20 p-4 sm:p-5">
+    <div className="glass-panel p-4 sm:p-5">
       <div className="flex items-center justify-between mb-3">
-        <h3 className="text-sm font-semibold text-slate-100 flex items-center gap-2">
-          <span className="h-7 w-7 rounded-lg bg-slate-700/60 border border-slate-600/60 grid place-items-center text-sm">🖼️</span>
+        <h3 className="text-[13.5px] font-semibold text-slate-100 flex items-center gap-2">
+          <span className="h-7 w-7 rounded-lg bg-white/[0.06] border border-white/10 grid place-items-center text-[13px]">🖼️</span>
           Upload Image
         </h3>
-        <span className="text-[11px] font-medium px-2 py-1 rounded-full bg-slate-700/60 text-slate-300 border border-slate-600/40">224 × 224 • MobileNetV2</span>
+        <span className="text-[11px] font-normal px-2 py-1 rounded-full bg-white/[0.05] text-slate-400 border border-white/10">224 × 224 • MobileNetV2</span>
       </div>
       <div
         onClick={() => !loading && inputRef.current?.click()}
@@ -69,14 +69,14 @@ export default function UploadPanel({ onFileSelect, loading, hasResult, onReset 
         }}
         className={`border-2 border-dashed rounded-xl p-6 sm:p-8 text-center cursor-pointer transition-all duration-200 ${
           dragOver
-            ? 'border-orange-400 bg-orange-500/10 scale-[1.005]'
-            : 'border-slate-600/70 bg-slate-900/40 hover:border-slate-500 hover:bg-slate-800/40'
+            ? 'border-[#e8a04b]/70 bg-[#e8a04b]/[0.07] scale-[1.003]'
+            : 'border-white/10 bg-[#0a1220]/50 hover:border-white/15 hover:bg-white/[0.04]'
         } ${loading ? 'opacity-60 pointer-events-none' : ''}`}
       >
-        <div className="mx-auto h-11 w-11 rounded-xl bg-gradient-to-br from-slate-700 to-slate-800 border border-slate-600/50 grid place-items-center text-xl mb-3">📷</div>
+        <div className="mx-auto h-11 w-11 rounded-xl bg-white/[0.06] border border-white/10 grid place-items-center text-xl mb-3">📷</div>
         <p className="text-slate-200 text-sm font-medium">
           Drag &amp; drop an image here, or{' '}
-          <span className="text-orange-400 font-semibold">
+          <span className="text-[#e8a04b] font-semibold">
             click to browse
           </span>
         </p>
@@ -108,10 +108,10 @@ export default function UploadPanel({ onFileSelect, loading, hasResult, onReset 
         type="button"
         onClick={handleAnalyze}
         disabled={!selectedFile || loading}
-        className={`mt-4 w-full py-3 px-4 rounded-xl font-semibold text-sm text-white transition-all duration-200 flex items-center justify-center gap-2 ${
+        className={`mt-4 w-full py-3 px-4 rounded-xl text-[13.5px] transition-all duration-200 flex items-center justify-center gap-2 ${
           !selectedFile || loading
-            ? 'bg-slate-700/60 text-slate-400 cursor-not-allowed border border-slate-600/40'
-            : 'bg-gradient-to-r from-orange-600 to-red-600 hover:from-orange-500 hover:to-red-500 shadow-lg shadow-red-900/20 active:scale-[0.99]'
+            ? 'bg-white/[0.06] text-slate-500 cursor-not-allowed border border-white/10 font-medium'
+            : 'btn-primary btn-lift'
         }`}
       >
         {loading && (

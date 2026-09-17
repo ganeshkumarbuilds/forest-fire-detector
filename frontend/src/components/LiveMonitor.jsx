@@ -294,10 +294,8 @@ export default function LiveMonitor({ apiUrl, onLiveResult }) {
         <button
           type="button"
           onClick={() => setMode('samples')}
-          className={`btn-lift px-4 py-2 rounded-xl font-bold text-xs sm:text-sm transition-all active:scale-[0.98] ${
-            mode === 'samples'
-              ? 'text-white bg-gradient-to-r from-orange-600 to-red-600 shadow-lg shadow-red-900/40'
-              : 'text-slate-200 bg-slate-700 hover:bg-slate-600 border border-slate-600'
+          className={`btn-lift px-4 py-2 rounded-xl font-semibold text-xs sm:text-[13px] transition-all active:scale-[0.98] ${
+            mode === 'samples' ? 'btn-primary' : 'btn-ghost'
           }`}
         >
           🖼️ Sample feeds
@@ -305,10 +303,8 @@ export default function LiveMonitor({ apiUrl, onLiveResult }) {
         <button
           type="button"
           onClick={() => setMode('webcam')}
-          className={`btn-lift px-4 py-2 rounded-xl font-bold text-xs sm:text-sm transition-all active:scale-[0.98] ${
-            mode === 'webcam'
-              ? 'text-white bg-gradient-to-r from-orange-600 to-red-600 shadow-lg shadow-red-900/40'
-              : 'text-slate-200 bg-slate-700 hover:bg-slate-600 border border-slate-600'
+          className={`btn-lift px-4 py-2 rounded-xl font-semibold text-xs sm:text-[13px] transition-all active:scale-[0.98] ${
+            mode === 'webcam' ? 'btn-primary' : 'btn-ghost'
           }`}
         >
           📷 Laptop camera
@@ -458,7 +454,7 @@ export default function LiveMonitor({ apiUrl, onLiveResult }) {
                 <button
                   type="button"
                   onClick={startWebcam}
-                  className="px-5 py-2.5 rounded-xl font-bold text-sm text-white bg-gradient-to-r from-orange-600 to-red-600 hover:from-orange-500 hover:to-red-500 shadow-lg shadow-red-900/40 transition-all active:scale-[0.99]"
+                  className="btn-lift btn-primary px-5 py-2.5 rounded-xl text-[13.5px]"
                 >
                   📷 Enable laptop camera
                 </button>
@@ -468,21 +464,21 @@ export default function LiveMonitor({ apiUrl, onLiveResult }) {
                     type="button"
                     onClick={analyzeWebcamFrame}
                     disabled={webcamScanning}
-                    className="px-5 py-2.5 rounded-xl font-bold text-sm text-white bg-gradient-to-r from-orange-600 to-red-600 hover:from-orange-500 hover:to-red-500 shadow-lg shadow-red-900/40 transition-all active:scale-[0.99] disabled:opacity-50"
+                    className="btn-lift btn-primary px-5 py-2.5 rounded-xl text-[13.5px] disabled:opacity-50"
                   >
                     {webcamScanning ? '🔍 Analyzing…' : '🔍 Analyze now'}
                   </button>
                   <button
                     type="button"
                     onClick={() => setAutoScan((v) => !v)}
-                    className="px-4 py-2.5 rounded-xl font-bold text-sm text-slate-100 bg-slate-700 hover:bg-slate-600 border border-slate-600 transition-all active:scale-[0.99]"
+                    className="btn-lift btn-ghost px-4 py-2.5 rounded-xl text-[13.5px] font-medium"
                   >
                     {autoScan ? '⏸ Auto: ON' : '▶ Auto: OFF'}
                   </button>
                   <button
                     type="button"
                     onClick={stopWebcam}
-                    className="px-4 py-2.5 rounded-xl font-bold text-sm text-slate-100 bg-slate-700 hover:bg-slate-600 border border-slate-600 transition-all active:scale-[0.99]"
+                    className="btn-lift btn-ghost px-4 py-2.5 rounded-xl text-[13.5px] font-medium"
                   >
                     ⏹ Stop camera
                   </button>
