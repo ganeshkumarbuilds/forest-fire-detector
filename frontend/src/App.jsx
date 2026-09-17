@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import axios from 'axios'
 import UploadPanel from './components/UploadPanel.jsx'
 import ResultCard, { getRiskLevel } from './components/ResultCard.jsx'
@@ -13,7 +13,11 @@ import RobustnessPanel from './components/RobustnessPanel.jsx'
 import { CAMERA_LOCATIONS, getCameraById } from './cameraLocations.js'
 import waitForBackend from './waitForBackend.js'
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000'
+const API_URL =
+  import.meta.env.VITE_API_URL ||
+  (typeof window !== 'undefined' && window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1'
+    ? 'https://forest-fire-detector.onrender.com'
+    : 'http://localhost:5000')
 const MAX_HISTORY = 20
 const MAX_ALERTS = 15
 const ALERT_TTL_MS = 8000
@@ -54,6 +58,7 @@ export default function App() {
   const [activeAlerts, setActiveAlerts] = useState([])
   const [alertLog, setAlertLog] = useState([])
 
+  const liveRef = useRef(null)
   const dismissAlert = useCallback((id) => {
     setActiveAlerts((prev) => prev.filter((a) => a.id !== id))
   }, [])
@@ -372,6 +377,14 @@ export default function App() {
     setLiveMode(true)
   }
 
+  // Auto-scroll to live camera panel when entering live mode so it is
+  // immediately visible and not hidden below info panels.
+  useEffect(() => {
+    if (liveMode && liveRef.current) {
+      liveRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    }
+  }, [liveMode])
+
   return (
     <div className="min-h-screen bg-[#0b1220] text-slate-100 flex flex-col selection:bg-orange-500/30">
       <div className="pointer-events-none fixed inset-0 -z-10 bg-[radial-gradient(60%_60%_at_50%_0%,rgba(249,115,22,0.08),transparent_60%),radial-gradient(40%_30%_at_90%_10%,rgba(34,211,238,0.06),transparent_60%)]" />
@@ -436,19 +449,18 @@ export default function App() {
       </header>
 
       <main className="flex-1 w-full max-w-3xl mx-auto px-4 sm:px-6 pb-10 space-y-6">
-        <div className="pt-2">
-          <ModelInfoPanel apiUrl={API_URL} />
-        </div>
-        <div className="pt-2">
-          <ErrorAnalysisPanel apiUrl={API_URL} />
-        </div>
-        <div className="pt-2">
-          <RobustnessPanel apiUrl={API_URL} />
-        </div>
+        {liveMode && (
+          <div ref={liveRef} className="scroll-mt-20 space-y-4">
+            <div className="flex items-center gap-2">
+              <span className="h-2 w-2 rounded-full bg-red-500 animate-pulse" />
+              <h2 className="text-sm font-extrabold tracking-widest text-slate-200">LIVE CAMERAS</h2>
+              <span className="text-xs text-slate-500">• 5 feeds cycle every 6s • worldwide 24 zones</span>
+            </div>
+            <LiveMonitor apiUrl={API_URL} onLiveResult={handleLiveResult} />
+          </div>
+        )}
 
-        {liveMode ? (
-          <LiveMonitor apiUrl={API_URL} onLiveResult={handleLiveResult} />
-        ) : (
+        {!liveMode && (
           <>
             <UploadPanel
               onFileSelect={handleFileSelect}
@@ -552,6 +564,27 @@ export default function App() {
               </div>
             )}
           </>
+        )}
+
+        {/* Info panels — below live/ upload so live camera is immediate */}
+        <div className="pt-2">
+          <ModelInfoPanel apiUrl={API_URL} />
+        </div>
+        <div className="pt-2">
+          <ErrorAnalysisPanel apiUrl={API_URL} />
+        </div>
+        <div className="pt-2">
+          <RobustnessPanel apiUrl={API_URL} />
+        </div>
+
+        {liveMode && (
+          <button
+            type="button"
+            onClick={() => setLiveMode(false)}
+            className="w-full py-2.5 rounded-xl text-sm font-semibold text-slate-300 bg-slate-800/60 hover:bg-slate-700 border border-slate-700"
+          >
+            ↑ Back to upload mode
+          </button>
         )}
 
         <div className="pt-2">
