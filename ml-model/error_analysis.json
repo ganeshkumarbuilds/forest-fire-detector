@@ -1,0 +1,4885 @@
+{
+  "evaluation_metadata": {
+    "timestamp": "2026-09-16T15:22:18.074935+00:00",
+    "model_path": "C:\\Projects _1\\forest-fire-detector\\ml-model\\fire_model.h5",
+    "model_type": "MobileNetV2 transfer learning (frozen base)",
+    "input_shape": [
+      224,
+      224,
+      3
+    ],
+    "decision_threshold": 0.5
+  },
+  "dataset": {
+    "total_images": 1832,
+    "fire_count": 928,
+    "no_fire_count": 904
+  },
+  "split": {
+    "train_ratio": 0.7,
+    "val_ratio": 0.15,
+    "test_ratio": 0.15,
+    "random_state": 42,
+    "stratified": true,
+    "train_size": 1282,
+    "val_size": 275,
+    "test_size": 275
+  },
+  "aggregate_metrics": {
+    "test_size": 275,
+    "accuracy": 0.9782,
+    "precision": 0.9586,
+    "recall": 1.0,
+    "f1": 0.9789,
+    "confusion_matrix": [
+      [
+        130,
+        6
+      ],
+      [
+        0,
+        139
+      ]
+    ],
+    "tp": 139,
+    "tn": 130,
+    "fp": 6,
+    "fn": 0
+  },
+  "per_image_results": [
+    {
+      "filename": "fire/fire_0524.jpg",
+      "true_label": 1,
+      "true_class": "fire",
+      "prob_fire": 0.9998,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 76.93,
+        "brightness": 50.4,
+        "contrast": 47.9,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "fire/fire_0166.jpg",
+      "true_label": 1,
+      "true_class": "fire",
+      "prob_fire": 1.0,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 80.35,
+        "brightness": 12.0,
+        "contrast": 32.2,
+        "warnings": [
+          "Image appears very dark (possible nighttime or underexposed)"
+        ]
+      }
+    },
+    {
+      "filename": "no_fire/nofire_0604.jpg",
+      "true_label": 0,
+      "true_class": "no_fire",
+      "prob_fire": 0.116,
+      "predicted_label": 0,
+      "predicted_class": "no_fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 305.9,
+        "brightness": 141.5,
+        "contrast": 47.7,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "fire/fire_0486.jpg",
+      "true_label": 1,
+      "true_class": "fire",
+      "prob_fire": 0.9996,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 981.54,
+        "brightness": 98.4,
+        "contrast": 56.6,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "fire/fire_0128.jpg",
+      "true_label": 1,
+      "true_class": "fire",
+      "prob_fire": 1.0,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 172.32,
+        "brightness": 91.5,
+        "contrast": 55.1,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "fire/fire_0494.jpg",
+      "true_label": 1,
+      "true_class": "fire",
+      "prob_fire": 1.0,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 118.79,
+        "brightness": 81.9,
+        "contrast": 47.7,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "fire/fire_0482.jpg",
+      "true_label": 1,
+      "true_class": "fire",
+      "prob_fire": 0.9949,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 2300.12,
+        "brightness": 66.0,
+        "contrast": 49.6,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "no_fire/nofire_0361.jpg",
+      "true_label": 0,
+      "true_class": "no_fire",
+      "prob_fire": 0.2371,
+      "predicted_label": 0,
+      "predicted_class": "no_fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 890.21,
+        "brightness": 75.2,
+        "contrast": 53.3,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "no_fire/nofire_0071.jpg",
+      "true_label": 0,
+      "true_class": "no_fire",
+      "prob_fire": 0.0132,
+      "predicted_label": 0,
+      "predicted_class": "no_fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 1432.23,
+        "brightness": 123.0,
+        "contrast": 32.4,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "no_fire/nofire_0741.jpg",
+      "true_label": 0,
+      "true_class": "no_fire",
+      "prob_fire": 0.0179,
+      "predicted_label": 0,
+      "predicted_class": "no_fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 6187.96,
+        "brightness": 82.1,
+        "contrast": 52.9,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "fire/fire_0300.jpg",
+      "true_label": 1,
+      "true_class": "fire",
+      "prob_fire": 0.9915,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 1366.48,
+        "brightness": 116.8,
+        "contrast": 39.1,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "no_fire/abc325.jpg",
+      "true_label": 0,
+      "true_class": "no_fire",
+      "prob_fire": 0.0647,
+      "predicted_label": 0,
+      "predicted_class": "no_fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 852.47,
+        "brightness": 112.7,
+        "contrast": 52.5,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "no_fire/abc278.jpg",
+      "true_label": 0,
+      "true_class": "no_fire",
+      "prob_fire": 0.0925,
+      "predicted_label": 0,
+      "predicted_class": "no_fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 582.12,
+        "brightness": 124.9,
+        "contrast": 57.5,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "fire/fire_0702.jpg",
+      "true_label": 1,
+      "true_class": "fire",
+      "prob_fire": 0.9985,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 1238.57,
+        "brightness": 53.7,
+        "contrast": 29.7,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "no_fire/nofire_0062.jpg",
+      "true_label": 0,
+      "true_class": "no_fire",
+      "prob_fire": 0.93,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": false,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 1228.12,
+        "brightness": 90.5,
+        "contrast": 42.8,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "no_fire/nofire_0018.jpg",
+      "true_label": 0,
+      "true_class": "no_fire",
+      "prob_fire": 0.0079,
+      "predicted_label": 0,
+      "predicted_class": "no_fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 610.68,
+        "brightness": 113.1,
+        "contrast": 30.7,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "no_fire/nofire_0583.jpg",
+      "true_label": 0,
+      "true_class": "no_fire",
+      "prob_fire": 0.0155,
+      "predicted_label": 0,
+      "predicted_class": "no_fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 2121.76,
+        "brightness": 114.1,
+        "contrast": 53.5,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "fire/fire_0004.jpg",
+      "true_label": 1,
+      "true_class": "fire",
+      "prob_fire": 1.0,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 182.06,
+        "brightness": 73.5,
+        "contrast": 62.8,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "fire/abc113.jpg",
+      "true_label": 1,
+      "true_class": "fire",
+      "prob_fire": 0.9873,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 352.97,
+        "brightness": 33.7,
+        "contrast": 30.6,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "fire/fire_0649.jpg",
+      "true_label": 1,
+      "true_class": "fire",
+      "prob_fire": 1.0,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 243.47,
+        "brightness": 55.9,
+        "contrast": 45.6,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "no_fire/nofire_0046.jpg",
+      "true_label": 0,
+      "true_class": "no_fire",
+      "prob_fire": 0.0797,
+      "predicted_label": 0,
+      "predicted_class": "no_fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 1966.8,
+        "brightness": 73.8,
+        "contrast": 59.1,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "fire/abc111.jpg",
+      "true_label": 1,
+      "true_class": "fire",
+      "prob_fire": 0.9926,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 196.83,
+        "brightness": 84.0,
+        "contrast": 45.6,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "no_fire/nofire_0331.jpg",
+      "true_label": 0,
+      "true_class": "no_fire",
+      "prob_fire": 0.1382,
+      "predicted_label": 0,
+      "predicted_class": "no_fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 1556.9,
+        "brightness": 171.1,
+        "contrast": 50.8,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "fire/abc095.jpg",
+      "true_label": 1,
+      "true_class": "fire",
+      "prob_fire": 0.9992,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 1069.14,
+        "brightness": 75.7,
+        "contrast": 50.2,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "no_fire/nofire_0419.jpg",
+      "true_label": 0,
+      "true_class": "no_fire",
+      "prob_fire": 0.0063,
+      "predicted_label": 0,
+      "predicted_class": "no_fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 5424.52,
+        "brightness": 86.7,
+        "contrast": 53.7,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "no_fire/nofire_0629.jpg",
+      "true_label": 0,
+      "true_class": "no_fire",
+      "prob_fire": 0.1335,
+      "predicted_label": 0,
+      "predicted_class": "no_fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 1826.99,
+        "brightness": 88.9,
+        "contrast": 41.7,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "fire/fire_0721.jpg",
+      "true_label": 1,
+      "true_class": "fire",
+      "prob_fire": 1.0,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 2040.33,
+        "brightness": 67.0,
+        "contrast": 55.4,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "fire/fire_0716.jpg",
+      "true_label": 1,
+      "true_class": "fire",
+      "prob_fire": 0.9993,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 579.34,
+        "brightness": 53.2,
+        "contrast": 51.8,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "fire/fire_0557.jpg",
+      "true_label": 1,
+      "true_class": "fire",
+      "prob_fire": 0.9877,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 121.68,
+        "brightness": 125.7,
+        "contrast": 66.7,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "fire/fire_0336.jpg",
+      "true_label": 1,
+      "true_class": "fire",
+      "prob_fire": 0.994,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 877.84,
+        "brightness": 86.4,
+        "contrast": 45.2,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "fire/fire_0345.jpg",
+      "true_label": 1,
+      "true_class": "fire",
+      "prob_fire": 0.9929,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 645.32,
+        "brightness": 106.7,
+        "contrast": 46.1,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "no_fire/nofire_0087.jpg",
+      "true_label": 0,
+      "true_class": "no_fire",
+      "prob_fire": 0.2998,
+      "predicted_label": 0,
+      "predicted_class": "no_fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 8061.64,
+        "brightness": 121.6,
+        "contrast": 46.8,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "no_fire/nofire_0753.jpg",
+      "true_label": 0,
+      "true_class": "no_fire",
+      "prob_fire": 0.054,
+      "predicted_label": 0,
+      "predicted_class": "no_fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 1768.1,
+        "brightness": 94.9,
+        "contrast": 51.4,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "fire/abc013.jpg",
+      "true_label": 1,
+      "true_class": "fire",
+      "prob_fire": 0.9999,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 100.84,
+        "brightness": 70.9,
+        "contrast": 27.2,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "no_fire/abc249.jpg",
+      "true_label": 0,
+      "true_class": "no_fire",
+      "prob_fire": 0.2452,
+      "predicted_label": 0,
+      "predicted_class": "no_fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 6107.7,
+        "brightness": 121.5,
+        "contrast": 69.2,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "no_fire/nofire_0229.jpg",
+      "true_label": 0,
+      "true_class": "no_fire",
+      "prob_fire": 0.0185,
+      "predicted_label": 0,
+      "predicted_class": "no_fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 4821.35,
+        "brightness": 67.9,
+        "contrast": 62.2,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "fire/fire_0267.jpg",
+      "true_label": 1,
+      "true_class": "fire",
+      "prob_fire": 0.9978,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 764.14,
+        "brightness": 92.3,
+        "contrast": 43.8,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "fire/fire_0608.jpg",
+      "true_label": 1,
+      "true_class": "fire",
+      "prob_fire": 0.9988,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 715.1,
+        "brightness": 135.3,
+        "contrast": 36.4,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "no_fire/nofire_0165.jpg",
+      "true_label": 0,
+      "true_class": "no_fire",
+      "prob_fire": 0.5014,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": false,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 3321.96,
+        "brightness": 46.6,
+        "contrast": 41.6,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "fire/fire_0208.jpg",
+      "true_label": 1,
+      "true_class": "fire",
+      "prob_fire": 0.9996,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 98.86,
+        "brightness": 119.6,
+        "contrast": 26.7,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "fire/fire_0302.jpg",
+      "true_label": 1,
+      "true_class": "fire",
+      "prob_fire": 1.0,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 191.61,
+        "brightness": 53.6,
+        "contrast": 27.4,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "fire/fire_0547.jpg",
+      "true_label": 1,
+      "true_class": "fire",
+      "prob_fire": 0.9999,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 542.7,
+        "brightness": 128.1,
+        "contrast": 72.6,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "no_fire/nofire_0133.jpg",
+      "true_label": 0,
+      "true_class": "no_fire",
+      "prob_fire": 0.001,
+      "predicted_label": 0,
+      "predicted_class": "no_fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 9353.11,
+        "brightness": 92.0,
+        "contrast": 52.9,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "fire/fire_0364.jpg",
+      "true_label": 1,
+      "true_class": "fire",
+      "prob_fire": 0.9997,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 847.77,
+        "brightness": 55.4,
+        "contrast": 55.2,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "fire/fire_0731.jpg",
+      "true_label": 1,
+      "true_class": "fire",
+      "prob_fire": 0.9997,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 104.1,
+        "brightness": 39.9,
+        "contrast": 33.4,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "fire/fire_0061.jpg",
+      "true_label": 1,
+      "true_class": "fire",
+      "prob_fire": 0.9597,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 4256.19,
+        "brightness": 89.7,
+        "contrast": 42.8,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "fire/abc001.jpg",
+      "true_label": 1,
+      "true_class": "fire",
+      "prob_fire": 0.9986,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 1536.12,
+        "brightness": 24.3,
+        "contrast": 31.9,
+        "warnings": [
+          "Image appears very dark (possible nighttime or underexposed)"
+        ]
+      }
+    },
+    {
+      "filename": "no_fire/nofire_0757.jpg",
+      "true_label": 0,
+      "true_class": "no_fire",
+      "prob_fire": 0.0203,
+      "predicted_label": 0,
+      "predicted_class": "no_fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 1732.61,
+        "brightness": 80.7,
+        "contrast": 55.0,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "no_fire/nofire_0543.jpg",
+      "true_label": 0,
+      "true_class": "no_fire",
+      "prob_fire": 0.3267,
+      "predicted_label": 0,
+      "predicted_class": "no_fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 1321.18,
+        "brightness": 102.0,
+        "contrast": 67.4,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "fire/fire_0581.jpg",
+      "true_label": 1,
+      "true_class": "fire",
+      "prob_fire": 0.9998,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 1173.78,
+        "brightness": 104.8,
+        "contrast": 45.9,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "no_fire/nofire_0017.jpg",
+      "true_label": 0,
+      "true_class": "no_fire",
+      "prob_fire": 0.2592,
+      "predicted_label": 0,
+      "predicted_class": "no_fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 448.96,
+        "brightness": 106.2,
+        "contrast": 64.9,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "fire/fire_0242.jpg",
+      "true_label": 1,
+      "true_class": "fire",
+      "prob_fire": 1.0,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 122.82,
+        "brightness": 63.2,
+        "contrast": 32.0,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "fire/fire_0379.jpg",
+      "true_label": 1,
+      "true_class": "fire",
+      "prob_fire": 0.7153,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 2451.34,
+        "brightness": 55.6,
+        "contrast": 59.5,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "fire/fire_0522.jpg",
+      "true_label": 1,
+      "true_class": "fire",
+      "prob_fire": 0.9997,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 246.68,
+        "brightness": 79.8,
+        "contrast": 39.1,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "fire/fire_0414.jpg",
+      "true_label": 1,
+      "true_class": "fire",
+      "prob_fire": 0.9896,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 1226.64,
+        "brightness": 90.4,
+        "contrast": 54.9,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "no_fire/nofire_0194.jpg",
+      "true_label": 0,
+      "true_class": "no_fire",
+      "prob_fire": 0.0769,
+      "predicted_label": 0,
+      "predicted_class": "no_fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 6547.19,
+        "brightness": 80.4,
+        "contrast": 50.9,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "no_fire/nofire_0332.jpg",
+      "true_label": 0,
+      "true_class": "no_fire",
+      "prob_fire": 0.0507,
+      "predicted_label": 0,
+      "predicted_class": "no_fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 1185.68,
+        "brightness": 102.4,
+        "contrast": 58.9,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "fire/fire_0147.jpg",
+      "true_label": 1,
+      "true_class": "fire",
+      "prob_fire": 0.9995,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 1925.53,
+        "brightness": 33.0,
+        "contrast": 36.0,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "no_fire/nofire_0557.jpg",
+      "true_label": 0,
+      "true_class": "no_fire",
+      "prob_fire": 0.0184,
+      "predicted_label": 0,
+      "predicted_class": "no_fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 5010.12,
+        "brightness": 103.5,
+        "contrast": 59.8,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "no_fire/nofire_0418.jpg",
+      "true_label": 0,
+      "true_class": "no_fire",
+      "prob_fire": 0.0578,
+      "predicted_label": 0,
+      "predicted_class": "no_fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 4768.68,
+        "brightness": 101.8,
+        "contrast": 62.2,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "no_fire/nofire_0328.jpg",
+      "true_label": 0,
+      "true_class": "no_fire",
+      "prob_fire": 0.0335,
+      "predicted_label": 0,
+      "predicted_class": "no_fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 1766.48,
+        "brightness": 105.9,
+        "contrast": 66.7,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "fire/fire_0343.jpg",
+      "true_label": 1,
+      "true_class": "fire",
+      "prob_fire": 0.9996,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 745.82,
+        "brightness": 65.6,
+        "contrast": 41.3,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "fire/fire_0455.jpg",
+      "true_label": 1,
+      "true_class": "fire",
+      "prob_fire": 0.9893,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 357.28,
+        "brightness": 88.6,
+        "contrast": 38.7,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "fire/fire_0404.jpg",
+      "true_label": 1,
+      "true_class": "fire",
+      "prob_fire": 0.9974,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 1013.48,
+        "brightness": 77.0,
+        "contrast": 37.1,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "no_fire/abc192.jpg",
+      "true_label": 0,
+      "true_class": "no_fire",
+      "prob_fire": 0.1357,
+      "predicted_label": 0,
+      "predicted_class": "no_fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 203.58,
+        "brightness": 61.6,
+        "contrast": 33.9,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "no_fire/nofire_0538.jpg",
+      "true_label": 0,
+      "true_class": "no_fire",
+      "prob_fire": 0.0529,
+      "predicted_label": 0,
+      "predicted_class": "no_fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 1215.18,
+        "brightness": 130.0,
+        "contrast": 48.0,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "fire/fire_0570.jpg",
+      "true_label": 1,
+      "true_class": "fire",
+      "prob_fire": 0.9514,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 522.31,
+        "brightness": 49.2,
+        "contrast": 28.9,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "no_fire/nofire_0333.jpg",
+      "true_label": 0,
+      "true_class": "no_fire",
+      "prob_fire": 0.3483,
+      "predicted_label": 0,
+      "predicted_class": "no_fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 1345.68,
+        "brightness": 117.6,
+        "contrast": 37.6,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "no_fire/abc329.jpg",
+      "true_label": 0,
+      "true_class": "no_fire",
+      "prob_fire": 0.1538,
+      "predicted_label": 0,
+      "predicted_class": "no_fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 368.14,
+        "brightness": 111.4,
+        "contrast": 86.8,
+        "warnings": [
+          "Image has very high contrast"
+        ]
+      }
+    },
+    {
+      "filename": "no_fire/nofire_0196.jpg",
+      "true_label": 0,
+      "true_class": "no_fire",
+      "prob_fire": 0.1837,
+      "predicted_label": 0,
+      "predicted_class": "no_fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 10889.91,
+        "brightness": 127.2,
+        "contrast": 59.7,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "no_fire/nofire_0423.jpg",
+      "true_label": 0,
+      "true_class": "no_fire",
+      "prob_fire": 0.1514,
+      "predicted_label": 0,
+      "predicted_class": "no_fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 2409.37,
+        "brightness": 128.1,
+        "contrast": 63.1,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "fire/abc026.jpg",
+      "true_label": 1,
+      "true_class": "fire",
+      "prob_fire": 0.999,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 1994.24,
+        "brightness": 38.7,
+        "contrast": 45.7,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "fire/fire_0380.jpg",
+      "true_label": 1,
+      "true_class": "fire",
+      "prob_fire": 0.9818,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 2589.52,
+        "brightness": 47.0,
+        "contrast": 63.9,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "fire/fire_0428.jpg",
+      "true_label": 1,
+      "true_class": "fire",
+      "prob_fire": 0.9992,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 658.81,
+        "brightness": 84.3,
+        "contrast": 28.3,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "fire/fire_0391.jpg",
+      "true_label": 1,
+      "true_class": "fire",
+      "prob_fire": 0.9974,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 855.98,
+        "brightness": 100.2,
+        "contrast": 56.8,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "fire/abc132.jpg",
+      "true_label": 1,
+      "true_class": "fire",
+      "prob_fire": 0.9979,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 1440.18,
+        "brightness": 97.1,
+        "contrast": 54.0,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "no_fire/nofire_0531.jpg",
+      "true_label": 0,
+      "true_class": "no_fire",
+      "prob_fire": 0.9271,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": false,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 857.99,
+        "brightness": 90.9,
+        "contrast": 65.9,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "fire/fire_0456.jpg",
+      "true_label": 1,
+      "true_class": "fire",
+      "prob_fire": 0.9982,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 512.2,
+        "brightness": 106.8,
+        "contrast": 40.1,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "no_fire/nofire_0620.jpg",
+      "true_label": 0,
+      "true_class": "no_fire",
+      "prob_fire": 0.0533,
+      "predicted_label": 0,
+      "predicted_class": "no_fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 908.18,
+        "brightness": 132.3,
+        "contrast": 85.1,
+        "warnings": [
+          "Image has very high contrast"
+        ]
+      }
+    },
+    {
+      "filename": "fire/fire_0406.jpg",
+      "true_label": 1,
+      "true_class": "fire",
+      "prob_fire": 0.9995,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 292.89,
+        "brightness": 98.5,
+        "contrast": 31.1,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "no_fire/nofire_0126.jpg",
+      "true_label": 0,
+      "true_class": "no_fire",
+      "prob_fire": 0.4622,
+      "predicted_label": 0,
+      "predicted_class": "no_fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 4405.5,
+        "brightness": 107.3,
+        "contrast": 52.7,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "fire/fire_0375.jpg",
+      "true_label": 1,
+      "true_class": "fire",
+      "prob_fire": 0.9693,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 660.13,
+        "brightness": 56.4,
+        "contrast": 42.1,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "no_fire/nofire_0346.jpg",
+      "true_label": 0,
+      "true_class": "no_fire",
+      "prob_fire": 0.0098,
+      "predicted_label": 0,
+      "predicted_class": "no_fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 355.77,
+        "brightness": 127.2,
+        "contrast": 70.0,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "no_fire/nofire_0318.jpg",
+      "true_label": 0,
+      "true_class": "no_fire",
+      "prob_fire": 0.0954,
+      "predicted_label": 0,
+      "predicted_class": "no_fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 1809.26,
+        "brightness": 96.5,
+        "contrast": 63.7,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "fire/fire_0709.jpg",
+      "true_label": 1,
+      "true_class": "fire",
+      "prob_fire": 0.9974,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 1687.84,
+        "brightness": 45.1,
+        "contrast": 52.7,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "no_fire/abc321.jpg",
+      "true_label": 0,
+      "true_class": "no_fire",
+      "prob_fire": 0.0486,
+      "predicted_label": 0,
+      "predicted_class": "no_fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 4183.06,
+        "brightness": 158.7,
+        "contrast": 47.1,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "no_fire/nofire_0316.jpg",
+      "true_label": 0,
+      "true_class": "no_fire",
+      "prob_fire": 0.0387,
+      "predicted_label": 0,
+      "predicted_class": "no_fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 3295.81,
+        "brightness": 91.7,
+        "contrast": 45.4,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "no_fire/abc262.jpg",
+      "true_label": 0,
+      "true_class": "no_fire",
+      "prob_fire": 0.0418,
+      "predicted_label": 0,
+      "predicted_class": "no_fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 1081.23,
+        "brightness": 77.6,
+        "contrast": 29.9,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "fire/abc034.jpg",
+      "true_label": 1,
+      "true_class": "fire",
+      "prob_fire": 0.9993,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 95.95,
+        "brightness": 37.2,
+        "contrast": 17.0,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "no_fire/nofire_0688.jpg",
+      "true_label": 0,
+      "true_class": "no_fire",
+      "prob_fire": 0.149,
+      "predicted_label": 0,
+      "predicted_class": "no_fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 1298.69,
+        "brightness": 103.3,
+        "contrast": 78.7,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "no_fire/nofire_0504.jpg",
+      "true_label": 0,
+      "true_class": "no_fire",
+      "prob_fire": 0.7442,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": false,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 950.27,
+        "brightness": 65.8,
+        "contrast": 59.4,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "fire/fire_0057.jpg",
+      "true_label": 1,
+      "true_class": "fire",
+      "prob_fire": 0.9983,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 1680.23,
+        "brightness": 55.7,
+        "contrast": 28.8,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "no_fire/nofire_0717.jpg",
+      "true_label": 0,
+      "true_class": "no_fire",
+      "prob_fire": 0.0082,
+      "predicted_label": 0,
+      "predicted_class": "no_fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 1940.56,
+        "brightness": 119.9,
+        "contrast": 59.0,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "no_fire/nofire_0348.jpg",
+      "true_label": 0,
+      "true_class": "no_fire",
+      "prob_fire": 0.231,
+      "predicted_label": 0,
+      "predicted_class": "no_fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 1443.57,
+        "brightness": 113.0,
+        "contrast": 72.2,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "no_fire/nofire_0258.jpg",
+      "true_label": 0,
+      "true_class": "no_fire",
+      "prob_fire": 0.0123,
+      "predicted_label": 0,
+      "predicted_class": "no_fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 2869.57,
+        "brightness": 78.9,
+        "contrast": 46.4,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "no_fire/nofire_0244.jpg",
+      "true_label": 0,
+      "true_class": "no_fire",
+      "prob_fire": 0.0049,
+      "predicted_label": 0,
+      "predicted_class": "no_fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 5306.95,
+        "brightness": 127.4,
+        "contrast": 82.2,
+        "warnings": [
+          "Image has very high contrast"
+        ]
+      }
+    },
+    {
+      "filename": "fire/fire_0676.jpg",
+      "true_label": 1,
+      "true_class": "fire",
+      "prob_fire": 0.9937,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 3078.37,
+        "brightness": 120.6,
+        "contrast": 65.4,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "no_fire/abc212.jpg",
+      "true_label": 0,
+      "true_class": "no_fire",
+      "prob_fire": 0.1871,
+      "predicted_label": 0,
+      "predicted_class": "no_fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 2763.03,
+        "brightness": 101.3,
+        "contrast": 44.4,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "fire/fire_0102.jpg",
+      "true_label": 1,
+      "true_class": "fire",
+      "prob_fire": 1.0,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 335.22,
+        "brightness": 104.5,
+        "contrast": 60.4,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "no_fire/nofire_0023.jpg",
+      "true_label": 0,
+      "true_class": "no_fire",
+      "prob_fire": 0.0508,
+      "predicted_label": 0,
+      "predicted_class": "no_fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 3876.45,
+        "brightness": 111.0,
+        "contrast": 45.1,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "no_fire/abc297.jpg",
+      "true_label": 0,
+      "true_class": "no_fire",
+      "prob_fire": 0.0142,
+      "predicted_label": 0,
+      "predicted_class": "no_fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 1385.81,
+        "brightness": 113.7,
+        "contrast": 50.4,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "no_fire/nofire_0248.jpg",
+      "true_label": 0,
+      "true_class": "no_fire",
+      "prob_fire": 0.4139,
+      "predicted_label": 0,
+      "predicted_class": "no_fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 22377.49,
+        "brightness": 66.5,
+        "contrast": 57.5,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "fire/fire_0275.jpg",
+      "true_label": 1,
+      "true_class": "fire",
+      "prob_fire": 0.998,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 410.13,
+        "brightness": 129.6,
+        "contrast": 55.4,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "fire/fire_0556.jpg",
+      "true_label": 1,
+      "true_class": "fire",
+      "prob_fire": 1.0,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 138.75,
+        "brightness": 98.2,
+        "contrast": 69.0,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "no_fire/nofire_0100.jpg",
+      "true_label": 0,
+      "true_class": "no_fire",
+      "prob_fire": 0.0233,
+      "predicted_label": 0,
+      "predicted_class": "no_fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 5066.09,
+        "brightness": 123.9,
+        "contrast": 48.6,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "no_fire/abc271.jpg",
+      "true_label": 0,
+      "true_class": "no_fire",
+      "prob_fire": 0.2371,
+      "predicted_label": 0,
+      "predicted_class": "no_fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 754.23,
+        "brightness": 127.3,
+        "contrast": 59.2,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "no_fire/nofire_0130.jpg",
+      "true_label": 0,
+      "true_class": "no_fire",
+      "prob_fire": 0.1382,
+      "predicted_label": 0,
+      "predicted_class": "no_fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 10939.22,
+        "brightness": 82.2,
+        "contrast": 71.5,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "fire/fire_0348.jpg",
+      "true_label": 1,
+      "true_class": "fire",
+      "prob_fire": 0.9371,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 588.86,
+        "brightness": 99.8,
+        "contrast": 38.2,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "fire/fire_0655.jpg",
+      "true_label": 1,
+      "true_class": "fire",
+      "prob_fire": 0.999,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 1708.22,
+        "brightness": 89.4,
+        "contrast": 33.2,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "fire/abc140.jpg",
+      "true_label": 1,
+      "true_class": "fire",
+      "prob_fire": 1.0,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 814.38,
+        "brightness": 94.5,
+        "contrast": 62.5,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "fire/fire_0662.jpg",
+      "true_label": 1,
+      "true_class": "fire",
+      "prob_fire": 0.9612,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 5250.08,
+        "brightness": 118.2,
+        "contrast": 81.7,
+        "warnings": [
+          "Image has very high contrast"
+        ]
+      }
+    },
+    {
+      "filename": "no_fire/nofire_0697.jpg",
+      "true_label": 0,
+      "true_class": "no_fire",
+      "prob_fire": 0.0078,
+      "predicted_label": 0,
+      "predicted_class": "no_fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 2406.56,
+        "brightness": 146.1,
+        "contrast": 79.7,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "no_fire/nofire_0013.jpg",
+      "true_label": 0,
+      "true_class": "no_fire",
+      "prob_fire": 0.061,
+      "predicted_label": 0,
+      "predicted_class": "no_fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 3639.13,
+        "brightness": 88.2,
+        "contrast": 59.7,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "fire/fire_0496.jpg",
+      "true_label": 1,
+      "true_class": "fire",
+      "prob_fire": 0.999,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 1554.86,
+        "brightness": 102.2,
+        "contrast": 58.3,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "no_fire/nofire_0662.jpg",
+      "true_label": 0,
+      "true_class": "no_fire",
+      "prob_fire": 0.0083,
+      "predicted_label": 0,
+      "predicted_class": "no_fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 1115.77,
+        "brightness": 111.0,
+        "contrast": 58.4,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "no_fire/nofire_0044.jpg",
+      "true_label": 0,
+      "true_class": "no_fire",
+      "prob_fire": 0.0006,
+      "predicted_label": 0,
+      "predicted_class": "no_fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 2329.01,
+        "brightness": 70.0,
+        "contrast": 43.1,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "no_fire/nofire_0559.jpg",
+      "true_label": 0,
+      "true_class": "no_fire",
+      "prob_fire": 0.0136,
+      "predicted_label": 0,
+      "predicted_class": "no_fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 3819.65,
+        "brightness": 64.4,
+        "contrast": 49.7,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "no_fire/nofire_0355.jpg",
+      "true_label": 0,
+      "true_class": "no_fire",
+      "prob_fire": 0.745,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": false,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 472.92,
+        "brightness": 135.3,
+        "contrast": 85.2,
+        "warnings": [
+          "Image has very high contrast"
+        ]
+      }
+    },
+    {
+      "filename": "fire/fire_0619.jpg",
+      "true_label": 1,
+      "true_class": "fire",
+      "prob_fire": 0.9946,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 2143.66,
+        "brightness": 85.4,
+        "contrast": 54.4,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "no_fire/abc211.jpg",
+      "true_label": 0,
+      "true_class": "no_fire",
+      "prob_fire": 0.1244,
+      "predicted_label": 0,
+      "predicted_class": "no_fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 7027.1,
+        "brightness": 107.0,
+        "contrast": 52.7,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "no_fire/nofire_0737.jpg",
+      "true_label": 0,
+      "true_class": "no_fire",
+      "prob_fire": 0.099,
+      "predicted_label": 0,
+      "predicted_class": "no_fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 838.83,
+        "brightness": 85.7,
+        "contrast": 75.8,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "no_fire/nofire_0628.jpg",
+      "true_label": 0,
+      "true_class": "no_fire",
+      "prob_fire": 0.0262,
+      "predicted_label": 0,
+      "predicted_class": "no_fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 3058.47,
+        "brightness": 123.2,
+        "contrast": 56.9,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "fire/abc118.jpg",
+      "true_label": 1,
+      "true_class": "fire",
+      "prob_fire": 0.993,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 1818.8,
+        "brightness": 71.9,
+        "contrast": 71.9,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "fire/fire_0704.jpg",
+      "true_label": 1,
+      "true_class": "fire",
+      "prob_fire": 0.9859,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 2129.05,
+        "brightness": 78.8,
+        "contrast": 47.1,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "no_fire/nofire_0713.jpg",
+      "true_label": 0,
+      "true_class": "no_fire",
+      "prob_fire": 0.0119,
+      "predicted_label": 0,
+      "predicted_class": "no_fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 10891.71,
+        "brightness": 112.7,
+        "contrast": 63.2,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "no_fire/nofire_0275.jpg",
+      "true_label": 0,
+      "true_class": "no_fire",
+      "prob_fire": 0.0036,
+      "predicted_label": 0,
+      "predicted_class": "no_fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 3702.17,
+        "brightness": 70.2,
+        "contrast": 46.8,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "no_fire/nofire_0172.jpg",
+      "true_label": 0,
+      "true_class": "no_fire",
+      "prob_fire": 0.6849,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": false,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 1896.72,
+        "brightness": 57.8,
+        "contrast": 56.1,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "no_fire/nofire_0632.jpg",
+      "true_label": 0,
+      "true_class": "no_fire",
+      "prob_fire": 0.0375,
+      "predicted_label": 0,
+      "predicted_class": "no_fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 753.09,
+        "brightness": 117.4,
+        "contrast": 82.8,
+        "warnings": [
+          "Image has very high contrast"
+        ]
+      }
+    },
+    {
+      "filename": "no_fire/abc243.jpg",
+      "true_label": 0,
+      "true_class": "no_fire",
+      "prob_fire": 0.0546,
+      "predicted_label": 0,
+      "predicted_class": "no_fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 6557.67,
+        "brightness": 63.8,
+        "contrast": 54.5,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "fire/fire_0474.jpg",
+      "true_label": 1,
+      "true_class": "fire",
+      "prob_fire": 1.0,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 1259.03,
+        "brightness": 84.8,
+        "contrast": 53.8,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "fire/fire_0675.jpg",
+      "true_label": 1,
+      "true_class": "fire",
+      "prob_fire": 1.0,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 375.77,
+        "brightness": 58.9,
+        "contrast": 44.9,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "fire/fire_0055.jpg",
+      "true_label": 1,
+      "true_class": "fire",
+      "prob_fire": 0.9992,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 656.66,
+        "brightness": 129.7,
+        "contrast": 51.4,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "fire/fire_0350.jpg",
+      "true_label": 1,
+      "true_class": "fire",
+      "prob_fire": 1.0,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 123.05,
+        "brightness": 74.8,
+        "contrast": 18.8,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "fire/fire_0158.jpg",
+      "true_label": 1,
+      "true_class": "fire",
+      "prob_fire": 0.9998,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 1636.0,
+        "brightness": 86.6,
+        "contrast": 50.2,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "fire/fire_0445.jpg",
+      "true_label": 1,
+      "true_class": "fire",
+      "prob_fire": 0.9868,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 502.55,
+        "brightness": 69.6,
+        "contrast": 54.9,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "fire/fire_0075.jpg",
+      "true_label": 1,
+      "true_class": "fire",
+      "prob_fire": 1.0,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 1695.0,
+        "brightness": 109.1,
+        "contrast": 65.6,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "fire/fire_0026.jpg",
+      "true_label": 1,
+      "true_class": "fire",
+      "prob_fire": 0.9999,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 194.02,
+        "brightness": 33.0,
+        "contrast": 44.4,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "fire/fire_0611.jpg",
+      "true_label": 1,
+      "true_class": "fire",
+      "prob_fire": 0.9301,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 1712.24,
+        "brightness": 47.2,
+        "contrast": 38.3,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "fire/fire_0224.jpg",
+      "true_label": 1,
+      "true_class": "fire",
+      "prob_fire": 0.9998,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 568.1,
+        "brightness": 36.1,
+        "contrast": 36.8,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "fire/fire_0630.jpg",
+      "true_label": 1,
+      "true_class": "fire",
+      "prob_fire": 1.0,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 63.57,
+        "brightness": 102.8,
+        "contrast": 26.6,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "no_fire/abc296.jpg",
+      "true_label": 0,
+      "true_class": "no_fire",
+      "prob_fire": 0.1281,
+      "predicted_label": 0,
+      "predicted_class": "no_fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 1943.64,
+        "brightness": 67.1,
+        "contrast": 55.8,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "no_fire/nofire_0520.jpg",
+      "true_label": 0,
+      "true_class": "no_fire",
+      "prob_fire": 0.021,
+      "predicted_label": 0,
+      "predicted_class": "no_fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 11018.49,
+        "brightness": 97.3,
+        "contrast": 53.9,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "no_fire/nofire_0236.jpg",
+      "true_label": 0,
+      "true_class": "no_fire",
+      "prob_fire": 0.146,
+      "predicted_label": 0,
+      "predicted_class": "no_fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 6672.33,
+        "brightness": 56.6,
+        "contrast": 53.5,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "no_fire/nofire_0246.jpg",
+      "true_label": 0,
+      "true_class": "no_fire",
+      "prob_fire": 0.0735,
+      "predicted_label": 0,
+      "predicted_class": "no_fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 1568.88,
+        "brightness": 121.6,
+        "contrast": 58.3,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "fire/fire_0257.jpg",
+      "true_label": 1,
+      "true_class": "fire",
+      "prob_fire": 0.9998,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 707.36,
+        "brightness": 54.7,
+        "contrast": 37.3,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "no_fire/abc290.jpg",
+      "true_label": 0,
+      "true_class": "no_fire",
+      "prob_fire": 0.0705,
+      "predicted_label": 0,
+      "predicted_class": "no_fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 2543.24,
+        "brightness": 97.5,
+        "contrast": 41.3,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "fire/fire_0505.jpg",
+      "true_label": 1,
+      "true_class": "fire",
+      "prob_fire": 1.0,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 258.61,
+        "brightness": 57.9,
+        "contrast": 46.0,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "no_fire/nofire_0108.jpg",
+      "true_label": 0,
+      "true_class": "no_fire",
+      "prob_fire": 0.0044,
+      "predicted_label": 0,
+      "predicted_class": "no_fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 11597.16,
+        "brightness": 111.2,
+        "contrast": 71.1,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "fire/fire_0413.jpg",
+      "true_label": 1,
+      "true_class": "fire",
+      "prob_fire": 0.6757,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 7019.18,
+        "brightness": 138.8,
+        "contrast": 60.0,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "no_fire/nofire_0270.jpg",
+      "true_label": 0,
+      "true_class": "no_fire",
+      "prob_fire": 0.0571,
+      "predicted_label": 0,
+      "predicted_class": "no_fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 1907.77,
+        "brightness": 90.8,
+        "contrast": 57.8,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "fire/abc040.jpg",
+      "true_label": 1,
+      "true_class": "fire",
+      "prob_fire": 1.0,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 99.97,
+        "brightness": 16.2,
+        "contrast": 28.7,
+        "warnings": [
+          "Image appears very dark (possible nighttime or underexposed)"
+        ]
+      }
+    },
+    {
+      "filename": "fire/fire_0617.jpg",
+      "true_label": 1,
+      "true_class": "fire",
+      "prob_fire": 0.9997,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 138.21,
+        "brightness": 103.2,
+        "contrast": 44.8,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "fire/fire_0291.jpg",
+      "true_label": 1,
+      "true_class": "fire",
+      "prob_fire": 1.0,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 165.14,
+        "brightness": 109.9,
+        "contrast": 49.7,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "fire/abc005.jpg",
+      "true_label": 1,
+      "true_class": "fire",
+      "prob_fire": 0.9928,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 723.44,
+        "brightness": 83.9,
+        "contrast": 69.8,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "no_fire/nofire_0187.jpg",
+      "true_label": 0,
+      "true_class": "no_fire",
+      "prob_fire": 0.3431,
+      "predicted_label": 0,
+      "predicted_class": "no_fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 7812.41,
+        "brightness": 61.2,
+        "contrast": 63.4,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "no_fire/nofire_0728.jpg",
+      "true_label": 0,
+      "true_class": "no_fire",
+      "prob_fire": 0.0142,
+      "predicted_label": 0,
+      "predicted_class": "no_fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 3636.94,
+        "brightness": 105.1,
+        "contrast": 49.0,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "fire/abc165.jpg",
+      "true_label": 1,
+      "true_class": "fire",
+      "prob_fire": 0.9991,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 90.1,
+        "brightness": 87.6,
+        "contrast": 29.8,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "no_fire/nofire_0223.jpg",
+      "true_label": 0,
+      "true_class": "no_fire",
+      "prob_fire": 0.1481,
+      "predicted_label": 0,
+      "predicted_class": "no_fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 4799.45,
+        "brightness": 110.7,
+        "contrast": 43.6,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "no_fire/abc253.jpg",
+      "true_label": 0,
+      "true_class": "no_fire",
+      "prob_fire": 0.0571,
+      "predicted_label": 0,
+      "predicted_class": "no_fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 465.59,
+        "brightness": 150.0,
+        "contrast": 69.3,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "fire/fire_0679.jpg",
+      "true_label": 1,
+      "true_class": "fire",
+      "prob_fire": 0.9981,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 22.28,
+        "brightness": 50.0,
+        "contrast": 20.0,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "no_fire/nofire_0315.jpg",
+      "true_label": 0,
+      "true_class": "no_fire",
+      "prob_fire": 0.085,
+      "predicted_label": 0,
+      "predicted_class": "no_fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 2864.62,
+        "brightness": 137.1,
+        "contrast": 46.1,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "no_fire/nofire_0341.jpg",
+      "true_label": 0,
+      "true_class": "no_fire",
+      "prob_fire": 0.0412,
+      "predicted_label": 0,
+      "predicted_class": "no_fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 326.5,
+        "brightness": 130.2,
+        "contrast": 70.0,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "no_fire/abc225.jpg",
+      "true_label": 0,
+      "true_class": "no_fire",
+      "prob_fire": 0.2014,
+      "predicted_label": 0,
+      "predicted_class": "no_fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 4678.11,
+        "brightness": 98.2,
+        "contrast": 58.2,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "no_fire/nofire_0058.jpg",
+      "true_label": 0,
+      "true_class": "no_fire",
+      "prob_fire": 0.0131,
+      "predicted_label": 0,
+      "predicted_class": "no_fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 2634.71,
+        "brightness": 112.0,
+        "contrast": 38.3,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "fire/fire_0153.jpg",
+      "true_label": 1,
+      "true_class": "fire",
+      "prob_fire": 0.9988,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 143.74,
+        "brightness": 66.9,
+        "contrast": 27.0,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "fire/abc078.jpg",
+      "true_label": 1,
+      "true_class": "fire",
+      "prob_fire": 0.9748,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 1491.27,
+        "brightness": 118.3,
+        "contrast": 38.8,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "no_fire/abc218.jpg",
+      "true_label": 0,
+      "true_class": "no_fire",
+      "prob_fire": 0.0006,
+      "predicted_label": 0,
+      "predicted_class": "no_fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 8108.87,
+        "brightness": 98.7,
+        "contrast": 53.2,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "fire/fire_0209.jpg",
+      "true_label": 1,
+      "true_class": "fire",
+      "prob_fire": 0.9995,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 1402.8,
+        "brightness": 147.0,
+        "contrast": 62.3,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "no_fire/nofire_0417.jpg",
+      "true_label": 0,
+      "true_class": "no_fire",
+      "prob_fire": 0.0211,
+      "predicted_label": 0,
+      "predicted_class": "no_fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 354.08,
+        "brightness": 99.4,
+        "contrast": 67.2,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "fire/fire_0386.jpg",
+      "true_label": 1,
+      "true_class": "fire",
+      "prob_fire": 1.0,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 569.91,
+        "brightness": 86.5,
+        "contrast": 36.9,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "fire/fire_0427.jpg",
+      "true_label": 1,
+      "true_class": "fire",
+      "prob_fire": 0.9425,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 290.65,
+        "brightness": 129.0,
+        "contrast": 45.7,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "fire/fire_0420.jpg",
+      "true_label": 1,
+      "true_class": "fire",
+      "prob_fire": 0.9995,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 433.69,
+        "brightness": 102.8,
+        "contrast": 41.8,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "fire/fire_0121.jpg",
+      "true_label": 1,
+      "true_class": "fire",
+      "prob_fire": 0.559,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 1876.1,
+        "brightness": 80.4,
+        "contrast": 48.9,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "fire/abc004.jpg",
+      "true_label": 1,
+      "true_class": "fire",
+      "prob_fire": 0.9967,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 296.35,
+        "brightness": 62.8,
+        "contrast": 41.5,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "fire/fire_0853.jpg",
+      "true_label": 1,
+      "true_class": "fire",
+      "prob_fire": 0.9947,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 367.34,
+        "brightness": 69.0,
+        "contrast": 40.8,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "no_fire/nofire_0605.jpg",
+      "true_label": 0,
+      "true_class": "no_fire",
+      "prob_fire": 0.0065,
+      "predicted_label": 0,
+      "predicted_class": "no_fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 373.41,
+        "brightness": 143.4,
+        "contrast": 51.3,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "no_fire/nofire_0145.jpg",
+      "true_label": 0,
+      "true_class": "no_fire",
+      "prob_fire": 0.0497,
+      "predicted_label": 0,
+      "predicted_class": "no_fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 4360.07,
+        "brightness": 115.7,
+        "contrast": 53.5,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "no_fire/abc205.jpg",
+      "true_label": 0,
+      "true_class": "no_fire",
+      "prob_fire": 0.0741,
+      "predicted_label": 0,
+      "predicted_class": "no_fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 995.16,
+        "brightness": 120.1,
+        "contrast": 30.0,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "no_fire/nofire_0170.jpg",
+      "true_label": 0,
+      "true_class": "no_fire",
+      "prob_fire": 0.0054,
+      "predicted_label": 0,
+      "predicted_class": "no_fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 5296.32,
+        "brightness": 64.8,
+        "contrast": 45.7,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "fire/fire_0005.jpg",
+      "true_label": 1,
+      "true_class": "fire",
+      "prob_fire": 0.9984,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 726.7,
+        "brightness": 94.9,
+        "contrast": 49.5,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "fire/fire_0150.jpg",
+      "true_label": 1,
+      "true_class": "fire",
+      "prob_fire": 0.9994,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 1952.16,
+        "brightness": 73.8,
+        "contrast": 49.1,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "fire/fire_0637.jpg",
+      "true_label": 1,
+      "true_class": "fire",
+      "prob_fire": 1.0,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 251.93,
+        "brightness": 69.4,
+        "contrast": 45.5,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "no_fire/abc312.jpg",
+      "true_label": 0,
+      "true_class": "no_fire",
+      "prob_fire": 0.0123,
+      "predicted_label": 0,
+      "predicted_class": "no_fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 723.27,
+        "brightness": 115.1,
+        "contrast": 47.8,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "no_fire/nofire_0471.jpg",
+      "true_label": 0,
+      "true_class": "no_fire",
+      "prob_fire": 0.0302,
+      "predicted_label": 0,
+      "predicted_class": "no_fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 1102.12,
+        "brightness": 111.6,
+        "contrast": 55.0,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "no_fire/nofire_0127.jpg",
+      "true_label": 0,
+      "true_class": "no_fire",
+      "prob_fire": 0.0389,
+      "predicted_label": 0,
+      "predicted_class": "no_fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 5955.32,
+        "brightness": 103.1,
+        "contrast": 61.4,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "no_fire/abc293.jpg",
+      "true_label": 0,
+      "true_class": "no_fire",
+      "prob_fire": 0.0289,
+      "predicted_label": 0,
+      "predicted_class": "no_fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 2296.2,
+        "brightness": 145.1,
+        "contrast": 47.2,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "fire/fire_0690.jpg",
+      "true_label": 1,
+      "true_class": "fire",
+      "prob_fire": 0.9993,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 2082.9,
+        "brightness": 59.0,
+        "contrast": 52.6,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "fire/fire_0382.jpg",
+      "true_label": 1,
+      "true_class": "fire",
+      "prob_fire": 0.9998,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 2365.58,
+        "brightness": 90.8,
+        "contrast": 46.3,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "fire/fire_0211.jpg",
+      "true_label": 1,
+      "true_class": "fire",
+      "prob_fire": 0.9981,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 401.88,
+        "brightness": 84.3,
+        "contrast": 48.5,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "no_fire/nofire_0057.jpg",
+      "true_label": 0,
+      "true_class": "no_fire",
+      "prob_fire": 0.0197,
+      "predicted_label": 0,
+      "predicted_class": "no_fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 1822.83,
+        "brightness": 110.6,
+        "contrast": 56.2,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "no_fire/nofire_0152.jpg",
+      "true_label": 0,
+      "true_class": "no_fire",
+      "prob_fire": 0.0787,
+      "predicted_label": 0,
+      "predicted_class": "no_fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 5130.78,
+        "brightness": 104.0,
+        "contrast": 68.8,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "no_fire/abc231.jpg",
+      "true_label": 0,
+      "true_class": "no_fire",
+      "prob_fire": 0.004,
+      "predicted_label": 0,
+      "predicted_class": "no_fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 4444.7,
+        "brightness": 131.2,
+        "contrast": 47.5,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "no_fire/nofire_0581.jpg",
+      "true_label": 0,
+      "true_class": "no_fire",
+      "prob_fire": 0.0081,
+      "predicted_label": 0,
+      "predicted_class": "no_fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 2034.74,
+        "brightness": 132.5,
+        "contrast": 72.2,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "no_fire/nofire_0311.jpg",
+      "true_label": 0,
+      "true_class": "no_fire",
+      "prob_fire": 0.0281,
+      "predicted_label": 0,
+      "predicted_class": "no_fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 2973.84,
+        "brightness": 93.4,
+        "contrast": 42.9,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "fire/fire_0478.jpg",
+      "true_label": 1,
+      "true_class": "fire",
+      "prob_fire": 1.0,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 331.37,
+        "brightness": 74.5,
+        "contrast": 46.8,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "fire/fire_0269.jpg",
+      "true_label": 1,
+      "true_class": "fire",
+      "prob_fire": 0.9438,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 2215.02,
+        "brightness": 53.1,
+        "contrast": 42.5,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "fire/fire_0477.jpg",
+      "true_label": 1,
+      "true_class": "fire",
+      "prob_fire": 1.0,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 390.56,
+        "brightness": 54.5,
+        "contrast": 42.8,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "no_fire/nofire_0633.jpg",
+      "true_label": 0,
+      "true_class": "no_fire",
+      "prob_fire": 0.0062,
+      "predicted_label": 0,
+      "predicted_class": "no_fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 900.93,
+        "brightness": 103.2,
+        "contrast": 66.9,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "fire/fire_0114.jpg",
+      "true_label": 1,
+      "true_class": "fire",
+      "prob_fire": 0.9889,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 2560.51,
+        "brightness": 112.5,
+        "contrast": 46.8,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "no_fire/nofire_0349.jpg",
+      "true_label": 0,
+      "true_class": "no_fire",
+      "prob_fire": 0.1987,
+      "predicted_label": 0,
+      "predicted_class": "no_fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 3379.52,
+        "brightness": 118.1,
+        "contrast": 63.7,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "no_fire/nofire_0235.jpg",
+      "true_label": 0,
+      "true_class": "no_fire",
+      "prob_fire": 0.1964,
+      "predicted_label": 0,
+      "predicted_class": "no_fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 5279.71,
+        "brightness": 101.0,
+        "contrast": 36.1,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "fire/fire_0154.jpg",
+      "true_label": 1,
+      "true_class": "fire",
+      "prob_fire": 0.9955,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 233.38,
+        "brightness": 135.4,
+        "contrast": 52.0,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "no_fire/abc319.jpg",
+      "true_label": 0,
+      "true_class": "no_fire",
+      "prob_fire": 0.0527,
+      "predicted_label": 0,
+      "predicted_class": "no_fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 1747.41,
+        "brightness": 74.9,
+        "contrast": 35.1,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "fire/fire_0201.jpg",
+      "true_label": 1,
+      "true_class": "fire",
+      "prob_fire": 0.799,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 958.29,
+        "brightness": 81.6,
+        "contrast": 32.2,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "no_fire/nofire_0412.jpg",
+      "true_label": 0,
+      "true_class": "no_fire",
+      "prob_fire": 0.0902,
+      "predicted_label": 0,
+      "predicted_class": "no_fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 2493.21,
+        "brightness": 76.8,
+        "contrast": 62.9,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "no_fire/nofire_0700.jpg",
+      "true_label": 0,
+      "true_class": "no_fire",
+      "prob_fire": 0.003,
+      "predicted_label": 0,
+      "predicted_class": "no_fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 6473.96,
+        "brightness": 111.3,
+        "contrast": 44.7,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "no_fire/nofire_0073.jpg",
+      "true_label": 0,
+      "true_class": "no_fire",
+      "prob_fire": 0.0262,
+      "predicted_label": 0,
+      "predicted_class": "no_fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 8814.63,
+        "brightness": 103.9,
+        "contrast": 50.4,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "fire/abc010.jpg",
+      "true_label": 1,
+      "true_class": "fire",
+      "prob_fire": 1.0,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 165.91,
+        "brightness": 29.7,
+        "contrast": 29.1,
+        "warnings": [
+          "Image appears very dark (possible nighttime or underexposed)"
+        ]
+      }
+    },
+    {
+      "filename": "no_fire/nofire_0576.jpg",
+      "true_label": 0,
+      "true_class": "no_fire",
+      "prob_fire": 0.0828,
+      "predicted_label": 0,
+      "predicted_class": "no_fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 706.77,
+        "brightness": 117.4,
+        "contrast": 43.1,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "fire/fire_0181.jpg",
+      "true_label": 1,
+      "true_class": "fire",
+      "prob_fire": 0.9999,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 41.86,
+        "brightness": 123.9,
+        "contrast": 17.2,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "fire/fire_0251.jpg",
+      "true_label": 1,
+      "true_class": "fire",
+      "prob_fire": 0.9997,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 1070.37,
+        "brightness": 75.7,
+        "contrast": 58.9,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "fire/abc090.jpg",
+      "true_label": 1,
+      "true_class": "fire",
+      "prob_fire": 0.9999,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 451.56,
+        "brightness": 26.3,
+        "contrast": 26.0,
+        "warnings": [
+          "Image appears very dark (possible nighttime or underexposed)"
+        ]
+      }
+    },
+    {
+      "filename": "fire/fire_0705.jpg",
+      "true_label": 1,
+      "true_class": "fire",
+      "prob_fire": 0.9999,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 854.0,
+        "brightness": 74.7,
+        "contrast": 41.0,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "fire/fire_0580.jpg",
+      "true_label": 1,
+      "true_class": "fire",
+      "prob_fire": 0.9999,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 436.64,
+        "brightness": 97.2,
+        "contrast": 28.5,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "no_fire/nofire_0377.jpg",
+      "true_label": 0,
+      "true_class": "no_fire",
+      "prob_fire": 0.1263,
+      "predicted_label": 0,
+      "predicted_class": "no_fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 1886.94,
+        "brightness": 122.7,
+        "contrast": 51.5,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "no_fire/nofire_0323.jpg",
+      "true_label": 0,
+      "true_class": "no_fire",
+      "prob_fire": 0.2333,
+      "predicted_label": 0,
+      "predicted_class": "no_fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 3736.91,
+        "brightness": 112.4,
+        "contrast": 48.9,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "no_fire/nofire_0284.jpg",
+      "true_label": 0,
+      "true_class": "no_fire",
+      "prob_fire": 0.0321,
+      "predicted_label": 0,
+      "predicted_class": "no_fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 4961.45,
+        "brightness": 104.3,
+        "contrast": 42.8,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "no_fire/nofire_0312.jpg",
+      "true_label": 0,
+      "true_class": "no_fire",
+      "prob_fire": 0.0737,
+      "predicted_label": 0,
+      "predicted_class": "no_fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 471.64,
+        "brightness": 145.1,
+        "contrast": 61.4,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "fire/fire_0433.jpg",
+      "true_label": 1,
+      "true_class": "fire",
+      "prob_fire": 0.9003,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 4320.36,
+        "brightness": 86.1,
+        "contrast": 62.6,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "no_fire/nofire_0422.jpg",
+      "true_label": 0,
+      "true_class": "no_fire",
+      "prob_fire": 0.2751,
+      "predicted_label": 0,
+      "predicted_class": "no_fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 2732.2,
+        "brightness": 108.5,
+        "contrast": 50.3,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "fire/fire_0591.jpg",
+      "true_label": 1,
+      "true_class": "fire",
+      "prob_fire": 0.9962,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 1582.59,
+        "brightness": 70.3,
+        "contrast": 45.2,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "fire/fire_0609.jpg",
+      "true_label": 1,
+      "true_class": "fire",
+      "prob_fire": 0.9989,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 296.32,
+        "brightness": 94.2,
+        "contrast": 23.4,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "fire/fire_0707.jpg",
+      "true_label": 1,
+      "true_class": "fire",
+      "prob_fire": 0.9927,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 480.71,
+        "brightness": 87.7,
+        "contrast": 29.6,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "no_fire/nofire_0556.jpg",
+      "true_label": 0,
+      "true_class": "no_fire",
+      "prob_fire": 0.0464,
+      "predicted_label": 0,
+      "predicted_class": "no_fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 2330.79,
+        "brightness": 104.3,
+        "contrast": 40.7,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "no_fire/abc255.jpg",
+      "true_label": 0,
+      "true_class": "no_fire",
+      "prob_fire": 0.4803,
+      "predicted_label": 0,
+      "predicted_class": "no_fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 1216.52,
+        "brightness": 127.1,
+        "contrast": 53.6,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "fire/abc075.jpg",
+      "true_label": 1,
+      "true_class": "fire",
+      "prob_fire": 0.9965,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 1384.37,
+        "brightness": 43.3,
+        "contrast": 35.1,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "no_fire/nofire_0626.jpg",
+      "true_label": 0,
+      "true_class": "no_fire",
+      "prob_fire": 0.0015,
+      "predicted_label": 0,
+      "predicted_class": "no_fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 1244.94,
+        "brightness": 57.6,
+        "contrast": 42.2,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "fire/fire_0132.jpg",
+      "true_label": 1,
+      "true_class": "fire",
+      "prob_fire": 0.9984,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 1458.68,
+        "brightness": 73.3,
+        "contrast": 58.1,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "no_fire/nofire_0648.jpg",
+      "true_label": 0,
+      "true_class": "no_fire",
+      "prob_fire": 0.135,
+      "predicted_label": 0,
+      "predicted_class": "no_fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 1349.73,
+        "brightness": 84.3,
+        "contrast": 56.7,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "fire/abc139.jpg",
+      "true_label": 1,
+      "true_class": "fire",
+      "prob_fire": 0.9998,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 1097.94,
+        "brightness": 99.5,
+        "contrast": 45.0,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "fire/fire_0573.jpg",
+      "true_label": 1,
+      "true_class": "fire",
+      "prob_fire": 0.9954,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 174.16,
+        "brightness": 109.8,
+        "contrast": 49.2,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "no_fire/nofire_0449.jpg",
+      "true_label": 0,
+      "true_class": "no_fire",
+      "prob_fire": 0.1364,
+      "predicted_label": 0,
+      "predicted_class": "no_fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 420.77,
+        "brightness": 113.4,
+        "contrast": 65.0,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "no_fire/nofire_0421.jpg",
+      "true_label": 0,
+      "true_class": "no_fire",
+      "prob_fire": 0.1774,
+      "predicted_label": 0,
+      "predicted_class": "no_fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 4396.12,
+        "brightness": 140.0,
+        "contrast": 70.1,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "fire/fire_0091.jpg",
+      "true_label": 1,
+      "true_class": "fire",
+      "prob_fire": 0.9984,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 155.83,
+        "brightness": 128.5,
+        "contrast": 20.8,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "no_fire/abc282.jpg",
+      "true_label": 0,
+      "true_class": "no_fire",
+      "prob_fire": 0.1012,
+      "predicted_label": 0,
+      "predicted_class": "no_fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 454.46,
+        "brightness": 152.4,
+        "contrast": 71.5,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "no_fire/nofire_0558.jpg",
+      "true_label": 0,
+      "true_class": "no_fire",
+      "prob_fire": 0.0468,
+      "predicted_label": 0,
+      "predicted_class": "no_fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 1498.09,
+        "brightness": 61.3,
+        "contrast": 44.8,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "no_fire/nofire_0365.jpg",
+      "true_label": 0,
+      "true_class": "no_fire",
+      "prob_fire": 0.0026,
+      "predicted_label": 0,
+      "predicted_class": "no_fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 4504.48,
+        "brightness": 131.7,
+        "contrast": 50.7,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "fire/fire_0060.jpg",
+      "true_label": 1,
+      "true_class": "fire",
+      "prob_fire": 0.9306,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 1811.97,
+        "brightness": 84.8,
+        "contrast": 47.1,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "fire/fire_0335.jpg",
+      "true_label": 1,
+      "true_class": "fire",
+      "prob_fire": 0.9979,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 359.47,
+        "brightness": 80.7,
+        "contrast": 33.3,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "no_fire/nofire_0367.jpg",
+      "true_label": 0,
+      "true_class": "no_fire",
+      "prob_fire": 0.0524,
+      "predicted_label": 0,
+      "predicted_class": "no_fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 3992.46,
+        "brightness": 122.0,
+        "contrast": 50.5,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "fire/fire_0564.jpg",
+      "true_label": 1,
+      "true_class": "fire",
+      "prob_fire": 1.0,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 131.68,
+        "brightness": 76.3,
+        "contrast": 33.9,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "no_fire/nofire_0200.jpg",
+      "true_label": 0,
+      "true_class": "no_fire",
+      "prob_fire": 0.0784,
+      "predicted_label": 0,
+      "predicted_class": "no_fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 3165.73,
+        "brightness": 63.7,
+        "contrast": 41.7,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "fire/fire_0182.jpg",
+      "true_label": 1,
+      "true_class": "fire",
+      "prob_fire": 0.9897,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 1204.46,
+        "brightness": 73.4,
+        "contrast": 48.9,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "no_fire/nofire_0503.jpg",
+      "true_label": 0,
+      "true_class": "no_fire",
+      "prob_fire": 0.2078,
+      "predicted_label": 0,
+      "predicted_class": "no_fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 2670.18,
+        "brightness": 174.1,
+        "contrast": 47.6,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "fire/fire_0161.jpg",
+      "true_label": 1,
+      "true_class": "fire",
+      "prob_fire": 1.0,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 137.87,
+        "brightness": 11.5,
+        "contrast": 25.4,
+        "warnings": [
+          "Image appears very dark (possible nighttime or underexposed)"
+        ]
+      }
+    },
+    {
+      "filename": "no_fire/nofire_0518.jpg",
+      "true_label": 0,
+      "true_class": "no_fire",
+      "prob_fire": 0.0512,
+      "predicted_label": 0,
+      "predicted_class": "no_fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 3714.13,
+        "brightness": 100.0,
+        "contrast": 87.2,
+        "warnings": [
+          "Image has very high contrast"
+        ]
+      }
+    },
+    {
+      "filename": "no_fire/nofire_0098.jpg",
+      "true_label": 0,
+      "true_class": "no_fire",
+      "prob_fire": 0.0235,
+      "predicted_label": 0,
+      "predicted_class": "no_fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 4737.79,
+        "brightness": 111.6,
+        "contrast": 40.8,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "no_fire/abc204.jpg",
+      "true_label": 0,
+      "true_class": "no_fire",
+      "prob_fire": 0.1191,
+      "predicted_label": 0,
+      "predicted_class": "no_fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 3336.53,
+        "brightness": 71.9,
+        "contrast": 45.6,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "no_fire/nofire_0586.jpg",
+      "true_label": 0,
+      "true_class": "no_fire",
+      "prob_fire": 0.278,
+      "predicted_label": 0,
+      "predicted_class": "no_fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 927.35,
+        "brightness": 105.8,
+        "contrast": 52.2,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "fire/fire_0068.jpg",
+      "true_label": 1,
+      "true_class": "fire",
+      "prob_fire": 0.9943,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 1985.33,
+        "brightness": 102.3,
+        "contrast": 43.4,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "no_fire/nofire_0242.jpg",
+      "true_label": 0,
+      "true_class": "no_fire",
+      "prob_fire": 0.0675,
+      "predicted_label": 0,
+      "predicted_class": "no_fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 7092.67,
+        "brightness": 108.9,
+        "contrast": 57.5,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "no_fire/nofire_0292.jpg",
+      "true_label": 0,
+      "true_class": "no_fire",
+      "prob_fire": 0.3879,
+      "predicted_label": 0,
+      "predicted_class": "no_fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 1110.8,
+        "brightness": 92.4,
+        "contrast": 54.4,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "no_fire/nofire_0649.jpg",
+      "true_label": 0,
+      "true_class": "no_fire",
+      "prob_fire": 0.0384,
+      "predicted_label": 0,
+      "predicted_class": "no_fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 509.2,
+        "brightness": 93.9,
+        "contrast": 82.3,
+        "warnings": [
+          "Image has very high contrast"
+        ]
+      }
+    },
+    {
+      "filename": "fire/fire_0439.jpg",
+      "true_label": 1,
+      "true_class": "fire",
+      "prob_fire": 0.9976,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 1940.24,
+        "brightness": 66.9,
+        "contrast": 52.9,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "fire/fire_0151.jpg",
+      "true_label": 1,
+      "true_class": "fire",
+      "prob_fire": 0.9957,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 374.8,
+        "brightness": 51.8,
+        "contrast": 33.4,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "fire/fire_0152.jpg",
+      "true_label": 1,
+      "true_class": "fire",
+      "prob_fire": 0.9985,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 249.67,
+        "brightness": 38.8,
+        "contrast": 29.6,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "no_fire/nofire_0639.jpg",
+      "true_label": 0,
+      "true_class": "no_fire",
+      "prob_fire": 0.0036,
+      "predicted_label": 0,
+      "predicted_class": "no_fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 877.49,
+        "brightness": 80.1,
+        "contrast": 44.7,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "no_fire/nofire_0675.jpg",
+      "true_label": 0,
+      "true_class": "no_fire",
+      "prob_fire": 0.0052,
+      "predicted_label": 0,
+      "predicted_class": "no_fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 2429.76,
+        "brightness": 143.9,
+        "contrast": 55.2,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "fire/fire_0438.jpg",
+      "true_label": 1,
+      "true_class": "fire",
+      "prob_fire": 0.9999,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 437.88,
+        "brightness": 44.3,
+        "contrast": 50.9,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "fire/abc168.jpg",
+      "true_label": 1,
+      "true_class": "fire",
+      "prob_fire": 0.9648,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 1665.52,
+        "brightness": 141.9,
+        "contrast": 41.9,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "fire/fire_0278.jpg",
+      "true_label": 1,
+      "true_class": "fire",
+      "prob_fire": 0.9784,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 769.29,
+        "brightness": 95.2,
+        "contrast": 44.9,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "fire/fire_0542.jpg",
+      "true_label": 1,
+      "true_class": "fire",
+      "prob_fire": 0.9999,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 1103.5,
+        "brightness": 64.5,
+        "contrast": 44.0,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "fire/fire_0832.jpg",
+      "true_label": 1,
+      "true_class": "fire",
+      "prob_fire": 0.9994,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 2001.01,
+        "brightness": 97.7,
+        "contrast": 61.2,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "fire/fire_0668.jpg",
+      "true_label": 1,
+      "true_class": "fire",
+      "prob_fire": 0.9981,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 262.82,
+        "brightness": 102.4,
+        "contrast": 86.0,
+        "warnings": [
+          "Image has very high contrast"
+        ]
+      }
+    },
+    {
+      "filename": "fire/fire_0273.jpg",
+      "true_label": 1,
+      "true_class": "fire",
+      "prob_fire": 0.9907,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 636.57,
+        "brightness": 99.8,
+        "contrast": 39.0,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "no_fire/nofire_0457.jpg",
+      "true_label": 0,
+      "true_class": "no_fire",
+      "prob_fire": 0.1249,
+      "predicted_label": 0,
+      "predicted_class": "no_fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 381.42,
+        "brightness": 109.1,
+        "contrast": 54.9,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "no_fire/nofire_0109.jpg",
+      "true_label": 0,
+      "true_class": "no_fire",
+      "prob_fire": 0.1188,
+      "predicted_label": 0,
+      "predicted_class": "no_fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 6369.21,
+        "brightness": 86.8,
+        "contrast": 76.1,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "fire/abc006.jpg",
+      "true_label": 1,
+      "true_class": "fire",
+      "prob_fire": 0.9995,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 1789.85,
+        "brightness": 113.1,
+        "contrast": 53.4,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "fire/fire_0109.jpg",
+      "true_label": 1,
+      "true_class": "fire",
+      "prob_fire": 0.9313,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 1446.3,
+        "brightness": 87.7,
+        "contrast": 50.6,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "fire/fire_0093.jpg",
+      "true_label": 1,
+      "true_class": "fire",
+      "prob_fire": 0.9998,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 962.52,
+        "brightness": 46.8,
+        "contrast": 50.0,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "no_fire/nofire_0202.jpg",
+      "true_label": 0,
+      "true_class": "no_fire",
+      "prob_fire": 0.0004,
+      "predicted_label": 0,
+      "predicted_class": "no_fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 1302.19,
+        "brightness": 68.4,
+        "contrast": 50.7,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "fire/abc137.jpg",
+      "true_label": 1,
+      "true_class": "fire",
+      "prob_fire": 0.9986,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 1023.24,
+        "brightness": 68.6,
+        "contrast": 49.7,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "no_fire/nofire_0048.jpg",
+      "true_label": 0,
+      "true_class": "no_fire",
+      "prob_fire": 0.037,
+      "predicted_label": 0,
+      "predicted_class": "no_fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 752.63,
+        "brightness": 69.3,
+        "contrast": 42.7,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "fire/fire_0677.jpg",
+      "true_label": 1,
+      "true_class": "fire",
+      "prob_fire": 0.9941,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 806.14,
+        "brightness": 133.8,
+        "contrast": 48.1,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "fire/fire_0123.jpg",
+      "true_label": 1,
+      "true_class": "fire",
+      "prob_fire": 0.9999,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": true,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 114.72,
+        "brightness": 56.1,
+        "contrast": 57.9,
+        "warnings": []
+      }
+    }
+  ],
+  "false_positives": [
+    {
+      "filename": "no_fire/nofire_0062.jpg",
+      "true_label": 0,
+      "true_class": "no_fire",
+      "prob_fire": 0.93,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": false,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 1228.12,
+        "brightness": 90.5,
+        "contrast": 42.8,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "no_fire/nofire_0165.jpg",
+      "true_label": 0,
+      "true_class": "no_fire",
+      "prob_fire": 0.5014,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": false,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 3321.96,
+        "brightness": 46.6,
+        "contrast": 41.6,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "no_fire/nofire_0531.jpg",
+      "true_label": 0,
+      "true_class": "no_fire",
+      "prob_fire": 0.9271,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": false,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 857.99,
+        "brightness": 90.9,
+        "contrast": 65.9,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "no_fire/nofire_0504.jpg",
+      "true_label": 0,
+      "true_class": "no_fire",
+      "prob_fire": 0.7442,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": false,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 950.27,
+        "brightness": 65.8,
+        "contrast": 59.4,
+        "warnings": []
+      }
+    },
+    {
+      "filename": "no_fire/nofire_0355.jpg",
+      "true_label": 0,
+      "true_class": "no_fire",
+      "prob_fire": 0.745,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": false,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 472.92,
+        "brightness": 135.3,
+        "contrast": 85.2,
+        "warnings": [
+          "Image has very high contrast"
+        ]
+      }
+    },
+    {
+      "filename": "no_fire/nofire_0172.jpg",
+      "true_label": 0,
+      "true_class": "no_fire",
+      "prob_fire": 0.6849,
+      "predicted_label": 1,
+      "predicted_class": "fire",
+      "correct": false,
+      "quality": {
+        "width": 250,
+        "height": 250,
+        "blur_score": 1896.72,
+        "brightness": 57.8,
+        "contrast": 56.1,
+        "warnings": []
+      }
+    }
+  ],
+  "false_negatives": [],
+  "descriptive_error_statistics": {
+    "fp_count": 6,
+    "fn_count": 0,
+    "fp_prob_fire_stats": {
+      "min": 0.5014,
+      "max": 0.93,
+      "mean": 0.7554,
+      "median": 0.7446
+    },
+    "fn_prob_no_fire_stats": {
+      "min": null,
+      "max": null,
+      "mean": null,
+      "median": null
+    },
+    "fp_with_quality_warnings": 1,
+    "fn_with_quality_warnings": 0,
+    "fp_warning_types": {
+      "Image has very high contrast": 1
+    },
+    "fn_warning_types": {}
+  }
+}

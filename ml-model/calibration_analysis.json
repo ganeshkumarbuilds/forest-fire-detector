@@ -1,0 +1,2253 @@
+{
+  "statement": "The existing sigmoid output is treated as an uncalibrated model score until calibration is empirically evaluated.",
+  "metadata": {
+    "timestamp": "2026-09-17T05:30:31.133779+00:00",
+    "dataset_size": 1832,
+    "validation_size": 275,
+    "test_size": 275,
+    "random_state": 42,
+    "threshold": 0.5,
+    "n_bins": 10,
+    "model_path": "C:\\Projects _1\\forest-fire-detector\\ml-model\\fire_model.h5",
+    "test_source": "ml-model/error_analysis.json (stored prob_fire)",
+    "test_split_compatible": true
+  },
+  "protocol": {
+    "calibration_fit_split": "validation",
+    "evaluation_split": "test",
+    "test_used_for_fitting": false,
+    "preprocessing": "RGB, resize 224x224, MobileNetV2 preprocess_input (x/127.5 - 1), batch 32",
+    "cv": "5-fold StratifiedKFold OOF on validation for unbiased val estimates"
+  },
+  "validation_predictions": [
+    {
+      "filename": "no_fire/nofire_0163.jpg",
+      "true_label": 0,
+      "uncalibrated_prob_fire": 0.1195
+    },
+    {
+      "filename": "fire/abc156.jpg",
+      "true_label": 1,
+      "uncalibrated_prob_fire": 0.9999
+    },
+    {
+      "filename": "fire/abc114.jpg",
+      "true_label": 1,
+      "uncalibrated_prob_fire": 1.0
+    },
+    {
+      "filename": "no_fire/nofire_0289.jpg",
+      "true_label": 0,
+      "uncalibrated_prob_fire": 0.0391
+    },
+    {
+      "filename": "fire/abc002.jpg",
+      "true_label": 1,
+      "uncalibrated_prob_fire": 0.9937
+    },
+    {
+      "filename": "fire/fire_0389.jpg",
+      "true_label": 1,
+      "uncalibrated_prob_fire": 1.0
+    },
+    {
+      "filename": "fire/fire_0018.jpg",
+      "true_label": 1,
+      "uncalibrated_prob_fire": 0.9373
+    },
+    {
+      "filename": "no_fire/nofire_0111.jpg",
+      "true_label": 0,
+      "uncalibrated_prob_fire": 0.0082
+    },
+    {
+      "filename": "no_fire/abc215.jpg",
+      "true_label": 0,
+      "uncalibrated_prob_fire": 0.0015
+    },
+    {
+      "filename": "no_fire/nofire_0265.jpg",
+      "true_label": 0,
+      "uncalibrated_prob_fire": 0.0246
+    },
+    {
+      "filename": "fire/fire_0337.jpg",
+      "true_label": 1,
+      "uncalibrated_prob_fire": 0.9643
+    },
+    {
+      "filename": "no_fire/abc258.jpg",
+      "true_label": 0,
+      "uncalibrated_prob_fire": 0.3102
+    },
+    {
+      "filename": "fire/fire_0027.jpg",
+      "true_label": 1,
+      "uncalibrated_prob_fire": 0.9937
+    },
+    {
+      "filename": "fire/abc093.jpg",
+      "true_label": 1,
+      "uncalibrated_prob_fire": 0.9801
+    },
+    {
+      "filename": "fire/fire_0645.jpg",
+      "true_label": 1,
+      "uncalibrated_prob_fire": 0.9991
+    },
+    {
+      "filename": "fire/fire_0644.jpg",
+      "true_label": 1,
+      "uncalibrated_prob_fire": 0.9995
+    },
+    {
+      "filename": "no_fire/nofire_0641.jpg",
+      "true_label": 0,
+      "uncalibrated_prob_fire": 0.0125
+    },
+    {
+      "filename": "no_fire/nofire_0718.jpg",
+      "true_label": 0,
+      "uncalibrated_prob_fire": 0.0042
+    },
+    {
+      "filename": "fire/fire_0240.jpg",
+      "true_label": 1,
+      "uncalibrated_prob_fire": 0.9998
+    },
+    {
+      "filename": "fire/fire_0200.jpg",
+      "true_label": 1,
+      "uncalibrated_prob_fire": 0.6001
+    },
+    {
+      "filename": "fire/abc080.jpg",
+      "true_label": 1,
+      "uncalibrated_prob_fire": 0.9934
+    },
+    {
+      "filename": "no_fire/nofire_0146.jpg",
+      "true_label": 0,
+      "uncalibrated_prob_fire": 0.1593
+    },
+    {
+      "filename": "fire/fire_0475.jpg",
+      "true_label": 1,
+      "uncalibrated_prob_fire": 1.0
+    },
+    {
+      "filename": "no_fire/abc286.jpg",
+      "true_label": 0,
+      "uncalibrated_prob_fire": 0.0181
+    },
+    {
+      "filename": "no_fire/nofire_0410.jpg",
+      "true_label": 0,
+      "uncalibrated_prob_fire": 0.0785
+    },
+    {
+      "filename": "fire/fire_0681.jpg",
+      "true_label": 1,
+      "uncalibrated_prob_fire": 1.0
+    },
+    {
+      "filename": "fire/fire_0585.jpg",
+      "true_label": 1,
+      "uncalibrated_prob_fire": 0.8037
+    },
+    {
+      "filename": "fire/fire_0056.jpg",
+      "true_label": 1,
+      "uncalibrated_prob_fire": 1.0
+    },
+    {
+      "filename": "no_fire/nofire_0221.jpg",
+      "true_label": 0,
+      "uncalibrated_prob_fire": 0.1958
+    },
+    {
+      "filename": "no_fire/nofire_0132.jpg",
+      "true_label": 0,
+      "uncalibrated_prob_fire": 0.2702
+    },
+    {
+      "filename": "no_fire/nofire_0446.jpg",
+      "true_label": 0,
+      "uncalibrated_prob_fire": 0.3016
+    },
+    {
+      "filename": "no_fire/nofire_0703.jpg",
+      "true_label": 0,
+      "uncalibrated_prob_fire": 0.002
+    },
+    {
+      "filename": "no_fire/nofire_0528.jpg",
+      "true_label": 0,
+      "uncalibrated_prob_fire": 0.0798
+    },
+    {
+      "filename": "no_fire/nofire_0441.jpg",
+      "true_label": 0,
+      "uncalibrated_prob_fire": 0.0309
+    },
+    {
+      "filename": "no_fire/nofire_0334.jpg",
+      "true_label": 0,
+      "uncalibrated_prob_fire": 0.1536
+    },
+    {
+      "filename": "no_fire/nofire_0063.jpg",
+      "true_label": 0,
+      "uncalibrated_prob_fire": 0.5244
+    },
+    {
+      "filename": "no_fire/nofire_0480.jpg",
+      "true_label": 0,
+      "uncalibrated_prob_fire": 0.1583
+    },
+    {
+      "filename": "fire/fire_0566.jpg",
+      "true_label": 1,
+      "uncalibrated_prob_fire": 0.8494
+    },
+    {
+      "filename": "fire/fire_0615.jpg",
+      "true_label": 1,
+      "uncalibrated_prob_fire": 0.8675
+    },
+    {
+      "filename": "fire/fire_0527.jpg",
+      "true_label": 1,
+      "uncalibrated_prob_fire": 0.9993
+    },
+    {
+      "filename": "fire/fire_0827.jpg",
+      "true_label": 1,
+      "uncalibrated_prob_fire": 0.9977
+    },
+    {
+      "filename": "fire/fire_0479.jpg",
+      "true_label": 1,
+      "uncalibrated_prob_fire": 0.9999
+    },
+    {
+      "filename": "no_fire/nofire_0460.jpg",
+      "true_label": 0,
+      "uncalibrated_prob_fire": 0.0127
+    },
+    {
+      "filename": "fire/fire_0639.jpg",
+      "true_label": 1,
+      "uncalibrated_prob_fire": 0.9803
+    },
+    {
+      "filename": "fire/abc154.jpg",
+      "true_label": 1,
+      "uncalibrated_prob_fire": 1.0
+    },
+    {
+      "filename": "no_fire/nofire_0096.jpg",
+      "true_label": 0,
+      "uncalibrated_prob_fire": 0.1311
+    },
+    {
+      "filename": "fire/abc071.jpg",
+      "true_label": 1,
+      "uncalibrated_prob_fire": 0.9101
+    },
+    {
+      "filename": "no_fire/abc280.jpg",
+      "true_label": 0,
+      "uncalibrated_prob_fire": 0.0697
+    },
+    {
+      "filename": "no_fire/nofire_0498.jpg",
+      "true_label": 0,
+      "uncalibrated_prob_fire": 0.0916
+    },
+    {
+      "filename": "fire/fire_0252.jpg",
+      "true_label": 1,
+      "uncalibrated_prob_fire": 1.0
+    },
+    {
+      "filename": "fire/fire_0108.jpg",
+      "true_label": 1,
+      "uncalibrated_prob_fire": 0.9978
+    },
+    {
+      "filename": "fire/fire_0216.jpg",
+      "true_label": 1,
+      "uncalibrated_prob_fire": 0.9352
+    },
+    {
+      "filename": "fire/fire_0253.jpg",
+      "true_label": 1,
+      "uncalibrated_prob_fire": 1.0
+    },
+    {
+      "filename": "fire/fire_0531.jpg",
+      "true_label": 1,
+      "uncalibrated_prob_fire": 0.9999
+    },
+    {
+      "filename": "no_fire/abc263.jpg",
+      "true_label": 0,
+      "uncalibrated_prob_fire": 0.0442
+    },
+    {
+      "filename": "fire/fire_0643.jpg",
+      "true_label": 1,
+      "uncalibrated_prob_fire": 0.9995
+    },
+    {
+      "filename": "fire/abc041.jpg",
+      "true_label": 1,
+      "uncalibrated_prob_fire": 0.9998
+    },
+    {
+      "filename": "fire/abc030.jpg",
+      "true_label": 1,
+      "uncalibrated_prob_fire": 0.9791
+    },
+    {
+      "filename": "no_fire/nofire_0475.jpg",
+      "true_label": 0,
+      "uncalibrated_prob_fire": 0.9649
+    },
+    {
+      "filename": "fire/abc103.jpg",
+      "true_label": 1,
+      "uncalibrated_prob_fire": 0.9994
+    },
+    {
+      "filename": "fire/fire_0192.jpg",
+      "true_label": 1,
+      "uncalibrated_prob_fire": 0.9993
+    },
+    {
+      "filename": "no_fire/nofire_0759.jpg",
+      "true_label": 0,
+      "uncalibrated_prob_fire": 0.0186
+    },
+    {
+      "filename": "no_fire/nofire_0389.jpg",
+      "true_label": 0,
+      "uncalibrated_prob_fire": 0.0846
+    },
+    {
+      "filename": "no_fire/abc245.jpg",
+      "true_label": 0,
+      "uncalibrated_prob_fire": 0.038
+    },
+    {
+      "filename": "fire/fire_0081.jpg",
+      "true_label": 1,
+      "uncalibrated_prob_fire": 0.9983
+    },
+    {
+      "filename": "no_fire/nofire_0041.jpg",
+      "true_label": 0,
+      "uncalibrated_prob_fire": 0.0463
+    },
+    {
+      "filename": "no_fire/nofire_0335.jpg",
+      "true_label": 0,
+      "uncalibrated_prob_fire": 0.8962
+    },
+    {
+      "filename": "fire/fire_0870.jpg",
+      "true_label": 1,
+      "uncalibrated_prob_fire": 0.9563
+    },
+    {
+      "filename": "no_fire/nofire_0636.jpg",
+      "true_label": 0,
+      "uncalibrated_prob_fire": 0.0016
+    },
+    {
+      "filename": "no_fire/nofire_0403.jpg",
+      "true_label": 0,
+      "uncalibrated_prob_fire": 0.0068
+    },
+    {
+      "filename": "no_fire/nofire_0276.jpg",
+      "true_label": 0,
+      "uncalibrated_prob_fire": 0.0071
+    },
+    {
+      "filename": "no_fire/nofire_0672.jpg",
+      "true_label": 0,
+      "uncalibrated_prob_fire": 0.0065
+    },
+    {
+      "filename": "no_fire/nofire_0197.jpg",
+      "true_label": 0,
+      "uncalibrated_prob_fire": 0.0181
+    },
+    {
+      "filename": "no_fire/nofire_0615.jpg",
+      "true_label": 0,
+      "uncalibrated_prob_fire": 0.0001
+    },
+    {
+      "filename": "fire/fire_0848.jpg",
+      "true_label": 1,
+      "uncalibrated_prob_fire": 0.9971
+    },
+    {
+      "filename": "fire/fire_0728.jpg",
+      "true_label": 1,
+      "uncalibrated_prob_fire": 0.9999
+    },
+    {
+      "filename": "fire/abc112.jpg",
+      "true_label": 1,
+      "uncalibrated_prob_fire": 0.9955
+    },
+    {
+      "filename": "fire/abc072.jpg",
+      "true_label": 1,
+      "uncalibrated_prob_fire": 0.9968
+    },
+    {
+      "filename": "fire/fire_0082.jpg",
+      "true_label": 1,
+      "uncalibrated_prob_fire": 0.9999
+    },
+    {
+      "filename": "no_fire/nofire_0099.jpg",
+      "true_label": 0,
+      "uncalibrated_prob_fire": 0.0038
+    },
+    {
+      "filename": "no_fire/nofire_0394.jpg",
+      "true_label": 0,
+      "uncalibrated_prob_fire": 0.0108
+    },
+    {
+      "filename": "no_fire/abc228.jpg",
+      "true_label": 0,
+      "uncalibrated_prob_fire": 0.004
+    },
+    {
+      "filename": "no_fire/nofire_0027.jpg",
+      "true_label": 0,
+      "uncalibrated_prob_fire": 0.0024
+    },
+    {
+      "filename": "fire/fire_0682.jpg",
+      "true_label": 1,
+      "uncalibrated_prob_fire": 1.0
+    },
+    {
+      "filename": "fire/fire_0312.jpg",
+      "true_label": 1,
+      "uncalibrated_prob_fire": 0.9999
+    },
+    {
+      "filename": "fire/fire_0328.jpg",
+      "true_label": 1,
+      "uncalibrated_prob_fire": 0.9992
+    },
+    {
+      "filename": "fire/fire_0601.jpg",
+      "true_label": 1,
+      "uncalibrated_prob_fire": 1.0
+    },
+    {
+      "filename": "no_fire/nofire_0655.jpg",
+      "true_label": 0,
+      "uncalibrated_prob_fire": 0.0889
+    },
+    {
+      "filename": "no_fire/nofire_0610.jpg",
+      "true_label": 0,
+      "uncalibrated_prob_fire": 0.0843
+    },
+    {
+      "filename": "no_fire/nofire_0166.jpg",
+      "true_label": 0,
+      "uncalibrated_prob_fire": 0.0627
+    },
+    {
+      "filename": "fire/fire_0015.jpg",
+      "true_label": 1,
+      "uncalibrated_prob_fire": 0.9987
+    },
+    {
+      "filename": "fire/fire_0434.jpg",
+      "true_label": 1,
+      "uncalibrated_prob_fire": 0.7984
+    },
+    {
+      "filename": "no_fire/abc193.jpg",
+      "true_label": 0,
+      "uncalibrated_prob_fire": 0.1672
+    },
+    {
+      "filename": "no_fire/nofire_0433.jpg",
+      "true_label": 0,
+      "uncalibrated_prob_fire": 0.0542
+    },
+    {
+      "filename": "fire/fire_0197.jpg",
+      "true_label": 1,
+      "uncalibrated_prob_fire": 0.9906
+    },
+    {
+      "filename": "fire/fire_0157.jpg",
+      "true_label": 1,
+      "uncalibrated_prob_fire": 0.9938
+    },
+    {
+      "filename": "no_fire/abc295.jpg",
+      "true_label": 0,
+      "uncalibrated_prob_fire": 0.2055
+    },
+    {
+      "filename": "no_fire/nofire_0512.jpg",
+      "true_label": 0,
+      "uncalibrated_prob_fire": 0.0163
+    },
+    {
+      "filename": "fire/fire_0417.jpg",
+      "true_label": 1,
+      "uncalibrated_prob_fire": 1.0
+    },
+    {
+      "filename": "fire/fire_0495.jpg",
+      "true_label": 1,
+      "uncalibrated_prob_fire": 1.0
+    },
+    {
+      "filename": "no_fire/nofire_0402.jpg",
+      "true_label": 0,
+      "uncalibrated_prob_fire": 0.1243
+    },
+    {
+      "filename": "no_fire/nofire_0144.jpg",
+      "true_label": 0,
+      "uncalibrated_prob_fire": 0.0332
+    },
+    {
+      "filename": "fire/fire_0104.jpg",
+      "true_label": 1,
+      "uncalibrated_prob_fire": 0.9995
+    },
+    {
+      "filename": "fire/abc129.jpg",
+      "true_label": 1,
+      "uncalibrated_prob_fire": 1.0
+    },
+    {
+      "filename": "fire/fire_0344.jpg",
+      "true_label": 1,
+      "uncalibrated_prob_fire": 0.995
+    },
+    {
+      "filename": "no_fire/nofire_0607.jpg",
+      "true_label": 0,
+      "uncalibrated_prob_fire": 0.1317
+    },
+    {
+      "filename": "no_fire/abc198.jpg",
+      "true_label": 0,
+      "uncalibrated_prob_fire": 0.0055
+    },
+    {
+      "filename": "no_fire/abc311.jpg",
+      "true_label": 0,
+      "uncalibrated_prob_fire": 0.0198
+    },
+    {
+      "filename": "no_fire/nofire_0101.jpg",
+      "true_label": 0,
+      "uncalibrated_prob_fire": 0.0156
+    },
+    {
+      "filename": "fire/fire_0116.jpg",
+      "true_label": 1,
+      "uncalibrated_prob_fire": 0.9976
+    },
+    {
+      "filename": "fire/fire_0525.jpg",
+      "true_label": 1,
+      "uncalibrated_prob_fire": 1.0
+    },
+    {
+      "filename": "fire/fire_0560.jpg",
+      "true_label": 1,
+      "uncalibrated_prob_fire": 0.8429
+    },
+    {
+      "filename": "no_fire/abc238.jpg",
+      "true_label": 0,
+      "uncalibrated_prob_fire": 0.1689
+    },
+    {
+      "filename": "fire/fire_0616.jpg",
+      "true_label": 1,
+      "uncalibrated_prob_fire": 0.9862
+    },
+    {
+      "filename": "no_fire/nofire_0297.jpg",
+      "true_label": 0,
+      "uncalibrated_prob_fire": 0.2211
+    },
+    {
+      "filename": "fire/fire_0686.jpg",
+      "true_label": 1,
+      "uncalibrated_prob_fire": 0.9975
+    },
+    {
+      "filename": "fire/fire_0659.jpg",
+      "true_label": 1,
+      "uncalibrated_prob_fire": 0.9995
+    },
+    {
+      "filename": "no_fire/nofire_0288.jpg",
+      "true_label": 0,
+      "uncalibrated_prob_fire": 0.8831
+    },
+    {
+      "filename": "no_fire/nofire_0173.jpg",
+      "true_label": 0,
+      "uncalibrated_prob_fire": 0.0293
+    },
+    {
+      "filename": "fire/abc068.jpg",
+      "true_label": 1,
+      "uncalibrated_prob_fire": 0.9703
+    },
+    {
+      "filename": "no_fire/nofire_0726.jpg",
+      "true_label": 0,
+      "uncalibrated_prob_fire": 0.1512
+    },
+    {
+      "filename": "fire/fire_0854.jpg",
+      "true_label": 1,
+      "uncalibrated_prob_fire": 0.9997
+    },
+    {
+      "filename": "fire/fire_0051.jpg",
+      "true_label": 1,
+      "uncalibrated_prob_fire": 0.9944
+    },
+    {
+      "filename": "no_fire/nofire_0080.jpg",
+      "true_label": 0,
+      "uncalibrated_prob_fire": 0.3086
+    },
+    {
+      "filename": "no_fire/nofire_0585.jpg",
+      "true_label": 0,
+      "uncalibrated_prob_fire": 0.0024
+    },
+    {
+      "filename": "fire/abc125.jpg",
+      "true_label": 1,
+      "uncalibrated_prob_fire": 0.9805
+    },
+    {
+      "filename": "fire/fire_0303.jpg",
+      "true_label": 1,
+      "uncalibrated_prob_fire": 0.9838
+    },
+    {
+      "filename": "no_fire/nofire_0731.jpg",
+      "true_label": 0,
+      "uncalibrated_prob_fire": 0.0456
+    },
+    {
+      "filename": "no_fire/nofire_0452.jpg",
+      "true_label": 0,
+      "uncalibrated_prob_fire": 0.0044
+    },
+    {
+      "filename": "no_fire/abc283.jpg",
+      "true_label": 0,
+      "uncalibrated_prob_fire": 0.0118
+    },
+    {
+      "filename": "fire/fire_0518.jpg",
+      "true_label": 1,
+      "uncalibrated_prob_fire": 0.9997
+    },
+    {
+      "filename": "no_fire/nofire_0307.jpg",
+      "true_label": 0,
+      "uncalibrated_prob_fire": 0.1335
+    },
+    {
+      "filename": "fire/fire_0757.jpg",
+      "true_label": 1,
+      "uncalibrated_prob_fire": 1.0
+    },
+    {
+      "filename": "fire/fire_0137.jpg",
+      "true_label": 1,
+      "uncalibrated_prob_fire": 0.9124
+    },
+    {
+      "filename": "no_fire/nofire_0143.jpg",
+      "true_label": 0,
+      "uncalibrated_prob_fire": 0.0199
+    },
+    {
+      "filename": "fire/fire_0571.jpg",
+      "true_label": 1,
+      "uncalibrated_prob_fire": 0.9376
+    },
+    {
+      "filename": "no_fire/nofire_0439.jpg",
+      "true_label": 0,
+      "uncalibrated_prob_fire": 0.4258
+    },
+    {
+      "filename": "no_fire/nofire_0500.jpg",
+      "true_label": 0,
+      "uncalibrated_prob_fire": 0.0679
+    },
+    {
+      "filename": "fire/abc073.jpg",
+      "true_label": 1,
+      "uncalibrated_prob_fire": 0.982
+    },
+    {
+      "filename": "fire/fire_0169.jpg",
+      "true_label": 1,
+      "uncalibrated_prob_fire": 0.9989
+    },
+    {
+      "filename": "fire/fire_0228.jpg",
+      "true_label": 1,
+      "uncalibrated_prob_fire": 0.9967
+    },
+    {
+      "filename": "fire/fire_0163.jpg",
+      "true_label": 1,
+      "uncalibrated_prob_fire": 0.9995
+    },
+    {
+      "filename": "no_fire/nofire_0061.jpg",
+      "true_label": 0,
+      "uncalibrated_prob_fire": 0.8423
+    },
+    {
+      "filename": "no_fire/nofire_0448.jpg",
+      "true_label": 0,
+      "uncalibrated_prob_fire": 0.3371
+    },
+    {
+      "filename": "no_fire/abc292.jpg",
+      "true_label": 0,
+      "uncalibrated_prob_fire": 0.9965
+    },
+    {
+      "filename": "no_fire/nofire_0088.jpg",
+      "true_label": 0,
+      "uncalibrated_prob_fire": 0.0794
+    },
+    {
+      "filename": "no_fire/nofire_0271.jpg",
+      "true_label": 0,
+      "uncalibrated_prob_fire": 0.0047
+    },
+    {
+      "filename": "fire/fire_0190.jpg",
+      "true_label": 1,
+      "uncalibrated_prob_fire": 0.9987
+    },
+    {
+      "filename": "fire/abc052.jpg",
+      "true_label": 1,
+      "uncalibrated_prob_fire": 0.9998
+    },
+    {
+      "filename": "fire/fire_0189.jpg",
+      "true_label": 1,
+      "uncalibrated_prob_fire": 0.9997
+    },
+    {
+      "filename": "no_fire/abc279.jpg",
+      "true_label": 0,
+      "uncalibrated_prob_fire": 0.0356
+    },
+    {
+      "filename": "fire/fire_0249.jpg",
+      "true_label": 1,
+      "uncalibrated_prob_fire": 0.9991
+    },
+    {
+      "filename": "fire/fire_0284.jpg",
+      "true_label": 1,
+      "uncalibrated_prob_fire": 0.9996
+    },
+    {
+      "filename": "no_fire/nofire_0679.jpg",
+      "true_label": 0,
+      "uncalibrated_prob_fire": 0.0062
+    },
+    {
+      "filename": "no_fire/nofire_0083.jpg",
+      "true_label": 0,
+      "uncalibrated_prob_fire": 0.0337
+    },
+    {
+      "filename": "fire/fire_0785.jpg",
+      "true_label": 1,
+      "uncalibrated_prob_fire": 0.9999
+    },
+    {
+      "filename": "no_fire/nofire_0340.jpg",
+      "true_label": 0,
+      "uncalibrated_prob_fire": 0.1055
+    },
+    {
+      "filename": "fire/fire_0400.jpg",
+      "true_label": 1,
+      "uncalibrated_prob_fire": 0.9999
+    },
+    {
+      "filename": "fire/fire_0441.jpg",
+      "true_label": 1,
+      "uncalibrated_prob_fire": 1.0
+    },
+    {
+      "filename": "no_fire/nofire_0231.jpg",
+      "true_label": 0,
+      "uncalibrated_prob_fire": 0.0182
+    },
+    {
+      "filename": "fire/fire_0565.jpg",
+      "true_label": 1,
+      "uncalibrated_prob_fire": 0.9922
+    },
+    {
+      "filename": "fire/fire_0422.jpg",
+      "true_label": 1,
+      "uncalibrated_prob_fire": 0.9977
+    },
+    {
+      "filename": "fire/fire_0048.jpg",
+      "true_label": 1,
+      "uncalibrated_prob_fire": 0.9998
+    },
+    {
+      "filename": "no_fire/abc206.jpg",
+      "true_label": 0,
+      "uncalibrated_prob_fire": 0.0154
+    },
+    {
+      "filename": "no_fire/nofire_0415.jpg",
+      "true_label": 0,
+      "uncalibrated_prob_fire": 0.0455
+    },
+    {
+      "filename": "fire/fire_0535.jpg",
+      "true_label": 1,
+      "uncalibrated_prob_fire": 0.9999
+    },
+    {
+      "filename": "fire/abc102.jpg",
+      "true_label": 1,
+      "uncalibrated_prob_fire": 0.9996
+    },
+    {
+      "filename": "no_fire/nofire_0214.jpg",
+      "true_label": 0,
+      "uncalibrated_prob_fire": 0.061
+    },
+    {
+      "filename": "fire/fire_0156.jpg",
+      "true_label": 1,
+      "uncalibrated_prob_fire": 0.9997
+    },
+    {
+      "filename": "no_fire/nofire_0664.jpg",
+      "true_label": 0,
+      "uncalibrated_prob_fire": 0.0007
+    },
+    {
+      "filename": "fire/fire_0425.jpg",
+      "true_label": 1,
+      "uncalibrated_prob_fire": 0.9959
+    },
+    {
+      "filename": "no_fire/nofire_0748.jpg",
+      "true_label": 0,
+      "uncalibrated_prob_fire": 0.0007
+    },
+    {
+      "filename": "fire/abc087.jpg",
+      "true_label": 1,
+      "uncalibrated_prob_fire": 0.9858
+    },
+    {
+      "filename": "no_fire/nofire_0313.jpg",
+      "true_label": 0,
+      "uncalibrated_prob_fire": 0.0235
+    },
+    {
+      "filename": "no_fire/nofire_0617.jpg",
+      "true_label": 0,
+      "uncalibrated_prob_fire": 0.018
+    },
+    {
+      "filename": "no_fire/nofire_0290.jpg",
+      "true_label": 0,
+      "uncalibrated_prob_fire": 0.9312
+    },
+    {
+      "filename": "fire/fire_0354.jpg",
+      "true_label": 1,
+      "uncalibrated_prob_fire": 0.9389
+    },
+    {
+      "filename": "fire/fire_0418.jpg",
+      "true_label": 1,
+      "uncalibrated_prob_fire": 0.9998
+    },
+    {
+      "filename": "fire/fire_0563.jpg",
+      "true_label": 1,
+      "uncalibrated_prob_fire": 0.9998
+    },
+    {
+      "filename": "fire/fire_0164.jpg",
+      "true_label": 1,
+      "uncalibrated_prob_fire": 0.9999
+    },
+    {
+      "filename": "fire/abc020.jpg",
+      "true_label": 1,
+      "uncalibrated_prob_fire": 0.9999
+    },
+    {
+      "filename": "fire/fire_0545.jpg",
+      "true_label": 1,
+      "uncalibrated_prob_fire": 1.0
+    },
+    {
+      "filename": "no_fire/abc257.jpg",
+      "true_label": 0,
+      "uncalibrated_prob_fire": 0.0366
+    },
+    {
+      "filename": "no_fire/nofire_0253.jpg",
+      "true_label": 0,
+      "uncalibrated_prob_fire": 0.0944
+    },
+    {
+      "filename": "fire/fire_0185.jpg",
+      "true_label": 1,
+      "uncalibrated_prob_fire": 0.9999
+    },
+    {
+      "filename": "no_fire/nofire_0021.jpg",
+      "true_label": 0,
+      "uncalibrated_prob_fire": 0.0018
+    },
+    {
+      "filename": "no_fire/abc217.jpg",
+      "true_label": 0,
+      "uncalibrated_prob_fire": 0.403
+    },
+    {
+      "filename": "no_fire/nofire_0110.jpg",
+      "true_label": 0,
+      "uncalibrated_prob_fire": 0.0242
+    },
+    {
+      "filename": "fire/fire_0640.jpg",
+      "true_label": 1,
+      "uncalibrated_prob_fire": 0.9992
+    },
+    {
+      "filename": "fire/fire_0024.jpg",
+      "true_label": 1,
+      "uncalibrated_prob_fire": 0.9867
+    },
+    {
+      "filename": "fire/fire_0541.jpg",
+      "true_label": 1,
+      "uncalibrated_prob_fire": 0.9982
+    },
+    {
+      "filename": "no_fire/nofire_0093.jpg",
+      "true_label": 0,
+      "uncalibrated_prob_fire": 0.2278
+    },
+    {
+      "filename": "fire/fire_0723.jpg",
+      "true_label": 1,
+      "uncalibrated_prob_fire": 0.9991
+    },
+    {
+      "filename": "no_fire/nofire_0598.jpg",
+      "true_label": 0,
+      "uncalibrated_prob_fire": 0.0489
+    },
+    {
+      "filename": "fire/fire_0165.jpg",
+      "true_label": 1,
+      "uncalibrated_prob_fire": 0.9999
+    },
+    {
+      "filename": "fire/abc060.jpg",
+      "true_label": 1,
+      "uncalibrated_prob_fire": 1.0
+    },
+    {
+      "filename": "no_fire/nofire_0336.jpg",
+      "true_label": 0,
+      "uncalibrated_prob_fire": 0.1173
+    },
+    {
+      "filename": "fire/fire_0450.jpg",
+      "true_label": 1,
+      "uncalibrated_prob_fire": 0.9819
+    },
+    {
+      "filename": "no_fire/nofire_0375.jpg",
+      "true_label": 0,
+      "uncalibrated_prob_fire": 0.0155
+    },
+    {
+      "filename": "no_fire/nofire_0552.jpg",
+      "true_label": 0,
+      "uncalibrated_prob_fire": 0.1445
+    },
+    {
+      "filename": "no_fire/nofire_0573.jpg",
+      "true_label": 0,
+      "uncalibrated_prob_fire": 0.0523
+    },
+    {
+      "filename": "fire/abc016.jpg",
+      "true_label": 1,
+      "uncalibrated_prob_fire": 0.9986
+    },
+    {
+      "filename": "fire/fire_0530.jpg",
+      "true_label": 1,
+      "uncalibrated_prob_fire": 0.9993
+    },
+    {
+      "filename": "fire/fire_0650.jpg",
+      "true_label": 1,
+      "uncalibrated_prob_fire": 0.9999
+    },
+    {
+      "filename": "no_fire/abc250.jpg",
+      "true_label": 0,
+      "uncalibrated_prob_fire": 0.0041
+    },
+    {
+      "filename": "no_fire/nofire_0494.jpg",
+      "true_label": 0,
+      "uncalibrated_prob_fire": 0.2641
+    },
+    {
+      "filename": "no_fire/nofire_0207.jpg",
+      "true_label": 0,
+      "uncalibrated_prob_fire": 0.0322
+    },
+    {
+      "filename": "fire/fire_0130.jpg",
+      "true_label": 1,
+      "uncalibrated_prob_fire": 0.9998
+    },
+    {
+      "filename": "no_fire/abc254.jpg",
+      "true_label": 0,
+      "uncalibrated_prob_fire": 0.2063
+    },
+    {
+      "filename": "fire/fire_0214.jpg",
+      "true_label": 1,
+      "uncalibrated_prob_fire": 0.9999
+    },
+    {
+      "filename": "fire/fire_0241.jpg",
+      "true_label": 1,
+      "uncalibrated_prob_fire": 0.9996
+    },
+    {
+      "filename": "fire/abc152.jpg",
+      "true_label": 1,
+      "uncalibrated_prob_fire": 0.9992
+    },
+    {
+      "filename": "no_fire/nofire_0536.jpg",
+      "true_label": 0,
+      "uncalibrated_prob_fire": 0.2927
+    },
+    {
+      "filename": "fire/abc022.jpg",
+      "true_label": 1,
+      "uncalibrated_prob_fire": 0.9969
+    },
+    {
+      "filename": "no_fire/nofire_0115.jpg",
+      "true_label": 0,
+      "uncalibrated_prob_fire": 0.0226
+    },
+    {
+      "filename": "fire/fire_0507.jpg",
+      "true_label": 1,
+      "uncalibrated_prob_fire": 0.9993
+    },
+    {
+      "filename": "no_fire/nofire_0141.jpg",
+      "true_label": 0,
+      "uncalibrated_prob_fire": 0.0417
+    },
+    {
+      "filename": "fire/abc117.jpg",
+      "true_label": 1,
+      "uncalibrated_prob_fire": 0.9986
+    },
+    {
+      "filename": "no_fire/nofire_0378.jpg",
+      "true_label": 0,
+      "uncalibrated_prob_fire": 0.2177
+    },
+    {
+      "filename": "no_fire/nofire_0116.jpg",
+      "true_label": 0,
+      "uncalibrated_prob_fire": 0.0136
+    },
+    {
+      "filename": "no_fire/nofire_0669.jpg",
+      "true_label": 0,
+      "uncalibrated_prob_fire": 0.0015
+    },
+    {
+      "filename": "no_fire/nofire_0022.jpg",
+      "true_label": 0,
+      "uncalibrated_prob_fire": 0.0803
+    },
+    {
+      "filename": "no_fire/nofire_0216.jpg",
+      "true_label": 0,
+      "uncalibrated_prob_fire": 0.0096
+    },
+    {
+      "filename": "no_fire/nofire_0608.jpg",
+      "true_label": 0,
+      "uncalibrated_prob_fire": 0.0055
+    },
+    {
+      "filename": "no_fire/nofire_0138.jpg",
+      "true_label": 0,
+      "uncalibrated_prob_fire": 0.1467
+    },
+    {
+      "filename": "no_fire/abc324.jpg",
+      "true_label": 0,
+      "uncalibrated_prob_fire": 0.9016
+    },
+    {
+      "filename": "no_fire/nofire_0646.jpg",
+      "true_label": 0,
+      "uncalibrated_prob_fire": 0.0513
+    },
+    {
+      "filename": "no_fire/nofire_0035.jpg",
+      "true_label": 0,
+      "uncalibrated_prob_fire": 0.1689
+    },
+    {
+      "filename": "fire/fire_0492.jpg",
+      "true_label": 1,
+      "uncalibrated_prob_fire": 0.9999
+    },
+    {
+      "filename": "fire/fire_0536.jpg",
+      "true_label": 1,
+      "uncalibrated_prob_fire": 0.999
+    },
+    {
+      "filename": "fire/fire_0534.jpg",
+      "true_label": 1,
+      "uncalibrated_prob_fire": 0.9995
+    },
+    {
+      "filename": "no_fire/nofire_0203.jpg",
+      "true_label": 0,
+      "uncalibrated_prob_fire": 0.0098
+    },
+    {
+      "filename": "fire/fire_0045.jpg",
+      "true_label": 1,
+      "uncalibrated_prob_fire": 0.9871
+    },
+    {
+      "filename": "fire/fire_0279.jpg",
+      "true_label": 1,
+      "uncalibrated_prob_fire": 0.9145
+    },
+    {
+      "filename": "no_fire/nofire_0567.jpg",
+      "true_label": 0,
+      "uncalibrated_prob_fire": 0.0063
+    },
+    {
+      "filename": "fire/abc151.jpg",
+      "true_label": 1,
+      "uncalibrated_prob_fire": 1.0
+    },
+    {
+      "filename": "fire/fire_0902.jpg",
+      "true_label": 1,
+      "uncalibrated_prob_fire": 0.9974
+    },
+    {
+      "filename": "no_fire/nofire_0171.jpg",
+      "true_label": 0,
+      "uncalibrated_prob_fire": 0.7259
+    },
+    {
+      "filename": "fire/fire_0500.jpg",
+      "true_label": 1,
+      "uncalibrated_prob_fire": 0.9978
+    },
+    {
+      "filename": "no_fire/nofire_0205.jpg",
+      "true_label": 0,
+      "uncalibrated_prob_fire": 0.0113
+    },
+    {
+      "filename": "no_fire/nofire_0490.jpg",
+      "true_label": 0,
+      "uncalibrated_prob_fire": 0.4224
+    },
+    {
+      "filename": "no_fire/nofire_0474.jpg",
+      "true_label": 0,
+      "uncalibrated_prob_fire": 0.145
+    },
+    {
+      "filename": "fire/fire_0539.jpg",
+      "true_label": 1,
+      "uncalibrated_prob_fire": 0.9979
+    },
+    {
+      "filename": "fire/fire_0746.jpg",
+      "true_label": 1,
+      "uncalibrated_prob_fire": 0.7769
+    },
+    {
+      "filename": "no_fire/nofire_0593.jpg",
+      "true_label": 0,
+      "uncalibrated_prob_fire": 0.3406
+    },
+    {
+      "filename": "fire/fire_0511.jpg",
+      "true_label": 1,
+      "uncalibrated_prob_fire": 0.9887
+    },
+    {
+      "filename": "fire/fire_0222.jpg",
+      "true_label": 1,
+      "uncalibrated_prob_fire": 1.0
+    },
+    {
+      "filename": "no_fire/nofire_0506.jpg",
+      "true_label": 0,
+      "uncalibrated_prob_fire": 0.7661
+    },
+    {
+      "filename": "no_fire/abc246.jpg",
+      "true_label": 0,
+      "uncalibrated_prob_fire": 0.0265
+    },
+    {
+      "filename": "no_fire/nofire_0414.jpg",
+      "true_label": 0,
+      "uncalibrated_prob_fire": 0.0245
+    },
+    {
+      "filename": "fire/fire_0442.jpg",
+      "true_label": 1,
+      "uncalibrated_prob_fire": 0.9321
+    },
+    {
+      "filename": "no_fire/nofire_0529.jpg",
+      "true_label": 0,
+      "uncalibrated_prob_fire": 0.3034
+    },
+    {
+      "filename": "no_fire/nofire_0693.jpg",
+      "true_label": 0,
+      "uncalibrated_prob_fire": 0.0481
+    },
+    {
+      "filename": "fire/fire_0624.jpg",
+      "true_label": 1,
+      "uncalibrated_prob_fire": 0.9931
+    },
+    {
+      "filename": "fire/fire_0239.jpg",
+      "true_label": 1,
+      "uncalibrated_prob_fire": 1.0
+    },
+    {
+      "filename": "fire/fire_0901.jpg",
+      "true_label": 1,
+      "uncalibrated_prob_fire": 0.9981
+    },
+    {
+      "filename": "fire/fire_0394.jpg",
+      "true_label": 1,
+      "uncalibrated_prob_fire": 0.9996
+    },
+    {
+      "filename": "no_fire/nofire_0025.jpg",
+      "true_label": 0,
+      "uncalibrated_prob_fire": 0.0086
+    },
+    {
+      "filename": "fire/abc155.jpg",
+      "true_label": 1,
+      "uncalibrated_prob_fire": 0.9769
+    },
+    {
+      "filename": "fire/fire_0347.jpg",
+      "true_label": 1,
+      "uncalibrated_prob_fire": 0.9997
+    },
+    {
+      "filename": "no_fire/nofire_0650.jpg",
+      "true_label": 0,
+      "uncalibrated_prob_fire": 0.026
+    },
+    {
+      "filename": "no_fire/nofire_0440.jpg",
+      "true_label": 0,
+      "uncalibrated_prob_fire": 0.0292
+    },
+    {
+      "filename": "no_fire/nofire_0150.jpg",
+      "true_label": 0,
+      "uncalibrated_prob_fire": 0.2342
+    },
+    {
+      "filename": "fire/abc100.jpg",
+      "true_label": 1,
+      "uncalibrated_prob_fire": 0.9683
+    },
+    {
+      "filename": "fire/fire_0126.jpg",
+      "true_label": 1,
+      "uncalibrated_prob_fire": 1.0
+    },
+    {
+      "filename": "no_fire/nofire_0690.jpg",
+      "true_label": 0,
+      "uncalibrated_prob_fire": 0.003
+    },
+    {
+      "filename": "no_fire/nofire_0118.jpg",
+      "true_label": 0,
+      "uncalibrated_prob_fire": 0.03
+    },
+    {
+      "filename": "no_fire/nofire_0234.jpg",
+      "true_label": 0,
+      "uncalibrated_prob_fire": 0.2838
+    },
+    {
+      "filename": "fire/fire_0124.jpg",
+      "true_label": 1,
+      "uncalibrated_prob_fire": 1.0
+    },
+    {
+      "filename": "no_fire/nofire_0082.jpg",
+      "true_label": 0,
+      "uncalibrated_prob_fire": 0.0144
+    },
+    {
+      "filename": "no_fire/nofire_0724.jpg",
+      "true_label": 0,
+      "uncalibrated_prob_fire": 0.009
+    },
+    {
+      "filename": "fire/fire_0145.jpg",
+      "true_label": 1,
+      "uncalibrated_prob_fire": 0.9999
+    },
+    {
+      "filename": "no_fire/nofire_0329.jpg",
+      "true_label": 0,
+      "uncalibrated_prob_fire": 0.0394
+    },
+    {
+      "filename": "fire/fire_0683.jpg",
+      "true_label": 1,
+      "uncalibrated_prob_fire": 0.9996
+    },
+    {
+      "filename": "fire/fire_0460.jpg",
+      "true_label": 1,
+      "uncalibrated_prob_fire": 0.996
+    }
+  ],
+  "uncalibrated": {
+    "validation": {
+      "n": 275,
+      "brier": 0.0361,
+      "log_loss": 0.1404,
+      "ece": 0.0632,
+      "mean_predicted": 0.5658,
+      "observed_rate": 0.5055,
+      "accuracy": 0.9636,
+      "precision": 0.9329,
+      "recall": 1.0,
+      "f1": 0.9653,
+      "tp": 139,
+      "tn": 126,
+      "fp": 10,
+      "fn": 0,
+      "ci_bootstrap": {
+        "brier_95ci": [
+          0.0209,
+          0.0542
+        ],
+        "ece_95ci": [
+          0.0455,
+          0.0863
+        ],
+        "log_loss_95ci": [
+          0.0875,
+          0.2014
+        ],
+        "reps": 1000,
+        "seed": 42
+      }
+    },
+    "test": {
+      "n": 275,
+      "brier": 0.0236,
+      "log_loss": 0.0946,
+      "ece": 0.0519,
+      "mean_predicted": 0.5574,
+      "observed_rate": 0.5055,
+      "accuracy": 0.9782,
+      "precision": 0.9586,
+      "recall": 1.0,
+      "f1": 0.9789,
+      "tp": 139,
+      "tn": 130,
+      "fp": 6,
+      "fn": 0,
+      "ci_bootstrap": {
+        "brier_95ci": [
+          0.0133,
+          0.0359
+        ],
+        "ece_95ci": [
+          0.0421,
+          0.0724
+        ],
+        "log_loss_95ci": [
+          0.0651,
+          0.1305
+        ],
+        "reps": 1000,
+        "seed": 42
+      }
+    }
+  },
+  "platt": {
+    "validation": {
+      "in_sample": {
+        "n": 275,
+        "brier": 0.0258,
+        "log_loss": 0.0896,
+        "ece": 0.0262,
+        "mean_predicted": 0.5054,
+        "observed_rate": 0.5055,
+        "accuracy": 0.96,
+        "precision": 0.9507,
+        "recall": 0.9712,
+        "f1": 0.9609,
+        "tp": 135,
+        "tn": 129,
+        "fp": 7,
+        "fn": 4
+      },
+      "cv_oof": {
+        "n": 275,
+        "brier": 0.0264,
+        "log_loss": 0.0976,
+        "ece": 0.0278,
+        "mean_predicted": 0.5052,
+        "observed_rate": 0.5055,
+        "accuracy": 0.96,
+        "precision": 0.9507,
+        "recall": 0.9712,
+        "f1": 0.9609,
+        "tp": 135,
+        "tn": 129,
+        "fp": 7,
+        "fn": 4
+      }
+    },
+    "test": {
+      "n": 275,
+      "brier": 0.015,
+      "log_loss": 0.0523,
+      "ece": 0.0256,
+      "mean_predicted": 0.4987,
+      "observed_rate": 0.5055,
+      "accuracy": 0.9782,
+      "precision": 0.9854,
+      "recall": 0.9712,
+      "f1": 0.9783,
+      "tp": 135,
+      "tn": 134,
+      "fp": 2,
+      "fn": 4,
+      "ci_bootstrap": {
+        "brier_95ci": [
+          0.0068,
+          0.025
+        ],
+        "ece_95ci": [
+          0.018,
+          0.0416
+        ],
+        "log_loss_95ci": [
+          0.0305,
+          0.0779
+        ],
+        "reps": 1000,
+        "seed": 42
+      }
+    },
+    "parameters": {
+      "representation": "LogisticRegression on logit(clip(p)) scalar; p_cal = sigmoid(a*logit(p)+b)",
+      "coef_": [
+        1.217361
+      ],
+      "intercept_": [
+        -1.981203
+      ],
+      "C": 1.0,
+      "solver": "lbfgs",
+      "fit_split": "validation only (n=275)",
+      "test_used_for_fitting": false
+    }
+  },
+  "temperature": {
+    "available": true,
+    "method": "minimize val NLL over T in [0.05, 10] (scipy minimize_scalar, bounded)",
+    "temperature": 0.9556,
+    "logit_source": "submodel to layers[-2].output (Dense 128) plus frozen final Dense kernel/bias (Wx+b); no weight changes",
+    "test_logit_source": "logit(clip(stored test prob_fire)); no test inference recompute",
+    "sanity_max_abs_err_sigmoid_z_vs_p": 0.0,
+    "representation": "p_cal = sigmoid(z / T)",
+    "validation": {
+      "in_sample": {
+        "n": 275,
+        "brier": 0.0358,
+        "log_loss": 0.1402,
+        "ece": 0.0618,
+        "mean_predicted": 0.5644,
+        "observed_rate": 0.5055,
+        "accuracy": 0.9636,
+        "precision": 0.9329,
+        "recall": 1.0,
+        "f1": 0.9653,
+        "tp": 139,
+        "tn": 126,
+        "fp": 10,
+        "fn": 0
+      },
+      "cv_oof": {
+        "n": 275,
+        "brier": 0.0358,
+        "log_loss": 0.1447,
+        "ece": 0.0616,
+        "mean_predicted": 0.5643,
+        "observed_rate": 0.5055,
+        "accuracy": 0.9636,
+        "precision": 0.9329,
+        "recall": 1.0,
+        "f1": 0.9653,
+        "tp": 139,
+        "tn": 126,
+        "fp": 10,
+        "fn": 0
+      }
+    },
+    "test": {
+      "n": 275,
+      "brier": 0.0231,
+      "log_loss": 0.0919,
+      "ece": 0.0514,
+      "mean_predicted": 0.5554,
+      "observed_rate": 0.5055,
+      "accuracy": 0.9782,
+      "precision": 0.9586,
+      "recall": 1.0,
+      "f1": 0.9789,
+      "tp": 139,
+      "tn": 130,
+      "fp": 6,
+      "fn": 0,
+      "ci_bootstrap": {
+        "brier_95ci": [
+          0.0127,
+          0.0357
+        ],
+        "ece_95ci": [
+          0.0408,
+          0.0717
+        ],
+        "log_loss_95ci": [
+          0.0614,
+          0.1299
+        ],
+        "reps": 1000,
+        "seed": 42
+      }
+    }
+  },
+  "isotonic": {
+    "available": true,
+    "validation": {
+      "in_sample": {
+        "n": 275,
+        "brier": 0.0206,
+        "log_loss": 0.0662,
+        "ece": 0.0,
+        "mean_predicted": 0.5055,
+        "observed_rate": 0.5055,
+        "accuracy": 0.9709,
+        "precision": 0.9517,
+        "recall": 0.9928,
+        "f1": 0.9718,
+        "tp": 138,
+        "tn": 129,
+        "fp": 7,
+        "fn": 1
+      },
+      "cv_oof": {
+        "n": 275,
+        "brier": 0.0272,
+        "log_loss": 0.2263,
+        "ece": 0.0157,
+        "mean_predicted": 0.5053,
+        "observed_rate": 0.5055,
+        "accuracy": 0.96,
+        "precision": 0.9444,
+        "recall": 0.9784,
+        "f1": 0.9611,
+        "tp": 136,
+        "tn": 128,
+        "fp": 8,
+        "fn": 3
+      }
+    },
+    "test": {
+      "n": 275,
+      "brier": 0.0135,
+      "log_loss": 0.0436,
+      "ece": 0.0172,
+      "mean_predicted": 0.4938,
+      "observed_rate": 0.5055,
+      "accuracy": 0.9818,
+      "precision": 0.9855,
+      "recall": 0.9784,
+      "f1": 0.9819,
+      "tp": 136,
+      "tn": 134,
+      "fp": 2,
+      "fn": 3,
+      "ci_bootstrap": {
+        "brier_95ci": [
+          0.0058,
+          0.0231
+        ],
+        "ece_95ci": [
+          0.0107,
+          0.0331
+        ],
+        "log_loss_95ci": [
+          0.0232,
+          0.0685
+        ],
+        "reps": 1000,
+        "seed": 42
+      }
+    },
+    "note": "exploratory",
+    "warning": "n=275 is small for isotonic; in-sample val gains are optimistic \u2014 use cv_oof; do not select on test.",
+    "fit_split": "validation only (n=275)",
+    "test_used_for_fitting": false
+  },
+  "decision_changes_at_0.5": {
+    "platt_test_changed": 8,
+    "isotonic_test_changed": 7,
+    "temperature_test_changed": 0
+  },
+  "reliability": {
+    "uncalibrated": [
+      {
+        "bin": 0,
+        "lo": 0.0,
+        "hi": 0.1,
+        "count": 88,
+        "mean_predicted": 0.0349,
+        "observed_rate": 0.0,
+        "gap": 0.0349
+      },
+      {
+        "bin": 1,
+        "lo": 0.1,
+        "hi": 0.2,
+        "count": 24,
+        "mean_predicted": 0.1445,
+        "observed_rate": 0.0,
+        "gap": 0.1445
+      },
+      {
+        "bin": 2,
+        "lo": 0.2,
+        "hi": 0.30000000000000004,
+        "count": 11,
+        "mean_predicted": 0.2459,
+        "observed_rate": 0.0,
+        "gap": 0.2459
+      },
+      {
+        "bin": 3,
+        "lo": 0.30000000000000004,
+        "hi": 0.4,
+        "count": 4,
+        "mean_predicted": 0.3515,
+        "observed_rate": 0.0,
+        "gap": 0.3515
+      },
+      {
+        "bin": 4,
+        "lo": 0.4,
+        "hi": 0.5,
+        "count": 3,
+        "mean_predicted": 0.4521,
+        "observed_rate": 0.0,
+        "gap": 0.4521
+      },
+      {
+        "bin": 5,
+        "lo": 0.5,
+        "hi": 0.6000000000000001,
+        "count": 2,
+        "mean_predicted": 0.5302,
+        "observed_rate": 0.5,
+        "gap": 0.0302
+      },
+      {
+        "bin": 6,
+        "lo": 0.6000000000000001,
+        "hi": 0.7000000000000001,
+        "count": 2,
+        "mean_predicted": 0.6803,
+        "observed_rate": 0.5,
+        "gap": 0.1803
+      },
+      {
+        "bin": 7,
+        "lo": 0.7000000000000001,
+        "hi": 0.8,
+        "count": 4,
+        "mean_predicted": 0.7509,
+        "observed_rate": 0.5,
+        "gap": 0.2509
+      },
+      {
+        "bin": 8,
+        "lo": 0.8,
+        "hi": 0.9,
+        "count": 0,
+        "mean_predicted": null,
+        "observed_rate": null,
+        "gap": null
+      },
+      {
+        "bin": 9,
+        "lo": 0.9,
+        "hi": 1.0,
+        "count": 137,
+        "mean_predicted": 0.9916,
+        "observed_rate": 0.9854,
+        "gap": 0.0062
+      }
+    ],
+    "platt": [
+      {
+        "bin": 0,
+        "lo": 0.0,
+        "hi": 0.1,
+        "count": 128,
+        "mean_predicted": 0.0103,
+        "observed_rate": 0.0,
+        "gap": 0.0103
+      },
+      {
+        "bin": 1,
+        "lo": 0.1,
+        "hi": 0.2,
+        "count": 4,
+        "mean_predicted": 0.1229,
+        "observed_rate": 0.25,
+        "gap": 0.1271
+      },
+      {
+        "bin": 2,
+        "lo": 0.2,
+        "hi": 0.30000000000000004,
+        "count": 3,
+        "mean_predicted": 0.2705,
+        "observed_rate": 0.6667,
+        "gap": 0.3962
+      },
+      {
+        "bin": 3,
+        "lo": 0.30000000000000004,
+        "hi": 0.4,
+        "count": 2,
+        "mean_predicted": 0.3366,
+        "observed_rate": 0.0,
+        "gap": 0.3366
+      },
+      {
+        "bin": 4,
+        "lo": 0.4,
+        "hi": 0.5,
+        "count": 1,
+        "mean_predicted": 0.4253,
+        "observed_rate": 1.0,
+        "gap": 0.5747
+      },
+      {
+        "bin": 5,
+        "lo": 0.5,
+        "hi": 0.6000000000000001,
+        "count": 0,
+        "mean_predicted": null,
+        "observed_rate": null,
+        "gap": null
+      },
+      {
+        "bin": 6,
+        "lo": 0.6000000000000001,
+        "hi": 0.7000000000000001,
+        "count": 1,
+        "mean_predicted": 0.6677,
+        "observed_rate": 1.0,
+        "gap": 0.3323
+      },
+      {
+        "bin": 7,
+        "lo": 0.7000000000000001,
+        "hi": 0.8,
+        "count": 6,
+        "mean_predicted": 0.7663,
+        "observed_rate": 0.6667,
+        "gap": 0.0996
+      },
+      {
+        "bin": 8,
+        "lo": 0.8,
+        "hi": 0.9,
+        "count": 6,
+        "mean_predicted": 0.8467,
+        "observed_rate": 1.0,
+        "gap": 0.1533
+      },
+      {
+        "bin": 9,
+        "lo": 0.9,
+        "hi": 1.0,
+        "count": 124,
+        "mean_predicted": 0.9925,
+        "observed_rate": 1.0,
+        "gap": 0.0075
+      }
+    ],
+    "isotonic": [
+      {
+        "bin": 0,
+        "lo": 0.0,
+        "hi": 0.1,
+        "count": 131,
+        "mean_predicted": 0.0,
+        "observed_rate": 0.0,
+        "gap": 0.0
+      },
+      {
+        "bin": 1,
+        "lo": 0.1,
+        "hi": 0.2,
+        "count": 1,
+        "mean_predicted": 0.1524,
+        "observed_rate": 1.0,
+        "gap": 0.8476
+      },
+      {
+        "bin": 2,
+        "lo": 0.2,
+        "hi": 0.30000000000000004,
+        "count": 0,
+        "mean_predicted": null,
+        "observed_rate": null,
+        "gap": null
+      },
+      {
+        "bin": 3,
+        "lo": 0.30000000000000004,
+        "hi": 0.4,
+        "count": 5,
+        "mean_predicted": 0.3333,
+        "observed_rate": 0.4,
+        "gap": 0.0667
+      },
+      {
+        "bin": 4,
+        "lo": 0.4,
+        "hi": 0.5,
+        "count": 0,
+        "mean_predicted": null,
+        "observed_rate": null,
+        "gap": null
+      },
+      {
+        "bin": 5,
+        "lo": 0.5,
+        "hi": 0.6000000000000001,
+        "count": 2,
+        "mean_predicted": 0.6,
+        "observed_rate": 1.0,
+        "gap": 0.4
+      },
+      {
+        "bin": 6,
+        "lo": 0.6000000000000001,
+        "hi": 0.7000000000000001,
+        "count": 0,
+        "mean_predicted": null,
+        "observed_rate": null,
+        "gap": null
+      },
+      {
+        "bin": 7,
+        "lo": 0.7000000000000001,
+        "hi": 0.8,
+        "count": 5,
+        "mean_predicted": 0.7526,
+        "observed_rate": 0.6,
+        "gap": 0.1526
+      },
+      {
+        "bin": 8,
+        "lo": 0.8,
+        "hi": 0.9,
+        "count": 7,
+        "mean_predicted": 0.875,
+        "observed_rate": 1.0,
+        "gap": 0.125
+      },
+      {
+        "bin": 9,
+        "lo": 0.9,
+        "hi": 1.0,
+        "count": 124,
+        "mean_predicted": 0.9911,
+        "observed_rate": 1.0,
+        "gap": 0.0089
+      }
+    ],
+    "temperature": [
+      {
+        "bin": 0,
+        "lo": 0.0,
+        "hi": 0.1,
+        "count": 89,
+        "mean_predicted": 0.0313,
+        "observed_rate": 0.0,
+        "gap": 0.0313
+      },
+      {
+        "bin": 1,
+        "lo": 0.1,
+        "hi": 0.2,
+        "count": 25,
+        "mean_predicted": 0.1412,
+        "observed_rate": 0.0,
+        "gap": 0.1412
+      },
+      {
+        "bin": 2,
+        "lo": 0.2,
+        "hi": 0.30000000000000004,
+        "count": 9,
+        "mean_predicted": 0.2458,
+        "observed_rate": 0.0,
+        "gap": 0.2458
+      },
+      {
+        "bin": 3,
+        "lo": 0.30000000000000004,
+        "hi": 0.4,
+        "count": 4,
+        "mean_predicted": 0.3451,
+        "observed_rate": 0.0,
+        "gap": 0.3451
+      },
+      {
+        "bin": 4,
+        "lo": 0.4,
+        "hi": 0.5,
+        "count": 3,
+        "mean_predicted": 0.4499,
+        "observed_rate": 0.0,
+        "gap": 0.4499
+      },
+      {
+        "bin": 5,
+        "lo": 0.5,
+        "hi": 0.6000000000000001,
+        "count": 2,
+        "mean_predicted": 0.5316,
+        "observed_rate": 0.5,
+        "gap": 0.0316
+      },
+      {
+        "bin": 6,
+        "lo": 0.6000000000000001,
+        "hi": 0.7000000000000001,
+        "count": 2,
+        "mean_predicted": 0.6879,
+        "observed_rate": 0.5,
+        "gap": 0.1879
+      },
+      {
+        "bin": 7,
+        "lo": 0.7000000000000001,
+        "hi": 0.8,
+        "count": 3,
+        "mean_predicted": 0.7439,
+        "observed_rate": 0.3333,
+        "gap": 0.4106
+      },
+      {
+        "bin": 8,
+        "lo": 0.8,
+        "hi": 0.9,
+        "count": 1,
+        "mean_predicted": 0.8091,
+        "observed_rate": 1.0,
+        "gap": 0.1909
+      },
+      {
+        "bin": 9,
+        "lo": 0.9,
+        "hi": 1.0,
+        "count": 137,
+        "mean_predicted": 0.9927,
+        "observed_rate": 0.9854,
+        "gap": 0.0073
+      }
+    ],
+    "validation_uncalibrated": [
+      {
+        "bin": 0,
+        "lo": 0.0,
+        "hi": 0.1,
+        "count": 89,
+        "mean_predicted": 0.028,
+        "observed_rate": 0.0,
+        "gap": 0.028
+      },
+      {
+        "bin": 1,
+        "lo": 0.1,
+        "hi": 0.2,
+        "count": 18,
+        "mean_predicted": 0.1457,
+        "observed_rate": 0.0,
+        "gap": 0.1457
+      },
+      {
+        "bin": 2,
+        "lo": 0.2,
+        "hi": 0.30000000000000004,
+        "count": 10,
+        "mean_predicted": 0.2423,
+        "observed_rate": 0.0,
+        "gap": 0.2423
+      },
+      {
+        "bin": 3,
+        "lo": 0.30000000000000004,
+        "hi": 0.4,
+        "count": 6,
+        "mean_predicted": 0.3169,
+        "observed_rate": 0.0,
+        "gap": 0.3169
+      },
+      {
+        "bin": 4,
+        "lo": 0.4,
+        "hi": 0.5,
+        "count": 3,
+        "mean_predicted": 0.4171,
+        "observed_rate": 0.0,
+        "gap": 0.4171
+      },
+      {
+        "bin": 5,
+        "lo": 0.5,
+        "hi": 0.6000000000000001,
+        "count": 1,
+        "mean_predicted": 0.5244,
+        "observed_rate": 0.0,
+        "gap": 0.5244
+      },
+      {
+        "bin": 6,
+        "lo": 0.6000000000000001,
+        "hi": 0.7000000000000001,
+        "count": 1,
+        "mean_predicted": 0.6001,
+        "observed_rate": 1.0,
+        "gap": 0.3999
+      },
+      {
+        "bin": 7,
+        "lo": 0.7000000000000001,
+        "hi": 0.8,
+        "count": 4,
+        "mean_predicted": 0.7668,
+        "observed_rate": 0.5,
+        "gap": 0.2668
+      },
+      {
+        "bin": 8,
+        "lo": 0.8,
+        "hi": 0.9,
+        "count": 7,
+        "mean_predicted": 0.855,
+        "observed_rate": 0.5714,
+        "gap": 0.2836
+      },
+      {
+        "bin": 9,
+        "lo": 0.9,
+        "hi": 1.0,
+        "count": 136,
+        "mean_predicted": 0.9906,
+        "observed_rate": 0.9706,
+        "gap": 0.02
+      }
+    ],
+    "validation_platt_oof": [
+      {
+        "bin": 0,
+        "lo": 0.0,
+        "hi": 0.1,
+        "count": 127,
+        "mean_predicted": 0.0119,
+        "observed_rate": 0.0,
+        "gap": 0.0119
+      },
+      {
+        "bin": 1,
+        "lo": 0.1,
+        "hi": 0.2,
+        "count": 1,
+        "mean_predicted": 0.1436,
+        "observed_rate": 1.0,
+        "gap": 0.8564
+      },
+      {
+        "bin": 2,
+        "lo": 0.2,
+        "hi": 0.30000000000000004,
+        "count": 0,
+        "mean_predicted": null,
+        "observed_rate": null,
+        "gap": null
+      },
+      {
+        "bin": 3,
+        "lo": 0.30000000000000004,
+        "hi": 0.4,
+        "count": 3,
+        "mean_predicted": 0.3558,
+        "observed_rate": 0.3333,
+        "gap": 0.0224
+      },
+      {
+        "bin": 4,
+        "lo": 0.4,
+        "hi": 0.5,
+        "count": 2,
+        "mean_predicted": 0.4249,
+        "observed_rate": 1.0,
+        "gap": 0.5751
+      },
+      {
+        "bin": 5,
+        "lo": 0.5,
+        "hi": 0.6000000000000001,
+        "count": 4,
+        "mean_predicted": 0.5347,
+        "observed_rate": 0.75,
+        "gap": 0.2153
+      },
+      {
+        "bin": 6,
+        "lo": 0.6000000000000001,
+        "hi": 0.7000000000000001,
+        "count": 5,
+        "mean_predicted": 0.6569,
+        "observed_rate": 0.4,
+        "gap": 0.2569
+      },
+      {
+        "bin": 7,
+        "lo": 0.7000000000000001,
+        "hi": 0.8,
+        "count": 7,
+        "mean_predicted": 0.7647,
+        "observed_rate": 0.8571,
+        "gap": 0.0925
+      },
+      {
+        "bin": 8,
+        "lo": 0.8,
+        "hi": 0.9,
+        "count": 3,
+        "mean_predicted": 0.8834,
+        "observed_rate": 1.0,
+        "gap": 0.1166
+      },
+      {
+        "bin": 9,
+        "lo": 0.9,
+        "hi": 1.0,
+        "count": 123,
+        "mean_predicted": 0.9913,
+        "observed_rate": 0.9837,
+        "gap": 0.0075
+      }
+    ]
+  }
+}

@@ -1,0 +1,1369 @@
+{
+  "metadata": {
+    "evaluation_timestamp": "2026-09-16T16:26:09.854349+00:00",
+    "model": "C:\\Projects _1\\forest-fire-detector\\ml-model\\fire_model.h5",
+    "input_size": [
+      224,
+      224,
+      3
+    ],
+    "threshold": 0.5,
+    "random_seed": 42,
+    "random_state": 42,
+    "batch_size": 32
+  },
+  "dataset": {
+    "total_images": 1832,
+    "fire_count": 928,
+    "no_fire_count": 904
+  },
+  "split": {
+    "train_ratio": 0.7,
+    "val_ratio": 0.15,
+    "test_ratio": 0.15,
+    "random_state": 42,
+    "stratified": true,
+    "train_size": 1282,
+    "val_size": 275,
+    "test_size": 275
+  },
+  "clean_metrics": {
+    "test_size": 275,
+    "accuracy": 0.9782,
+    "precision": 0.9586,
+    "recall": 1.0,
+    "f1": 0.9789,
+    "confusion_matrix": [
+      [
+        130,
+        6
+      ],
+      [
+        0,
+        139
+      ]
+    ],
+    "tp": 139,
+    "tn": 130,
+    "fp": 6,
+    "fn": 0
+  },
+  "perturbations": [
+    {
+      "name": "brightness",
+      "level": "0.7",
+      "parameters": {
+        "factor": 0.7
+      },
+      "metrics": {
+        "test_size": 275,
+        "accuracy": 0.9709,
+        "precision": 0.9517,
+        "recall": 0.9928,
+        "f1": 0.9718,
+        "confusion_matrix": [
+          [
+            129,
+            7
+          ],
+          [
+            1,
+            138
+          ]
+        ],
+        "tp": 138,
+        "tn": 129,
+        "fp": 7,
+        "fn": 1
+      },
+      "prediction_change_rate": 0.0145,
+      "avg_absolute_probability_change": 0.0383,
+      "metric_deltas": {
+        "accuracy_delta": -0.0073,
+        "precision_delta": -0.0069,
+        "recall_delta": -0.0072,
+        "f1_delta": -0.0071,
+        "fp_delta": 1,
+        "fn_delta": 1
+      },
+      "clean_fp_stability": {
+        "total_clean_fp": 6,
+        "changed": 1,
+        "unchanged": 5,
+        "details": [
+          {
+            "filename": "no_fire/nofire_0062.jpg",
+            "clean_prob_fire": 0.93,
+            "clean_prediction": 1,
+            "perturbed_prob_fire": 0.9766,
+            "perturbed_prediction": 1,
+            "changed": false
+          },
+          {
+            "filename": "no_fire/nofire_0165.jpg",
+            "clean_prob_fire": 0.5014,
+            "clean_prediction": 1,
+            "perturbed_prob_fire": 0.46,
+            "perturbed_prediction": 0,
+            "changed": true
+          },
+          {
+            "filename": "no_fire/nofire_0531.jpg",
+            "clean_prob_fire": 0.9271,
+            "clean_prediction": 1,
+            "perturbed_prob_fire": 0.8407,
+            "perturbed_prediction": 1,
+            "changed": false
+          },
+          {
+            "filename": "no_fire/nofire_0504.jpg",
+            "clean_prob_fire": 0.7442,
+            "clean_prediction": 1,
+            "perturbed_prob_fire": 0.832,
+            "perturbed_prediction": 1,
+            "changed": false
+          },
+          {
+            "filename": "no_fire/nofire_0355.jpg",
+            "clean_prob_fire": 0.745,
+            "clean_prediction": 1,
+            "perturbed_prob_fire": 0.6997,
+            "perturbed_prediction": 1,
+            "changed": false
+          },
+          {
+            "filename": "no_fire/nofire_0172.jpg",
+            "clean_prob_fire": 0.6849,
+            "clean_prediction": 1,
+            "perturbed_prob_fire": 0.8726,
+            "perturbed_prediction": 1,
+            "changed": false
+          }
+        ]
+      },
+      "clean_fn_stability": []
+    },
+    {
+      "name": "brightness",
+      "level": "0.85",
+      "parameters": {
+        "factor": 0.85
+      },
+      "metrics": {
+        "test_size": 275,
+        "accuracy": 0.9673,
+        "precision": 0.9514,
+        "recall": 0.9856,
+        "f1": 0.9682,
+        "confusion_matrix": [
+          [
+            129,
+            7
+          ],
+          [
+            2,
+            137
+          ]
+        ],
+        "tp": 137,
+        "tn": 129,
+        "fp": 7,
+        "fn": 2
+      },
+      "prediction_change_rate": 0.0182,
+      "avg_absolute_probability_change": 0.0267,
+      "metric_deltas": {
+        "accuracy_delta": -0.0109,
+        "precision_delta": -0.0072,
+        "recall_delta": -0.0144,
+        "f1_delta": -0.0107,
+        "fp_delta": 1,
+        "fn_delta": 2
+      },
+      "clean_fp_stability": {
+        "total_clean_fp": 6,
+        "changed": 1,
+        "unchanged": 5,
+        "details": [
+          {
+            "filename": "no_fire/nofire_0062.jpg",
+            "clean_prob_fire": 0.93,
+            "clean_prediction": 1,
+            "perturbed_prob_fire": 0.951,
+            "perturbed_prediction": 1,
+            "changed": false
+          },
+          {
+            "filename": "no_fire/nofire_0165.jpg",
+            "clean_prob_fire": 0.5014,
+            "clean_prediction": 1,
+            "perturbed_prob_fire": 0.3581,
+            "perturbed_prediction": 0,
+            "changed": true
+          },
+          {
+            "filename": "no_fire/nofire_0531.jpg",
+            "clean_prob_fire": 0.9271,
+            "clean_prediction": 1,
+            "perturbed_prob_fire": 0.8483,
+            "perturbed_prediction": 1,
+            "changed": false
+          },
+          {
+            "filename": "no_fire/nofire_0504.jpg",
+            "clean_prob_fire": 0.7442,
+            "clean_prediction": 1,
+            "perturbed_prob_fire": 0.7969,
+            "perturbed_prediction": 1,
+            "changed": false
+          },
+          {
+            "filename": "no_fire/nofire_0355.jpg",
+            "clean_prob_fire": 0.745,
+            "clean_prediction": 1,
+            "perturbed_prob_fire": 0.6709,
+            "perturbed_prediction": 1,
+            "changed": false
+          },
+          {
+            "filename": "no_fire/nofire_0172.jpg",
+            "clean_prob_fire": 0.6849,
+            "clean_prediction": 1,
+            "perturbed_prob_fire": 0.8364,
+            "perturbed_prediction": 1,
+            "changed": false
+          }
+        ]
+      },
+      "clean_fn_stability": []
+    },
+    {
+      "name": "brightness",
+      "level": "1.15",
+      "parameters": {
+        "factor": 1.15
+      },
+      "metrics": {
+        "test_size": 275,
+        "accuracy": 0.9709,
+        "precision": 0.9456,
+        "recall": 1.0,
+        "f1": 0.972,
+        "confusion_matrix": [
+          [
+            128,
+            8
+          ],
+          [
+            0,
+            139
+          ]
+        ],
+        "tp": 139,
+        "tn": 128,
+        "fp": 8,
+        "fn": 0
+      },
+      "prediction_change_rate": 0.0145,
+      "avg_absolute_probability_change": 0.0222,
+      "metric_deltas": {
+        "accuracy_delta": -0.0073,
+        "precision_delta": -0.013,
+        "recall_delta": 0.0,
+        "f1_delta": -0.0069,
+        "fp_delta": 2,
+        "fn_delta": 0
+      },
+      "clean_fp_stability": {
+        "total_clean_fp": 6,
+        "changed": 1,
+        "unchanged": 5,
+        "details": [
+          {
+            "filename": "no_fire/nofire_0062.jpg",
+            "clean_prob_fire": 0.93,
+            "clean_prediction": 1,
+            "perturbed_prob_fire": 0.9606,
+            "perturbed_prediction": 1,
+            "changed": false
+          },
+          {
+            "filename": "no_fire/nofire_0165.jpg",
+            "clean_prob_fire": 0.5014,
+            "clean_prediction": 1,
+            "perturbed_prob_fire": 0.3542,
+            "perturbed_prediction": 0,
+            "changed": true
+          },
+          {
+            "filename": "no_fire/nofire_0531.jpg",
+            "clean_prob_fire": 0.9271,
+            "clean_prediction": 1,
+            "perturbed_prob_fire": 0.9137,
+            "perturbed_prediction": 1,
+            "changed": false
+          },
+          {
+            "filename": "no_fire/nofire_0504.jpg",
+            "clean_prob_fire": 0.7442,
+            "clean_prediction": 1,
+            "perturbed_prob_fire": 0.7861,
+            "perturbed_prediction": 1,
+            "changed": false
+          },
+          {
+            "filename": "no_fire/nofire_0355.jpg",
+            "clean_prob_fire": 0.745,
+            "clean_prediction": 1,
+            "perturbed_prob_fire": 0.7899,
+            "perturbed_prediction": 1,
+            "changed": false
+          },
+          {
+            "filename": "no_fire/nofire_0172.jpg",
+            "clean_prob_fire": 0.6849,
+            "clean_prediction": 1,
+            "perturbed_prob_fire": 0.7029,
+            "perturbed_prediction": 1,
+            "changed": false
+          }
+        ]
+      },
+      "clean_fn_stability": []
+    },
+    {
+      "name": "brightness",
+      "level": "1.3",
+      "parameters": {
+        "factor": 1.3
+      },
+      "metrics": {
+        "test_size": 275,
+        "accuracy": 0.9745,
+        "precision": 0.9521,
+        "recall": 1.0,
+        "f1": 0.9754,
+        "confusion_matrix": [
+          [
+            129,
+            7
+          ],
+          [
+            0,
+            139
+          ]
+        ],
+        "tp": 139,
+        "tn": 129,
+        "fp": 7,
+        "fn": 0
+      },
+      "prediction_change_rate": 0.0109,
+      "avg_absolute_probability_change": 0.0279,
+      "metric_deltas": {
+        "accuracy_delta": -0.0037,
+        "precision_delta": -0.0065,
+        "recall_delta": 0.0,
+        "f1_delta": -0.0035,
+        "fp_delta": 1,
+        "fn_delta": 0
+      },
+      "clean_fp_stability": {
+        "total_clean_fp": 6,
+        "changed": 1,
+        "unchanged": 5,
+        "details": [
+          {
+            "filename": "no_fire/nofire_0062.jpg",
+            "clean_prob_fire": 0.93,
+            "clean_prediction": 1,
+            "perturbed_prob_fire": 0.9658,
+            "perturbed_prediction": 1,
+            "changed": false
+          },
+          {
+            "filename": "no_fire/nofire_0165.jpg",
+            "clean_prob_fire": 0.5014,
+            "clean_prediction": 1,
+            "perturbed_prob_fire": 0.3196,
+            "perturbed_prediction": 0,
+            "changed": true
+          },
+          {
+            "filename": "no_fire/nofire_0531.jpg",
+            "clean_prob_fire": 0.9271,
+            "clean_prediction": 1,
+            "perturbed_prob_fire": 0.942,
+            "perturbed_prediction": 1,
+            "changed": false
+          },
+          {
+            "filename": "no_fire/nofire_0504.jpg",
+            "clean_prob_fire": 0.7442,
+            "clean_prediction": 1,
+            "perturbed_prob_fire": 0.7275,
+            "perturbed_prediction": 1,
+            "changed": false
+          },
+          {
+            "filename": "no_fire/nofire_0355.jpg",
+            "clean_prob_fire": 0.745,
+            "clean_prediction": 1,
+            "perturbed_prob_fire": 0.916,
+            "perturbed_prediction": 1,
+            "changed": false
+          },
+          {
+            "filename": "no_fire/nofire_0172.jpg",
+            "clean_prob_fire": 0.6849,
+            "clean_prediction": 1,
+            "perturbed_prob_fire": 0.5792,
+            "perturbed_prediction": 1,
+            "changed": false
+          }
+        ]
+      },
+      "clean_fn_stability": []
+    },
+    {
+      "name": "contrast",
+      "level": "0.7",
+      "parameters": {
+        "factor": 0.7
+      },
+      "metrics": {
+        "test_size": 275,
+        "accuracy": 0.9709,
+        "precision": 0.9456,
+        "recall": 1.0,
+        "f1": 0.972,
+        "confusion_matrix": [
+          [
+            128,
+            8
+          ],
+          [
+            0,
+            139
+          ]
+        ],
+        "tp": 139,
+        "tn": 128,
+        "fp": 8,
+        "fn": 0
+      },
+      "prediction_change_rate": 0.0145,
+      "avg_absolute_probability_change": 0.0338,
+      "metric_deltas": {
+        "accuracy_delta": -0.0073,
+        "precision_delta": -0.013,
+        "recall_delta": 0.0,
+        "f1_delta": -0.0069,
+        "fp_delta": 2,
+        "fn_delta": 0
+      },
+      "clean_fp_stability": {
+        "total_clean_fp": 6,
+        "changed": 1,
+        "unchanged": 5,
+        "details": [
+          {
+            "filename": "no_fire/nofire_0062.jpg",
+            "clean_prob_fire": 0.93,
+            "clean_prediction": 1,
+            "perturbed_prob_fire": 0.9789,
+            "perturbed_prediction": 1,
+            "changed": false
+          },
+          {
+            "filename": "no_fire/nofire_0165.jpg",
+            "clean_prob_fire": 0.5014,
+            "clean_prediction": 1,
+            "perturbed_prob_fire": 0.4915,
+            "perturbed_prediction": 0,
+            "changed": true
+          },
+          {
+            "filename": "no_fire/nofire_0531.jpg",
+            "clean_prob_fire": 0.9271,
+            "clean_prediction": 1,
+            "perturbed_prob_fire": 0.8616,
+            "perturbed_prediction": 1,
+            "changed": false
+          },
+          {
+            "filename": "no_fire/nofire_0504.jpg",
+            "clean_prob_fire": 0.7442,
+            "clean_prediction": 1,
+            "perturbed_prob_fire": 0.828,
+            "perturbed_prediction": 1,
+            "changed": false
+          },
+          {
+            "filename": "no_fire/nofire_0355.jpg",
+            "clean_prob_fire": 0.745,
+            "clean_prediction": 1,
+            "perturbed_prob_fire": 0.6976,
+            "perturbed_prediction": 1,
+            "changed": false
+          },
+          {
+            "filename": "no_fire/nofire_0172.jpg",
+            "clean_prob_fire": 0.6849,
+            "clean_prediction": 1,
+            "perturbed_prob_fire": 0.8781,
+            "perturbed_prediction": 1,
+            "changed": false
+          }
+        ]
+      },
+      "clean_fn_stability": []
+    },
+    {
+      "name": "contrast",
+      "level": "1.3",
+      "parameters": {
+        "factor": 1.3
+      },
+      "metrics": {
+        "test_size": 275,
+        "accuracy": 0.9709,
+        "precision": 0.9456,
+        "recall": 1.0,
+        "f1": 0.972,
+        "confusion_matrix": [
+          [
+            128,
+            8
+          ],
+          [
+            0,
+            139
+          ]
+        ],
+        "tp": 139,
+        "tn": 128,
+        "fp": 8,
+        "fn": 0
+      },
+      "prediction_change_rate": 0.0145,
+      "avg_absolute_probability_change": 0.0292,
+      "metric_deltas": {
+        "accuracy_delta": -0.0073,
+        "precision_delta": -0.013,
+        "recall_delta": 0.0,
+        "f1_delta": -0.0069,
+        "fp_delta": 2,
+        "fn_delta": 0
+      },
+      "clean_fp_stability": {
+        "total_clean_fp": 6,
+        "changed": 1,
+        "unchanged": 5,
+        "details": [
+          {
+            "filename": "no_fire/nofire_0062.jpg",
+            "clean_prob_fire": 0.93,
+            "clean_prediction": 1,
+            "perturbed_prob_fire": 0.9788,
+            "perturbed_prediction": 1,
+            "changed": false
+          },
+          {
+            "filename": "no_fire/nofire_0165.jpg",
+            "clean_prob_fire": 0.5014,
+            "clean_prediction": 1,
+            "perturbed_prob_fire": 0.2641,
+            "perturbed_prediction": 0,
+            "changed": true
+          },
+          {
+            "filename": "no_fire/nofire_0531.jpg",
+            "clean_prob_fire": 0.9271,
+            "clean_prediction": 1,
+            "perturbed_prob_fire": 0.9103,
+            "perturbed_prediction": 1,
+            "changed": false
+          },
+          {
+            "filename": "no_fire/nofire_0504.jpg",
+            "clean_prob_fire": 0.7442,
+            "clean_prediction": 1,
+            "perturbed_prob_fire": 0.84,
+            "perturbed_prediction": 1,
+            "changed": false
+          },
+          {
+            "filename": "no_fire/nofire_0355.jpg",
+            "clean_prob_fire": 0.745,
+            "clean_prediction": 1,
+            "perturbed_prob_fire": 0.9176,
+            "perturbed_prediction": 1,
+            "changed": false
+          },
+          {
+            "filename": "no_fire/nofire_0172.jpg",
+            "clean_prob_fire": 0.6849,
+            "clean_prediction": 1,
+            "perturbed_prob_fire": 0.6443,
+            "perturbed_prediction": 1,
+            "changed": false
+          }
+        ]
+      },
+      "clean_fn_stability": []
+    },
+    {
+      "name": "gaussian_blur",
+      "level": "1.5",
+      "parameters": {
+        "radius": 1.5
+      },
+      "metrics": {
+        "test_size": 275,
+        "accuracy": 0.9418,
+        "precision": 0.8968,
+        "recall": 1.0,
+        "f1": 0.9456,
+        "confusion_matrix": [
+          [
+            120,
+            16
+          ],
+          [
+            0,
+            139
+          ]
+        ],
+        "tp": 139,
+        "tn": 120,
+        "fp": 16,
+        "fn": 0
+      },
+      "prediction_change_rate": 0.0509,
+      "avg_absolute_probability_change": 0.0571,
+      "metric_deltas": {
+        "accuracy_delta": -0.0364,
+        "precision_delta": -0.0618,
+        "recall_delta": 0.0,
+        "f1_delta": -0.0333,
+        "fp_delta": 10,
+        "fn_delta": 0
+      },
+      "clean_fp_stability": {
+        "total_clean_fp": 6,
+        "changed": 2,
+        "unchanged": 4,
+        "details": [
+          {
+            "filename": "no_fire/nofire_0062.jpg",
+            "clean_prob_fire": 0.93,
+            "clean_prediction": 1,
+            "perturbed_prob_fire": 0.895,
+            "perturbed_prediction": 1,
+            "changed": false
+          },
+          {
+            "filename": "no_fire/nofire_0165.jpg",
+            "clean_prob_fire": 0.5014,
+            "clean_prediction": 1,
+            "perturbed_prob_fire": 0.3705,
+            "perturbed_prediction": 0,
+            "changed": true
+          },
+          {
+            "filename": "no_fire/nofire_0531.jpg",
+            "clean_prob_fire": 0.9271,
+            "clean_prediction": 1,
+            "perturbed_prob_fire": 0.7272,
+            "perturbed_prediction": 1,
+            "changed": false
+          },
+          {
+            "filename": "no_fire/nofire_0504.jpg",
+            "clean_prob_fire": 0.7442,
+            "clean_prediction": 1,
+            "perturbed_prob_fire": 0.7225,
+            "perturbed_prediction": 1,
+            "changed": false
+          },
+          {
+            "filename": "no_fire/nofire_0355.jpg",
+            "clean_prob_fire": 0.745,
+            "clean_prediction": 1,
+            "perturbed_prob_fire": 0.3859,
+            "perturbed_prediction": 0,
+            "changed": true
+          },
+          {
+            "filename": "no_fire/nofire_0172.jpg",
+            "clean_prob_fire": 0.6849,
+            "clean_prediction": 1,
+            "perturbed_prob_fire": 0.895,
+            "perturbed_prediction": 1,
+            "changed": false
+          }
+        ]
+      },
+      "clean_fn_stability": []
+    },
+    {
+      "name": "gaussian_blur",
+      "level": "3.0",
+      "parameters": {
+        "radius": 3.0
+      },
+      "metrics": {
+        "test_size": 275,
+        "accuracy": 0.9055,
+        "precision": 0.8424,
+        "recall": 1.0,
+        "f1": 0.9145,
+        "confusion_matrix": [
+          [
+            110,
+            26
+          ],
+          [
+            0,
+            139
+          ]
+        ],
+        "tp": 139,
+        "tn": 110,
+        "fp": 26,
+        "fn": 0
+      },
+      "prediction_change_rate": 0.0873,
+      "avg_absolute_probability_change": 0.0989,
+      "metric_deltas": {
+        "accuracy_delta": -0.0727,
+        "precision_delta": -0.1162,
+        "recall_delta": 0.0,
+        "f1_delta": -0.0644,
+        "fp_delta": 20,
+        "fn_delta": 0
+      },
+      "clean_fp_stability": {
+        "total_clean_fp": 6,
+        "changed": 2,
+        "unchanged": 4,
+        "details": [
+          {
+            "filename": "no_fire/nofire_0062.jpg",
+            "clean_prob_fire": 0.93,
+            "clean_prediction": 1,
+            "perturbed_prob_fire": 0.896,
+            "perturbed_prediction": 1,
+            "changed": false
+          },
+          {
+            "filename": "no_fire/nofire_0165.jpg",
+            "clean_prob_fire": 0.5014,
+            "clean_prediction": 1,
+            "perturbed_prob_fire": 0.5177,
+            "perturbed_prediction": 1,
+            "changed": false
+          },
+          {
+            "filename": "no_fire/nofire_0531.jpg",
+            "clean_prob_fire": 0.9271,
+            "clean_prediction": 1,
+            "perturbed_prob_fire": 0.9642,
+            "perturbed_prediction": 1,
+            "changed": false
+          },
+          {
+            "filename": "no_fire/nofire_0504.jpg",
+            "clean_prob_fire": 0.7442,
+            "clean_prediction": 1,
+            "perturbed_prob_fire": 0.1497,
+            "perturbed_prediction": 0,
+            "changed": true
+          },
+          {
+            "filename": "no_fire/nofire_0355.jpg",
+            "clean_prob_fire": 0.745,
+            "clean_prediction": 1,
+            "perturbed_prob_fire": 0.412,
+            "perturbed_prediction": 0,
+            "changed": true
+          },
+          {
+            "filename": "no_fire/nofire_0172.jpg",
+            "clean_prob_fire": 0.6849,
+            "clean_prediction": 1,
+            "perturbed_prob_fire": 0.8383,
+            "perturbed_prediction": 1,
+            "changed": false
+          }
+        ]
+      },
+      "clean_fn_stability": []
+    },
+    {
+      "name": "gaussian_noise",
+      "level": "10",
+      "parameters": {
+        "sigma": 10
+      },
+      "metrics": {
+        "test_size": 275,
+        "accuracy": 0.8873,
+        "precision": 0.8176,
+        "recall": 1.0,
+        "f1": 0.8997,
+        "confusion_matrix": [
+          [
+            105,
+            31
+          ],
+          [
+            0,
+            139
+          ]
+        ],
+        "tp": 139,
+        "tn": 105,
+        "fp": 31,
+        "fn": 0
+      },
+      "prediction_change_rate": 0.0909,
+      "avg_absolute_probability_change": 0.0914,
+      "metric_deltas": {
+        "accuracy_delta": -0.0909,
+        "precision_delta": -0.141,
+        "recall_delta": 0.0,
+        "f1_delta": -0.0792,
+        "fp_delta": 25,
+        "fn_delta": 0
+      },
+      "clean_fp_stability": {
+        "total_clean_fp": 6,
+        "changed": 0,
+        "unchanged": 6,
+        "details": [
+          {
+            "filename": "no_fire/nofire_0062.jpg",
+            "clean_prob_fire": 0.93,
+            "clean_prediction": 1,
+            "perturbed_prob_fire": 0.9954,
+            "perturbed_prediction": 1,
+            "changed": false
+          },
+          {
+            "filename": "no_fire/nofire_0165.jpg",
+            "clean_prob_fire": 0.5014,
+            "clean_prediction": 1,
+            "perturbed_prob_fire": 0.7732,
+            "perturbed_prediction": 1,
+            "changed": false
+          },
+          {
+            "filename": "no_fire/nofire_0531.jpg",
+            "clean_prob_fire": 0.9271,
+            "clean_prediction": 1,
+            "perturbed_prob_fire": 0.9677,
+            "perturbed_prediction": 1,
+            "changed": false
+          },
+          {
+            "filename": "no_fire/nofire_0504.jpg",
+            "clean_prob_fire": 0.7442,
+            "clean_prediction": 1,
+            "perturbed_prob_fire": 0.9368,
+            "perturbed_prediction": 1,
+            "changed": false
+          },
+          {
+            "filename": "no_fire/nofire_0355.jpg",
+            "clean_prob_fire": 0.745,
+            "clean_prediction": 1,
+            "perturbed_prob_fire": 0.9906,
+            "perturbed_prediction": 1,
+            "changed": false
+          },
+          {
+            "filename": "no_fire/nofire_0172.jpg",
+            "clean_prob_fire": 0.6849,
+            "clean_prediction": 1,
+            "perturbed_prob_fire": 0.9834,
+            "perturbed_prediction": 1,
+            "changed": false
+          }
+        ]
+      },
+      "clean_fn_stability": []
+    },
+    {
+      "name": "gaussian_noise",
+      "level": "25",
+      "parameters": {
+        "sigma": 25
+      },
+      "metrics": {
+        "test_size": 275,
+        "accuracy": 0.6873,
+        "precision": 0.6178,
+        "recall": 1.0,
+        "f1": 0.7637,
+        "confusion_matrix": [
+          [
+            50,
+            86
+          ],
+          [
+            0,
+            139
+          ]
+        ],
+        "tp": 139,
+        "tn": 50,
+        "fp": 86,
+        "fn": 0
+      },
+      "prediction_change_rate": 0.2909,
+      "avg_absolute_probability_change": 0.254,
+      "metric_deltas": {
+        "accuracy_delta": -0.2909,
+        "precision_delta": -0.3408,
+        "recall_delta": 0.0,
+        "f1_delta": -0.2152,
+        "fp_delta": 80,
+        "fn_delta": 0
+      },
+      "clean_fp_stability": {
+        "total_clean_fp": 6,
+        "changed": 0,
+        "unchanged": 6,
+        "details": [
+          {
+            "filename": "no_fire/nofire_0062.jpg",
+            "clean_prob_fire": 0.93,
+            "clean_prediction": 1,
+            "perturbed_prob_fire": 0.9977,
+            "perturbed_prediction": 1,
+            "changed": false
+          },
+          {
+            "filename": "no_fire/nofire_0165.jpg",
+            "clean_prob_fire": 0.5014,
+            "clean_prediction": 1,
+            "perturbed_prob_fire": 0.9793,
+            "perturbed_prediction": 1,
+            "changed": false
+          },
+          {
+            "filename": "no_fire/nofire_0531.jpg",
+            "clean_prob_fire": 0.9271,
+            "clean_prediction": 1,
+            "perturbed_prob_fire": 0.9395,
+            "perturbed_prediction": 1,
+            "changed": false
+          },
+          {
+            "filename": "no_fire/nofire_0504.jpg",
+            "clean_prob_fire": 0.7442,
+            "clean_prediction": 1,
+            "perturbed_prob_fire": 0.987,
+            "perturbed_prediction": 1,
+            "changed": false
+          },
+          {
+            "filename": "no_fire/nofire_0355.jpg",
+            "clean_prob_fire": 0.745,
+            "clean_prediction": 1,
+            "perturbed_prob_fire": 0.9777,
+            "perturbed_prediction": 1,
+            "changed": false
+          },
+          {
+            "filename": "no_fire/nofire_0172.jpg",
+            "clean_prob_fire": 0.6849,
+            "clean_prediction": 1,
+            "perturbed_prob_fire": 0.9996,
+            "perturbed_prediction": 1,
+            "changed": false
+          }
+        ]
+      },
+      "clean_fn_stability": []
+    },
+    {
+      "name": "reduced_resolution",
+      "level": "112",
+      "parameters": {
+        "downscale": 112
+      },
+      "metrics": {
+        "test_size": 275,
+        "accuracy": 0.9418,
+        "precision": 0.8968,
+        "recall": 1.0,
+        "f1": 0.9456,
+        "confusion_matrix": [
+          [
+            120,
+            16
+          ],
+          [
+            0,
+            139
+          ]
+        ],
+        "tp": 139,
+        "tn": 120,
+        "fp": 16,
+        "fn": 0
+      },
+      "prediction_change_rate": 0.0436,
+      "avg_absolute_probability_change": 0.0501,
+      "metric_deltas": {
+        "accuracy_delta": -0.0364,
+        "precision_delta": -0.0618,
+        "recall_delta": 0.0,
+        "f1_delta": -0.0333,
+        "fp_delta": 10,
+        "fn_delta": 0
+      },
+      "clean_fp_stability": {
+        "total_clean_fp": 6,
+        "changed": 1,
+        "unchanged": 5,
+        "details": [
+          {
+            "filename": "no_fire/nofire_0062.jpg",
+            "clean_prob_fire": 0.93,
+            "clean_prediction": 1,
+            "perturbed_prob_fire": 0.9166,
+            "perturbed_prediction": 1,
+            "changed": false
+          },
+          {
+            "filename": "no_fire/nofire_0165.jpg",
+            "clean_prob_fire": 0.5014,
+            "clean_prediction": 1,
+            "perturbed_prob_fire": 0.3047,
+            "perturbed_prediction": 0,
+            "changed": true
+          },
+          {
+            "filename": "no_fire/nofire_0531.jpg",
+            "clean_prob_fire": 0.9271,
+            "clean_prediction": 1,
+            "perturbed_prob_fire": 0.6642,
+            "perturbed_prediction": 1,
+            "changed": false
+          },
+          {
+            "filename": "no_fire/nofire_0504.jpg",
+            "clean_prob_fire": 0.7442,
+            "clean_prediction": 1,
+            "perturbed_prob_fire": 0.8615,
+            "perturbed_prediction": 1,
+            "changed": false
+          },
+          {
+            "filename": "no_fire/nofire_0355.jpg",
+            "clean_prob_fire": 0.745,
+            "clean_prediction": 1,
+            "perturbed_prob_fire": 0.6831,
+            "perturbed_prediction": 1,
+            "changed": false
+          },
+          {
+            "filename": "no_fire/nofire_0172.jpg",
+            "clean_prob_fire": 0.6849,
+            "clean_prediction": 1,
+            "perturbed_prob_fire": 0.9496,
+            "perturbed_prediction": 1,
+            "changed": false
+          }
+        ]
+      },
+      "clean_fn_stability": []
+    },
+    {
+      "name": "reduced_resolution",
+      "level": "56",
+      "parameters": {
+        "downscale": 56
+      },
+      "metrics": {
+        "test_size": 275,
+        "accuracy": 0.9018,
+        "precision": 0.8373,
+        "recall": 1.0,
+        "f1": 0.9115,
+        "confusion_matrix": [
+          [
+            109,
+            27
+          ],
+          [
+            0,
+            139
+          ]
+        ],
+        "tp": 139,
+        "tn": 109,
+        "fp": 27,
+        "fn": 0
+      },
+      "prediction_change_rate": 0.0909,
+      "avg_absolute_probability_change": 0.0897,
+      "metric_deltas": {
+        "accuracy_delta": -0.0764,
+        "precision_delta": -0.1213,
+        "recall_delta": 0.0,
+        "f1_delta": -0.0674,
+        "fp_delta": 21,
+        "fn_delta": 0
+      },
+      "clean_fp_stability": {
+        "total_clean_fp": 6,
+        "changed": 2,
+        "unchanged": 4,
+        "details": [
+          {
+            "filename": "no_fire/nofire_0062.jpg",
+            "clean_prob_fire": 0.93,
+            "clean_prediction": 1,
+            "perturbed_prob_fire": 0.9303,
+            "perturbed_prediction": 1,
+            "changed": false
+          },
+          {
+            "filename": "no_fire/nofire_0165.jpg",
+            "clean_prob_fire": 0.5014,
+            "clean_prediction": 1,
+            "perturbed_prob_fire": 0.6139,
+            "perturbed_prediction": 1,
+            "changed": false
+          },
+          {
+            "filename": "no_fire/nofire_0531.jpg",
+            "clean_prob_fire": 0.9271,
+            "clean_prediction": 1,
+            "perturbed_prob_fire": 0.9304,
+            "perturbed_prediction": 1,
+            "changed": false
+          },
+          {
+            "filename": "no_fire/nofire_0504.jpg",
+            "clean_prob_fire": 0.7442,
+            "clean_prediction": 1,
+            "perturbed_prob_fire": 0.4894,
+            "perturbed_prediction": 0,
+            "changed": true
+          },
+          {
+            "filename": "no_fire/nofire_0355.jpg",
+            "clean_prob_fire": 0.745,
+            "clean_prediction": 1,
+            "perturbed_prob_fire": 0.3256,
+            "perturbed_prediction": 0,
+            "changed": true
+          },
+          {
+            "filename": "no_fire/nofire_0172.jpg",
+            "clean_prob_fire": 0.6849,
+            "clean_prediction": 1,
+            "perturbed_prob_fire": 0.9189,
+            "perturbed_prediction": 1,
+            "changed": false
+          }
+        ]
+      },
+      "clean_fn_stability": []
+    },
+    {
+      "name": "jpeg_compression",
+      "level": "60",
+      "parameters": {
+        "quality": 60
+      },
+      "metrics": {
+        "test_size": 275,
+        "accuracy": 0.9636,
+        "precision": 0.9329,
+        "recall": 1.0,
+        "f1": 0.9653,
+        "confusion_matrix": [
+          [
+            126,
+            10
+          ],
+          [
+            0,
+            139
+          ]
+        ],
+        "tp": 139,
+        "tn": 126,
+        "fp": 10,
+        "fn": 0
+      },
+      "prediction_change_rate": 0.0218,
+      "avg_absolute_probability_change": 0.025,
+      "metric_deltas": {
+        "accuracy_delta": -0.0146,
+        "precision_delta": -0.0257,
+        "recall_delta": 0.0,
+        "f1_delta": -0.0136,
+        "fp_delta": 4,
+        "fn_delta": 0
+      },
+      "clean_fp_stability": {
+        "total_clean_fp": 6,
+        "changed": 1,
+        "unchanged": 5,
+        "details": [
+          {
+            "filename": "no_fire/nofire_0062.jpg",
+            "clean_prob_fire": 0.93,
+            "clean_prediction": 1,
+            "perturbed_prob_fire": 0.9522,
+            "perturbed_prediction": 1,
+            "changed": false
+          },
+          {
+            "filename": "no_fire/nofire_0165.jpg",
+            "clean_prob_fire": 0.5014,
+            "clean_prediction": 1,
+            "perturbed_prob_fire": 0.3154,
+            "perturbed_prediction": 0,
+            "changed": true
+          },
+          {
+            "filename": "no_fire/nofire_0531.jpg",
+            "clean_prob_fire": 0.9271,
+            "clean_prediction": 1,
+            "perturbed_prob_fire": 0.9083,
+            "perturbed_prediction": 1,
+            "changed": false
+          },
+          {
+            "filename": "no_fire/nofire_0504.jpg",
+            "clean_prob_fire": 0.7442,
+            "clean_prediction": 1,
+            "perturbed_prob_fire": 0.6847,
+            "perturbed_prediction": 1,
+            "changed": false
+          },
+          {
+            "filename": "no_fire/nofire_0355.jpg",
+            "clean_prob_fire": 0.745,
+            "clean_prediction": 1,
+            "perturbed_prob_fire": 0.7676,
+            "perturbed_prediction": 1,
+            "changed": false
+          },
+          {
+            "filename": "no_fire/nofire_0172.jpg",
+            "clean_prob_fire": 0.6849,
+            "clean_prediction": 1,
+            "perturbed_prob_fire": 0.6782,
+            "perturbed_prediction": 1,
+            "changed": false
+          }
+        ]
+      },
+      "clean_fn_stability": []
+    },
+    {
+      "name": "jpeg_compression",
+      "level": "30",
+      "parameters": {
+        "quality": 30
+      },
+      "metrics": {
+        "test_size": 275,
+        "accuracy": 0.96,
+        "precision": 0.9444,
+        "recall": 0.9784,
+        "f1": 0.9611,
+        "confusion_matrix": [
+          [
+            128,
+            8
+          ],
+          [
+            3,
+            136
+          ]
+        ],
+        "tp": 136,
+        "tn": 128,
+        "fp": 8,
+        "fn": 3
+      },
+      "prediction_change_rate": 0.0255,
+      "avg_absolute_probability_change": 0.034,
+      "metric_deltas": {
+        "accuracy_delta": -0.0182,
+        "precision_delta": -0.0142,
+        "recall_delta": -0.0216,
+        "f1_delta": -0.0178,
+        "fp_delta": 2,
+        "fn_delta": 3
+      },
+      "clean_fp_stability": {
+        "total_clean_fp": 6,
+        "changed": 1,
+        "unchanged": 5,
+        "details": [
+          {
+            "filename": "no_fire/nofire_0062.jpg",
+            "clean_prob_fire": 0.93,
+            "clean_prediction": 1,
+            "perturbed_prob_fire": 0.9374,
+            "perturbed_prediction": 1,
+            "changed": false
+          },
+          {
+            "filename": "no_fire/nofire_0165.jpg",
+            "clean_prob_fire": 0.5014,
+            "clean_prediction": 1,
+            "perturbed_prob_fire": 0.1814,
+            "perturbed_prediction": 0,
+            "changed": true
+          },
+          {
+            "filename": "no_fire/nofire_0531.jpg",
+            "clean_prob_fire": 0.9271,
+            "clean_prediction": 1,
+            "perturbed_prob_fire": 0.7868,
+            "perturbed_prediction": 1,
+            "changed": false
+          },
+          {
+            "filename": "no_fire/nofire_0504.jpg",
+            "clean_prob_fire": 0.7442,
+            "clean_prediction": 1,
+            "perturbed_prob_fire": 0.8552,
+            "perturbed_prediction": 1,
+            "changed": false
+          },
+          {
+            "filename": "no_fire/nofire_0355.jpg",
+            "clean_prob_fire": 0.745,
+            "clean_prediction": 1,
+            "perturbed_prob_fire": 0.8841,
+            "perturbed_prediction": 1,
+            "changed": false
+          },
+          {
+            "filename": "no_fire/nofire_0172.jpg",
+            "clean_prob_fire": 0.6849,
+            "clean_prediction": 1,
+            "perturbed_prob_fire": 0.583,
+            "perturbed_prediction": 1,
+            "changed": false
+          }
+        ]
+      },
+      "clean_fn_stability": []
+    }
+  ]
+}

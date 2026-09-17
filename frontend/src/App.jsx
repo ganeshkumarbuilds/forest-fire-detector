@@ -8,6 +8,8 @@ import MapView from './components/MapView.jsx'
 import AlertBanner from './components/AlertBanner.jsx'
 import AlertLog from './components/AlertLog.jsx'
 import ModelInfoPanel from './components/ModelInfoPanel.jsx'
+import ErrorAnalysisPanel from './components/ErrorAnalysisPanel.jsx'
+import RobustnessPanel from './components/RobustnessPanel.jsx'
 import { CAMERA_LOCATIONS, getCameraById } from './cameraLocations.js'
 import waitForBackend from './waitForBackend.js'
 
@@ -38,6 +40,7 @@ export default function App() {
   // Seconds elapsed while waiting for the sleeping backend to warm up.
   const [warmSecs, setWarmSecs] = useState(0)
   const [error, setError] = useState('')
+  const [errorQuality, setErrorQuality] = useState(null)
   const [history, setHistory] = useState([])
   const [liveMode, setLiveMode] = useState(false)
   // All-time server stats (GET /stats). Null until loaded or if backend
@@ -258,8 +261,10 @@ export default function App() {
   }, [])
 
   const handleReset = () => {
+    if (prediction?.original_image) URL.revokeObjectURL(prediction.original_image)
     setPrediction(null)
     setError('')
+    setErrorQuality(null)
   }
 
   const handleFileSelect = async (file) => {
@@ -268,6 +273,7 @@ export default function App() {
     setWakingUp(false)
     setWarmSecs(0)
     setError('')
+    setErrorQuality(null)
     setPrediction(null)
     // After 5s switch the loading text to the cold-start message.
     const wakeTimer = setTimeout(() => setWakingUp(true), 5000)
@@ -307,7 +313,7 @@ export default function App() {
         if (!readyAgain) throw e
         res = await postPredict()
       }
-      setPrediction(res.data)
+      setPrediction({ ...res.data, original_image: URL.createObjectURL(file) })
       addToHistory({
         imageUrl: URL.createObjectURL(file),
         fileName: file.name,
@@ -324,6 +330,9 @@ export default function App() {
       })
     } catch (err) {
       setError(err.response?.data?.error || err.message || 'Prediction failed')
+      if (err.response?.data?.quality) {
+        setErrorQuality(err.response.data.quality)
+      }
     } finally {
       clearTimeout(wakeTimer)
       setWakingUp(false)
@@ -407,6 +416,12 @@ export default function App() {
         <div className="pt-2">
           <ModelInfoPanel apiUrl={API_URL} />
         </div>
+        <div className="pt-2">
+          <ErrorAnalysisPanel apiUrl={API_URL} />
+        </div>
+        <div className="pt-2">
+          <RobustnessPanel apiUrl={API_URL} />
+        </div>
 
         {liveMode ? (
           <LiveMonitor apiUrl={API_URL} onLiveResult={handleLiveResult} />
@@ -431,6 +446,81 @@ export default function App() {
             {error && (
               <div className="bg-red-950/60 border border-red-500/40 text-red-200 px-4 py-3 rounded-xl text-sm sm:text-base transition-all duration-300">
                 {error}
+              </div>
+            )}
+            {errorQuality && (
+              <div className="bg-slate-800 border border-slate-700 rounded-2xl shadow-xl shadow-black/30 p-5 sm:p-6 space-y-4 animate-fade-up transition-all duration-300">
+                <div className="flex items-center justify-between">
+                  <h3 className="text-red-400 text-sm sm:text-base font-semibold flex items-center gap-2">
+                    <span className="w-2 h-2 rounded-full bg-red-400"></span>
+                    Image Quality Check Failed
+                  </h3>
+                  <span className="text-red-300 text-xs px-2 py-1 rounded bg-red-950/50">
+                    Rejected
+                  </span>
+                </div>
+                
+                {errorQuality.width && errorQuality.height && (
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-2 text-center">
+                    <div className="bg-slate-800/60 border border-slate-700 rounded-xl p-3">
+                      <p className="text-slate-400 text-[11px] sm:text-xs font-medium mb-1">Dimensions</p>
+                      <p className="text-slate-100 font-mono text-sm sm:text-base">
+                        {errorQuality.width} × {errorQuality.height}
+                      </p>
+                    </div>
+                    {errorQuality.blur_score !== undefined && (
+                      <div className="bg-slate-800/60 border border-slate-700 rounded-xl p-3">
+                        <p className="text-slate-400 text-[11px] sm:text-xs font-medium mb-1">Blur Score</p>
+                        <p className="text-slate-100 font-mono text-sm sm:text-base">
+                          {errorQuality.blur_score?.toFixed?.(1) ?? '—'}
+                        </p>
+                        <p className="text-[10px] text-slate-500 mt-1">(higher = sharper)</p>
+                      </div>
+                    )}
+                    {errorQuality.brightness !== undefined && (
+                      <div className="bg-slate-800/60 border border-slate-700 rounded-xl p-3">
+                        <p className="text-slate-400 text-[11px] sm:text-xs font-medium mb-1">Brightness</p>
+                        <p className="text-slate-100 font-mono text-sm sm:text-base">
+                          {errorQuality.brightness?.toFixed?.(1) ?? '—'} / 255
+                        </p>
+                      </div>
+                    )}
+                    {errorQuality.contrast !== undefined && (
+                      <div className="bg-slate-800/60 border border-slate-700 rounded-xl p-3">
+                        <p className="text-slate-400 text-[11px] sm:text-xs font-medium mb-1">Contrast</p>
+                        <p className="text-slate-100 font-mono text-sm sm:text-base">
+                          {errorQuality.contrast?.toFixed?.(1) ?? '—'}
+                        </p>
+                      </div>
+                    )}
+                  </div>
+                )}
+
+                {errorQuality.warnings && errorQuality.warnings.length > 0 && (
+                  <div className="bg-amber-950/50 border border-amber-500/40 rounded-xl p-3">
+                    <p className="text-amber-200 text-xs font-medium mb-1 flex items-center gap-1">
+                      <span className="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
+                      Quality Issues
+                    </p>
+                    <ul className="text-amber-100 text-xs space-y-1">
+                      {errorQuality.warnings.map((w, i) => (
+                        <li key={i} className="flex items-start gap-1">
+                          <span className="w-1 h-1 rounded-full bg-amber-400 mt-1.5 flex-shrink-0"></span>
+                          <span>{w}</span>
+                        </li>
+                      ))}
+                    </ul>
+                    <p className="text-amber-500 text-[10px] mt-2">
+                      These are heuristic indicators, not OOD detection.
+                    </p>
+                  </div>
+                )}
+                
+                {errorQuality.reason && (
+                  <p className="text-red-300 text-xs text-center">
+                    Rejection reason: {errorQuality.reason.replace(/_/g, ' ')}
+                  </p>
+                )}
               </div>
             )}
             {prediction && !loading && (

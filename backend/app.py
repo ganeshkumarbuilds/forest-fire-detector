@@ -166,6 +166,129 @@ def preprocess_image(file_storage):
     return arr
 
 
+def validate_image_quality(file_storage):
+    """
+    Validate uploaded image quality before inference.
+    Returns (quality_dict, error_response_or_None).
+    If error_response is not None, it's a 400 response tuple.
+    """
+    warnings = []
+    
+    # 1. Verify file integrity and safely load
+    try:
+        file_storage.stream.seek(0)
+        img = Image.open(file_storage.stream)
+        img.verify()  # verify file integrity
+        file_storage.stream.seek(0)
+        img = Image.open(file_storage.stream)
+        img.load()  # force load to catch truncation errors
+    except Exception as e:
+        return None, (jsonify({
+            "error": "Invalid or corrupted image file",
+            "detail": str(e),
+            "quality": {"valid": False, "reason": "corrupted_file"}
+        }), 400)
+    
+    # 2. Check original dimensions
+    width, height = img.size
+    if width < 64 or height < 64:
+        return None, (jsonify({
+            "error": f"Image too small: {width}x{height}. Minimum dimension is 64px.",
+            "quality": {
+                "valid": False,
+                "width": width,
+                "height": height,
+                "reason": "too_small"
+            }
+        }), 400)
+    
+    # 3. Convert to RGB safely
+    try:
+        if img.mode != "RGB":
+            img = img.convert("RGB")
+    except Exception as e:
+        return None, (jsonify({
+            "error": f"Failed to convert image to RGB: {e}",
+            "quality": {"valid": False, "reason": "conversion_failed"}
+        }), 400)
+    
+    # 4. Calculate blur score (Laplacian variance) using numpy
+    # Convert to grayscale for blur detection
+    try:
+        gray = img.convert("L")
+        gray_arr = np.array(gray, dtype=np.float32)
+        
+        # Laplacian kernel for edge detection
+        laplacian_kernel = np.array([[0, 1, 0],
+                                     [1, -4, 1],
+                                     [0, 1, 0]], dtype=np.float32)
+        
+        # Simple convolution using numpy (valid mode to avoid padding issues)
+        # Pad the array
+        padded = np.pad(gray_arr, 1, mode='reflect')
+        h, w = gray_arr.shape
+        laplacian = np.zeros((h, w), dtype=np.float32)
+        
+        for i in range(h):
+            for j in range(w):
+                window = padded[i:i+3, j:j+3]
+                laplacian[i, j] = np.sum(window * laplacian_kernel)
+        
+        blur_score = float(np.var(laplacian))
+    except Exception as e:
+        blur_score = 0.0
+        warnings.append(f"Blur analysis failed: {e}")
+    
+    # 5. Calculate basic image statistics (brightness, contrast)
+    try:
+        # Use the RGB image for brightness/contrast
+        rgb_arr = np.array(img, dtype=np.float32)
+        # Brightness: mean of all channels
+        brightness = float(np.mean(rgb_arr))
+        # Contrast: standard deviation of luminance
+        luminance = 0.299 * rgb_arr[:,:,0] + 0.587 * rgb_arr[:,:,1] + 0.114 * rgb_arr[:,:,2]
+        contrast = float(np.std(luminance))
+    except Exception as e:
+        brightness = 0.0
+        contrast = 0.0
+        warnings.append(f"Statistics calculation failed: {e}")
+    
+    # 6. Add warnings for unusual values (heuristic, not OOD)
+    # Brightness warnings (0-255 scale)
+    if brightness < 30:
+        warnings.append("Image appears very dark (possible nighttime or underexposed)")
+    elif brightness > 225:
+        warnings.append("Image appears very bright (possible overexposed)")
+    
+    # Contrast warnings
+    if contrast < 10:
+        warnings.append("Image has very low contrast (possible fog, smoke, or blur)")
+    elif contrast > 80:
+        warnings.append("Image has very high contrast")
+    
+    # Blur warning (only for extremely blurred images, not rejection)
+    # Laplacian variance threshold: < 20 is very blurry for 224x224 images
+    if blur_score < 20 and blur_score > 0:
+        warnings.append("Image appears significantly blurred")
+    
+    # Only reject on exactly zero blur (perfectly uniform color - not a real photo)
+    if blur_score == 0.0:
+        warnings.append("Image appears to be a solid color (not a real photo)")
+        # Don't reject, just warn - let the model handle it
+    
+    quality_info = {
+        "valid": True,
+        "width": width,
+        "height": height,
+        "blur_score": round(blur_score, 2),
+        "brightness": round(brightness, 1),
+        "contrast": round(contrast, 1),
+        "warnings": warnings
+    }
+    
+    return quality_info, None
+
+
 def _read_log():
     """Postgres first (your account), JSON fallback. Never raises."""
     try:
@@ -432,12 +555,28 @@ def predict():
     if file.filename == "":
         return jsonify({"error": "No file selected."}), 400
 
+    # Validate image quality before inference
+    quality_info, error_response = validate_image_quality(file)
+    if error_response:
+        return error_response
+
     try:
         x = preprocess_image(file)
         with _infer_lock:
             prob = _run_full(x)
-        fire_detected = prob >= 0.5
-        confidence = round(prob if fire_detected else 1.0 - prob, 4)
+        
+        # Validate model output
+        try:
+            prob = float(prob)
+            if not (0.0 <= prob <= 1.0) or prob != prob:  # NaN check
+                prob = 0.5
+        except (TypeError, ValueError):
+            prob = 0.5
+        
+        prob_fire = round(prob, 4)
+        prob_no_fire = round(1.0 - prob, 4)
+        fire_detected = prob_fire >= 0.5
+        confidence = round(prob_fire if fire_detected else prob_no_fire, 4)
         timestamp = datetime.now(timezone.utc).isoformat()
         _append_log({
             "filename": file.filename,
@@ -448,7 +587,11 @@ def predict():
         result = {
             "fire_detected": fire_detected,
             "confidence": confidence,
+            "prob_fire": prob_fire,
+            "prob_no_fire": prob_no_fire,
+            "predicted_class": "FIRE" if fire_detected else "NO FIRE",
             "timestamp": timestamp,
+            "quality": quality_info,
         }
         try:
             heatmap = request.args.get("heatmap", "0") == "1"
@@ -524,6 +667,79 @@ def model_info():
         return jsonify({"available": True, **data})
     except (json.JSONDecodeError, OSError) as e:
         print(f"WARNING: could not read eval metrics at {METRICS_PATH}: {e}")
+        return jsonify({"available": False})
+
+
+ERROR_ANALYSIS_PATH = os.path.join(os.path.dirname(__file__), "..", "ml-model", "error_analysis.json")
+ERROR_ANALYSIS_PATH = os.path.abspath(ERROR_ANALYSIS_PATH)
+
+ERROR_EXPLANATIONS_PATH = os.path.join(os.path.dirname(__file__), "..", "ml-model", "error_explanations.json")
+ERROR_EXPLANATIONS_PATH = os.path.abspath(ERROR_EXPLANATIONS_PATH)
+
+ROBUSTNESS_PATH = os.path.join(os.path.dirname(__file__), "..", "ml-model", "robustness.json")
+ROBUSTNESS_PATH = os.path.abspath(ROBUSTNESS_PATH)
+
+
+@app.get("/error-analysis")
+def error_analysis():
+    """Return precomputed error analysis from the offline evaluation script.
+
+    Also attaches persisted offline FD-CAM false-positive explanations
+    (no inference at request time). If the explanation artifact is
+    unavailable, the endpoint still returns 200 with
+    explanations_available=False.
+    """
+    if not os.path.exists(ERROR_ANALYSIS_PATH):
+        return jsonify({"available": False})
+    try:
+        with open(ERROR_ANALYSIS_PATH, "r", encoding="utf-8") as f:
+            data = json.load(f)
+        if not isinstance(data, dict):
+            return jsonify({"available": False})
+        # Attach persisted offline explanations (read-only, no FD-CAM here).
+        try:
+            if os.path.exists(ERROR_EXPLANATIONS_PATH):
+                with open(ERROR_EXPLANATIONS_PATH, "r", encoding="utf-8") as ef:
+                    exp = json.load(ef)
+                if isinstance(exp, dict) and isinstance(exp.get("explanations"), list):
+                    data["fp_explanations"] = exp["explanations"]
+                    data["explanations_available"] = True
+                    data["explanation_method"] = exp.get("explanation_method", "FD-CAM")
+                    data["explanation_metadata"] = {
+                        "evaluation_timestamp": exp.get("evaluation_timestamp"),
+                        "model": exp.get("model"),
+                        "input": exp.get("input"),
+                        "count": exp.get("count", len(exp["explanations"])),
+                    }
+                else:
+                    data["fp_explanations"] = []
+                    data["explanations_available"] = False
+            else:
+                data["fp_explanations"] = []
+                data["explanations_available"] = False
+        except (json.JSONDecodeError, OSError) as ee:
+            print(f"WARNING: could not read error explanations at {ERROR_EXPLANATIONS_PATH}: {ee}")
+            data["fp_explanations"] = []
+            data["explanations_available"] = False
+        return jsonify({"available": True, **data})
+    except (json.JSONDecodeError, OSError) as e:
+        print(f"WARNING: could not read error analysis at {ERROR_ANALYSIS_PATH}: {e}")
+        return jsonify({"available": False})
+
+
+@app.get("/robustness")
+def robustness():
+    """Return precomputed robustness results. No inference at request time."""
+    if not os.path.exists(ROBUSTNESS_PATH):
+        return jsonify({"available": False})
+    try:
+        with open(ROBUSTNESS_PATH, "r", encoding="utf-8") as f:
+            data = json.load(f)
+        if not isinstance(data, dict):
+            return jsonify({"available": False})
+        return jsonify({"available": True, **data})
+    except (json.JSONDecodeError, OSError) as e:
+        print(f"WARNING: could not read robustness at {ROBUSTNESS_PATH}: {e}")
         return jsonify({"available": False})
 
 

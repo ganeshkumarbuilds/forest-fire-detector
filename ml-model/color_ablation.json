@@ -1,0 +1,2631 @@
+{
+  "metadata": {
+    "timestamp": "2026-09-17T06:23:42.368245+00:00",
+    "dataset_size": 1832,
+    "test_size": 275,
+    "fire_test": 139,
+    "no_fire_test": 136,
+    "random_state": 42,
+    "threshold": 0.5,
+    "input_size": [
+      224,
+      224,
+      3
+    ],
+    "grayscale_transformation": "original 250x250 RGB -> PIL convert(\"L\") (ITU-R 601 luma) -> convert(\"RGB\") to replicate across 3 channels",
+    "resize_method": "BILINEAR to 224x224",
+    "preprocessing": "MobileNetV2 preprocess_input (x/127.5 - 1) applied AFTER grayscale+resize; grayscale is never applied after normalization",
+    "batch_size": 32,
+    "model_path": "C:\\Projects _1\\forest-fire-detector\\ml-model\\fire_model.h5",
+    "sklearn_version": "1.5.0",
+    "pillow_version": "10.4.0",
+    "tf_version": "2.16.1"
+  },
+  "clean_metrics": {
+    "test_size": 275,
+    "accuracy": 0.9782,
+    "precision": 0.9586,
+    "recall": 1.0,
+    "f1": 0.9789,
+    "confusion_matrix": [
+      [
+        130,
+        6
+      ],
+      [
+        0,
+        139
+      ]
+    ],
+    "tp": 139,
+    "tn": 130,
+    "fp": 6,
+    "fn": 0
+  },
+  "grayscale_metrics": {
+    "test_size": 275,
+    "accuracy": 0.8291,
+    "precision": 0.7614,
+    "recall": 0.964,
+    "f1": 0.8508,
+    "confusion_matrix": [
+      [
+        94,
+        42
+      ],
+      [
+        5,
+        134
+      ]
+    ],
+    "tp": 134,
+    "tn": 94,
+    "fp": 42,
+    "fn": 5
+  },
+  "deltas": {
+    "accuracy_delta": -0.1491,
+    "precision_delta": -0.1972,
+    "recall_delta": -0.036,
+    "f1_delta": -0.1281,
+    "fp_delta": 36,
+    "fn_delta": 5
+  },
+  "prediction_change_rate": 0.1564,
+  "per_class_change_rates": {
+    "fire_change_rate": 0.036,
+    "no_fire_change_rate": 0.2794,
+    "fire_n": 139,
+    "no_fire_n": 136
+  },
+  "avg_absolute_probability_change": 0.1709,
+  "clean_fp_stability": {
+    "total_clean_fp": 6,
+    "changed": 2,
+    "unchanged": 4,
+    "summary": "2 of 6 clean false positives changed class under grayscale.",
+    "details": [
+      {
+        "filename": "no_fire/nofire_0062.jpg",
+        "clean_prob_fire": 0.9382,
+        "grayscale_prob_fire": 0.9915,
+        "delta_probability": 0.0533,
+        "clean_prediction": 1,
+        "grayscale_prediction": 1,
+        "changed": false
+      },
+      {
+        "filename": "no_fire/nofire_0165.jpg",
+        "clean_prob_fire": 0.3409,
+        "grayscale_prob_fire": 0.623,
+        "delta_probability": 0.2821,
+        "clean_prediction": 0,
+        "grayscale_prediction": 1,
+        "changed": true
+      },
+      {
+        "filename": "no_fire/nofire_0531.jpg",
+        "clean_prob_fire": 0.8785,
+        "grayscale_prob_fire": 0.1664,
+        "delta_probability": -0.7121,
+        "clean_prediction": 1,
+        "grayscale_prediction": 0,
+        "changed": true
+      },
+      {
+        "filename": "no_fire/nofire_0504.jpg",
+        "clean_prob_fire": 0.7972,
+        "grayscale_prob_fire": 0.9554,
+        "delta_probability": 0.1582,
+        "clean_prediction": 1,
+        "grayscale_prediction": 1,
+        "changed": false
+      },
+      {
+        "filename": "no_fire/nofire_0355.jpg",
+        "clean_prob_fire": 0.7076,
+        "grayscale_prob_fire": 0.9163,
+        "delta_probability": 0.2087,
+        "clean_prediction": 1,
+        "grayscale_prediction": 1,
+        "changed": false
+      },
+      {
+        "filename": "no_fire/nofire_0172.jpg",
+        "clean_prob_fire": 0.79,
+        "grayscale_prob_fire": 0.9806,
+        "delta_probability": 0.1906,
+        "clean_prediction": 1,
+        "grayscale_prediction": 1,
+        "changed": false
+      }
+    ],
+    "note": "n=6: descriptive only, no statistical inference."
+  },
+  "per_image": [
+    {
+      "filename": "fire/fire_0524.jpg",
+      "true_label": 1,
+      "clean_prob_fire": 0.9996,
+      "grayscale_prob_fire": 0.9983,
+      "clean_pred": 1,
+      "grayscale_pred": 1,
+      "changed": false
+    },
+    {
+      "filename": "fire/fire_0166.jpg",
+      "true_label": 1,
+      "clean_prob_fire": 0.9999,
+      "grayscale_prob_fire": 0.9902,
+      "clean_pred": 1,
+      "grayscale_pred": 1,
+      "changed": false
+    },
+    {
+      "filename": "no_fire/nofire_0604.jpg",
+      "true_label": 0,
+      "clean_prob_fire": 0.2423,
+      "grayscale_prob_fire": 0.5402,
+      "clean_pred": 0,
+      "grayscale_pred": 1,
+      "changed": true
+    },
+    {
+      "filename": "fire/fire_0486.jpg",
+      "true_label": 1,
+      "clean_prob_fire": 0.9999,
+      "grayscale_prob_fire": 0.999,
+      "clean_pred": 1,
+      "grayscale_pred": 1,
+      "changed": false
+    },
+    {
+      "filename": "fire/fire_0128.jpg",
+      "true_label": 1,
+      "clean_prob_fire": 1.0,
+      "grayscale_prob_fire": 0.9993,
+      "clean_pred": 1,
+      "grayscale_pred": 1,
+      "changed": false
+    },
+    {
+      "filename": "fire/fire_0494.jpg",
+      "true_label": 1,
+      "clean_prob_fire": 1.0,
+      "grayscale_prob_fire": 0.998,
+      "clean_pred": 1,
+      "grayscale_pred": 1,
+      "changed": false
+    },
+    {
+      "filename": "fire/fire_0482.jpg",
+      "true_label": 1,
+      "clean_prob_fire": 0.9964,
+      "grayscale_prob_fire": 0.8331,
+      "clean_pred": 1,
+      "grayscale_pred": 1,
+      "changed": false
+    },
+    {
+      "filename": "no_fire/nofire_0361.jpg",
+      "true_label": 0,
+      "clean_prob_fire": 0.4018,
+      "grayscale_prob_fire": 0.4775,
+      "clean_pred": 0,
+      "grayscale_pred": 0,
+      "changed": false
+    },
+    {
+      "filename": "no_fire/nofire_0071.jpg",
+      "true_label": 0,
+      "clean_prob_fire": 0.01,
+      "grayscale_prob_fire": 0.11,
+      "clean_pred": 0,
+      "grayscale_pred": 0,
+      "changed": false
+    },
+    {
+      "filename": "no_fire/nofire_0741.jpg",
+      "true_label": 0,
+      "clean_prob_fire": 0.0097,
+      "grayscale_prob_fire": 0.0446,
+      "clean_pred": 0,
+      "grayscale_pred": 0,
+      "changed": false
+    },
+    {
+      "filename": "fire/fire_0300.jpg",
+      "true_label": 1,
+      "clean_prob_fire": 0.987,
+      "grayscale_prob_fire": 0.991,
+      "clean_pred": 1,
+      "grayscale_pred": 1,
+      "changed": false
+    },
+    {
+      "filename": "no_fire/abc325.jpg",
+      "true_label": 0,
+      "clean_prob_fire": 0.0848,
+      "grayscale_prob_fire": 0.0265,
+      "clean_pred": 0,
+      "grayscale_pred": 0,
+      "changed": false
+    },
+    {
+      "filename": "no_fire/abc278.jpg",
+      "true_label": 0,
+      "clean_prob_fire": 0.0646,
+      "grayscale_prob_fire": 0.5658,
+      "clean_pred": 0,
+      "grayscale_pred": 1,
+      "changed": true
+    },
+    {
+      "filename": "fire/fire_0702.jpg",
+      "true_label": 1,
+      "clean_prob_fire": 0.9996,
+      "grayscale_prob_fire": 0.9975,
+      "clean_pred": 1,
+      "grayscale_pred": 1,
+      "changed": false
+    },
+    {
+      "filename": "no_fire/nofire_0062.jpg",
+      "true_label": 0,
+      "clean_prob_fire": 0.9382,
+      "grayscale_prob_fire": 0.9915,
+      "clean_pred": 1,
+      "grayscale_pred": 1,
+      "changed": false
+    },
+    {
+      "filename": "no_fire/nofire_0018.jpg",
+      "true_label": 0,
+      "clean_prob_fire": 0.0104,
+      "grayscale_prob_fire": 0.1819,
+      "clean_pred": 0,
+      "grayscale_pred": 0,
+      "changed": false
+    },
+    {
+      "filename": "no_fire/nofire_0583.jpg",
+      "true_label": 0,
+      "clean_prob_fire": 0.0112,
+      "grayscale_prob_fire": 0.1821,
+      "clean_pred": 0,
+      "grayscale_pred": 0,
+      "changed": false
+    },
+    {
+      "filename": "fire/fire_0004.jpg",
+      "true_label": 1,
+      "clean_prob_fire": 1.0,
+      "grayscale_prob_fire": 0.9963,
+      "clean_pred": 1,
+      "grayscale_pred": 1,
+      "changed": false
+    },
+    {
+      "filename": "fire/abc113.jpg",
+      "true_label": 1,
+      "clean_prob_fire": 0.9928,
+      "grayscale_prob_fire": 0.9517,
+      "clean_pred": 1,
+      "grayscale_pred": 1,
+      "changed": false
+    },
+    {
+      "filename": "fire/fire_0649.jpg",
+      "true_label": 1,
+      "clean_prob_fire": 1.0,
+      "grayscale_prob_fire": 0.9985,
+      "clean_pred": 1,
+      "grayscale_pred": 1,
+      "changed": false
+    },
+    {
+      "filename": "no_fire/nofire_0046.jpg",
+      "true_label": 0,
+      "clean_prob_fire": 0.0961,
+      "grayscale_prob_fire": 0.4885,
+      "clean_pred": 0,
+      "grayscale_pred": 0,
+      "changed": false
+    },
+    {
+      "filename": "fire/abc111.jpg",
+      "true_label": 1,
+      "clean_prob_fire": 0.993,
+      "grayscale_prob_fire": 0.8726,
+      "clean_pred": 1,
+      "grayscale_pred": 1,
+      "changed": false
+    },
+    {
+      "filename": "no_fire/nofire_0331.jpg",
+      "true_label": 0,
+      "clean_prob_fire": 0.1391,
+      "grayscale_prob_fire": 0.4294,
+      "clean_pred": 0,
+      "grayscale_pred": 0,
+      "changed": false
+    },
+    {
+      "filename": "fire/abc095.jpg",
+      "true_label": 1,
+      "clean_prob_fire": 0.9988,
+      "grayscale_prob_fire": 0.815,
+      "clean_pred": 1,
+      "grayscale_pred": 1,
+      "changed": false
+    },
+    {
+      "filename": "no_fire/nofire_0419.jpg",
+      "true_label": 0,
+      "clean_prob_fire": 0.0055,
+      "grayscale_prob_fire": 0.133,
+      "clean_pred": 0,
+      "grayscale_pred": 0,
+      "changed": false
+    },
+    {
+      "filename": "no_fire/nofire_0629.jpg",
+      "true_label": 0,
+      "clean_prob_fire": 0.1683,
+      "grayscale_prob_fire": 0.1502,
+      "clean_pred": 0,
+      "grayscale_pred": 0,
+      "changed": false
+    },
+    {
+      "filename": "fire/fire_0721.jpg",
+      "true_label": 1,
+      "clean_prob_fire": 1.0,
+      "grayscale_prob_fire": 0.9986,
+      "clean_pred": 1,
+      "grayscale_pred": 1,
+      "changed": false
+    },
+    {
+      "filename": "fire/fire_0716.jpg",
+      "true_label": 1,
+      "clean_prob_fire": 0.9996,
+      "grayscale_prob_fire": 0.982,
+      "clean_pred": 1,
+      "grayscale_pred": 1,
+      "changed": false
+    },
+    {
+      "filename": "fire/fire_0557.jpg",
+      "true_label": 1,
+      "clean_prob_fire": 0.9957,
+      "grayscale_prob_fire": 0.9708,
+      "clean_pred": 1,
+      "grayscale_pred": 1,
+      "changed": false
+    },
+    {
+      "filename": "fire/fire_0336.jpg",
+      "true_label": 1,
+      "clean_prob_fire": 0.9971,
+      "grayscale_prob_fire": 0.5033,
+      "clean_pred": 1,
+      "grayscale_pred": 1,
+      "changed": false
+    },
+    {
+      "filename": "fire/fire_0345.jpg",
+      "true_label": 1,
+      "clean_prob_fire": 0.9896,
+      "grayscale_prob_fire": 0.8458,
+      "clean_pred": 1,
+      "grayscale_pred": 1,
+      "changed": false
+    },
+    {
+      "filename": "no_fire/nofire_0087.jpg",
+      "true_label": 0,
+      "clean_prob_fire": 0.6729,
+      "grayscale_prob_fire": 0.8967,
+      "clean_pred": 1,
+      "grayscale_pred": 1,
+      "changed": false
+    },
+    {
+      "filename": "no_fire/nofire_0753.jpg",
+      "true_label": 0,
+      "clean_prob_fire": 0.0909,
+      "grayscale_prob_fire": 0.7702,
+      "clean_pred": 0,
+      "grayscale_pred": 1,
+      "changed": true
+    },
+    {
+      "filename": "fire/abc013.jpg",
+      "true_label": 1,
+      "clean_prob_fire": 0.9999,
+      "grayscale_prob_fire": 0.9971,
+      "clean_pred": 1,
+      "grayscale_pred": 1,
+      "changed": false
+    },
+    {
+      "filename": "no_fire/abc249.jpg",
+      "true_label": 0,
+      "clean_prob_fire": 0.1289,
+      "grayscale_prob_fire": 0.428,
+      "clean_pred": 0,
+      "grayscale_pred": 0,
+      "changed": false
+    },
+    {
+      "filename": "no_fire/nofire_0229.jpg",
+      "true_label": 0,
+      "clean_prob_fire": 0.0384,
+      "grayscale_prob_fire": 0.8361,
+      "clean_pred": 0,
+      "grayscale_pred": 1,
+      "changed": true
+    },
+    {
+      "filename": "fire/fire_0267.jpg",
+      "true_label": 1,
+      "clean_prob_fire": 0.9993,
+      "grayscale_prob_fire": 0.9809,
+      "clean_pred": 1,
+      "grayscale_pred": 1,
+      "changed": false
+    },
+    {
+      "filename": "fire/fire_0608.jpg",
+      "true_label": 1,
+      "clean_prob_fire": 0.9993,
+      "grayscale_prob_fire": 0.914,
+      "clean_pred": 1,
+      "grayscale_pred": 1,
+      "changed": false
+    },
+    {
+      "filename": "no_fire/nofire_0165.jpg",
+      "true_label": 0,
+      "clean_prob_fire": 0.3409,
+      "grayscale_prob_fire": 0.623,
+      "clean_pred": 0,
+      "grayscale_pred": 1,
+      "changed": true
+    },
+    {
+      "filename": "fire/fire_0208.jpg",
+      "true_label": 1,
+      "clean_prob_fire": 0.9994,
+      "grayscale_prob_fire": 0.9953,
+      "clean_pred": 1,
+      "grayscale_pred": 1,
+      "changed": false
+    },
+    {
+      "filename": "fire/fire_0302.jpg",
+      "true_label": 1,
+      "clean_prob_fire": 0.9999,
+      "grayscale_prob_fire": 0.9989,
+      "clean_pred": 1,
+      "grayscale_pred": 1,
+      "changed": false
+    },
+    {
+      "filename": "fire/fire_0547.jpg",
+      "true_label": 1,
+      "clean_prob_fire": 0.9998,
+      "grayscale_prob_fire": 0.9724,
+      "clean_pred": 1,
+      "grayscale_pred": 1,
+      "changed": false
+    },
+    {
+      "filename": "no_fire/nofire_0133.jpg",
+      "true_label": 0,
+      "clean_prob_fire": 0.0037,
+      "grayscale_prob_fire": 0.4147,
+      "clean_pred": 0,
+      "grayscale_pred": 0,
+      "changed": false
+    },
+    {
+      "filename": "fire/fire_0364.jpg",
+      "true_label": 1,
+      "clean_prob_fire": 0.9996,
+      "grayscale_prob_fire": 0.9285,
+      "clean_pred": 1,
+      "grayscale_pred": 1,
+      "changed": false
+    },
+    {
+      "filename": "fire/fire_0731.jpg",
+      "true_label": 1,
+      "clean_prob_fire": 0.9997,
+      "grayscale_prob_fire": 0.9966,
+      "clean_pred": 1,
+      "grayscale_pred": 1,
+      "changed": false
+    },
+    {
+      "filename": "fire/fire_0061.jpg",
+      "true_label": 1,
+      "clean_prob_fire": 0.9695,
+      "grayscale_prob_fire": 0.7357,
+      "clean_pred": 1,
+      "grayscale_pred": 1,
+      "changed": false
+    },
+    {
+      "filename": "fire/abc001.jpg",
+      "true_label": 1,
+      "clean_prob_fire": 0.9985,
+      "grayscale_prob_fire": 0.9931,
+      "clean_pred": 1,
+      "grayscale_pred": 1,
+      "changed": false
+    },
+    {
+      "filename": "no_fire/nofire_0757.jpg",
+      "true_label": 0,
+      "clean_prob_fire": 0.0208,
+      "grayscale_prob_fire": 0.1497,
+      "clean_pred": 0,
+      "grayscale_pred": 0,
+      "changed": false
+    },
+    {
+      "filename": "no_fire/nofire_0543.jpg",
+      "true_label": 0,
+      "clean_prob_fire": 0.2946,
+      "grayscale_prob_fire": 0.0653,
+      "clean_pred": 0,
+      "grayscale_pred": 0,
+      "changed": false
+    },
+    {
+      "filename": "fire/fire_0581.jpg",
+      "true_label": 1,
+      "clean_prob_fire": 0.9995,
+      "grayscale_prob_fire": 0.9859,
+      "clean_pred": 1,
+      "grayscale_pred": 1,
+      "changed": false
+    },
+    {
+      "filename": "no_fire/nofire_0017.jpg",
+      "true_label": 0,
+      "clean_prob_fire": 0.2032,
+      "grayscale_prob_fire": 0.3361,
+      "clean_pred": 0,
+      "grayscale_pred": 0,
+      "changed": false
+    },
+    {
+      "filename": "fire/fire_0242.jpg",
+      "true_label": 1,
+      "clean_prob_fire": 1.0,
+      "grayscale_prob_fire": 0.9972,
+      "clean_pred": 1,
+      "grayscale_pred": 1,
+      "changed": false
+    },
+    {
+      "filename": "fire/fire_0379.jpg",
+      "true_label": 1,
+      "clean_prob_fire": 0.7353,
+      "grayscale_prob_fire": 0.8108,
+      "clean_pred": 1,
+      "grayscale_pred": 1,
+      "changed": false
+    },
+    {
+      "filename": "fire/fire_0522.jpg",
+      "true_label": 1,
+      "clean_prob_fire": 0.9997,
+      "grayscale_prob_fire": 0.9983,
+      "clean_pred": 1,
+      "grayscale_pred": 1,
+      "changed": false
+    },
+    {
+      "filename": "fire/fire_0414.jpg",
+      "true_label": 1,
+      "clean_prob_fire": 0.9951,
+      "grayscale_prob_fire": 0.9409,
+      "clean_pred": 1,
+      "grayscale_pred": 1,
+      "changed": false
+    },
+    {
+      "filename": "no_fire/nofire_0194.jpg",
+      "true_label": 0,
+      "clean_prob_fire": 0.0933,
+      "grayscale_prob_fire": 0.7916,
+      "clean_pred": 0,
+      "grayscale_pred": 1,
+      "changed": true
+    },
+    {
+      "filename": "no_fire/nofire_0332.jpg",
+      "true_label": 0,
+      "clean_prob_fire": 0.0469,
+      "grayscale_prob_fire": 0.1051,
+      "clean_pred": 0,
+      "grayscale_pred": 0,
+      "changed": false
+    },
+    {
+      "filename": "fire/fire_0147.jpg",
+      "true_label": 1,
+      "clean_prob_fire": 0.9994,
+      "grayscale_prob_fire": 0.9318,
+      "clean_pred": 1,
+      "grayscale_pred": 1,
+      "changed": false
+    },
+    {
+      "filename": "no_fire/nofire_0557.jpg",
+      "true_label": 0,
+      "clean_prob_fire": 0.0105,
+      "grayscale_prob_fire": 0.2321,
+      "clean_pred": 0,
+      "grayscale_pred": 0,
+      "changed": false
+    },
+    {
+      "filename": "no_fire/nofire_0418.jpg",
+      "true_label": 0,
+      "clean_prob_fire": 0.0584,
+      "grayscale_prob_fire": 0.6454,
+      "clean_pred": 0,
+      "grayscale_pred": 1,
+      "changed": true
+    },
+    {
+      "filename": "no_fire/nofire_0328.jpg",
+      "true_label": 0,
+      "clean_prob_fire": 0.0352,
+      "grayscale_prob_fire": 0.164,
+      "clean_pred": 0,
+      "grayscale_pred": 0,
+      "changed": false
+    },
+    {
+      "filename": "fire/fire_0343.jpg",
+      "true_label": 1,
+      "clean_prob_fire": 0.9998,
+      "grayscale_prob_fire": 0.9629,
+      "clean_pred": 1,
+      "grayscale_pred": 1,
+      "changed": false
+    },
+    {
+      "filename": "fire/fire_0455.jpg",
+      "true_label": 1,
+      "clean_prob_fire": 0.9988,
+      "grayscale_prob_fire": 0.9592,
+      "clean_pred": 1,
+      "grayscale_pred": 1,
+      "changed": false
+    },
+    {
+      "filename": "fire/fire_0404.jpg",
+      "true_label": 1,
+      "clean_prob_fire": 0.9929,
+      "grayscale_prob_fire": 0.8141,
+      "clean_pred": 1,
+      "grayscale_pred": 1,
+      "changed": false
+    },
+    {
+      "filename": "no_fire/abc192.jpg",
+      "true_label": 0,
+      "clean_prob_fire": 0.1585,
+      "grayscale_prob_fire": 0.0911,
+      "clean_pred": 0,
+      "grayscale_pred": 0,
+      "changed": false
+    },
+    {
+      "filename": "no_fire/nofire_0538.jpg",
+      "true_label": 0,
+      "clean_prob_fire": 0.0482,
+      "grayscale_prob_fire": 0.0474,
+      "clean_pred": 0,
+      "grayscale_pred": 0,
+      "changed": false
+    },
+    {
+      "filename": "fire/fire_0570.jpg",
+      "true_label": 1,
+      "clean_prob_fire": 0.9753,
+      "grayscale_prob_fire": 0.6684,
+      "clean_pred": 1,
+      "grayscale_pred": 1,
+      "changed": false
+    },
+    {
+      "filename": "no_fire/nofire_0333.jpg",
+      "true_label": 0,
+      "clean_prob_fire": 0.3857,
+      "grayscale_prob_fire": 0.8859,
+      "clean_pred": 0,
+      "grayscale_pred": 1,
+      "changed": true
+    },
+    {
+      "filename": "no_fire/abc329.jpg",
+      "true_label": 0,
+      "clean_prob_fire": 0.1707,
+      "grayscale_prob_fire": 0.1186,
+      "clean_pred": 0,
+      "grayscale_pred": 0,
+      "changed": false
+    },
+    {
+      "filename": "no_fire/nofire_0196.jpg",
+      "true_label": 0,
+      "clean_prob_fire": 0.2715,
+      "grayscale_prob_fire": 0.639,
+      "clean_pred": 0,
+      "grayscale_pred": 1,
+      "changed": true
+    },
+    {
+      "filename": "no_fire/nofire_0423.jpg",
+      "true_label": 0,
+      "clean_prob_fire": 0.189,
+      "grayscale_prob_fire": 0.1172,
+      "clean_pred": 0,
+      "grayscale_pred": 0,
+      "changed": false
+    },
+    {
+      "filename": "fire/abc026.jpg",
+      "true_label": 1,
+      "clean_prob_fire": 0.9932,
+      "grayscale_prob_fire": 0.9653,
+      "clean_pred": 1,
+      "grayscale_pred": 1,
+      "changed": false
+    },
+    {
+      "filename": "fire/fire_0380.jpg",
+      "true_label": 1,
+      "clean_prob_fire": 0.9338,
+      "grayscale_prob_fire": 0.7288,
+      "clean_pred": 1,
+      "grayscale_pred": 1,
+      "changed": false
+    },
+    {
+      "filename": "fire/fire_0428.jpg",
+      "true_label": 1,
+      "clean_prob_fire": 0.9992,
+      "grayscale_prob_fire": 0.9853,
+      "clean_pred": 1,
+      "grayscale_pred": 1,
+      "changed": false
+    },
+    {
+      "filename": "fire/fire_0391.jpg",
+      "true_label": 1,
+      "clean_prob_fire": 0.9923,
+      "grayscale_prob_fire": 0.9318,
+      "clean_pred": 1,
+      "grayscale_pred": 1,
+      "changed": false
+    },
+    {
+      "filename": "fire/abc132.jpg",
+      "true_label": 1,
+      "clean_prob_fire": 0.9986,
+      "grayscale_prob_fire": 0.8166,
+      "clean_pred": 1,
+      "grayscale_pred": 1,
+      "changed": false
+    },
+    {
+      "filename": "no_fire/nofire_0531.jpg",
+      "true_label": 0,
+      "clean_prob_fire": 0.8785,
+      "grayscale_prob_fire": 0.1664,
+      "clean_pred": 1,
+      "grayscale_pred": 0,
+      "changed": true
+    },
+    {
+      "filename": "fire/fire_0456.jpg",
+      "true_label": 1,
+      "clean_prob_fire": 0.9939,
+      "grayscale_prob_fire": 0.95,
+      "clean_pred": 1,
+      "grayscale_pred": 1,
+      "changed": false
+    },
+    {
+      "filename": "no_fire/nofire_0620.jpg",
+      "true_label": 0,
+      "clean_prob_fire": 0.0238,
+      "grayscale_prob_fire": 0.2227,
+      "clean_pred": 0,
+      "grayscale_pred": 0,
+      "changed": false
+    },
+    {
+      "filename": "fire/fire_0406.jpg",
+      "true_label": 1,
+      "clean_prob_fire": 0.9997,
+      "grayscale_prob_fire": 0.9404,
+      "clean_pred": 1,
+      "grayscale_pred": 1,
+      "changed": false
+    },
+    {
+      "filename": "no_fire/nofire_0126.jpg",
+      "true_label": 0,
+      "clean_prob_fire": 0.473,
+      "grayscale_prob_fire": 0.6577,
+      "clean_pred": 0,
+      "grayscale_pred": 1,
+      "changed": true
+    },
+    {
+      "filename": "fire/fire_0375.jpg",
+      "true_label": 1,
+      "clean_prob_fire": 0.9861,
+      "grayscale_prob_fire": 0.9309,
+      "clean_pred": 1,
+      "grayscale_pred": 1,
+      "changed": false
+    },
+    {
+      "filename": "no_fire/nofire_0346.jpg",
+      "true_label": 0,
+      "clean_prob_fire": 0.0202,
+      "grayscale_prob_fire": 0.1397,
+      "clean_pred": 0,
+      "grayscale_pred": 0,
+      "changed": false
+    },
+    {
+      "filename": "no_fire/nofire_0318.jpg",
+      "true_label": 0,
+      "clean_prob_fire": 0.098,
+      "grayscale_prob_fire": 0.0729,
+      "clean_pred": 0,
+      "grayscale_pred": 0,
+      "changed": false
+    },
+    {
+      "filename": "fire/fire_0709.jpg",
+      "true_label": 1,
+      "clean_prob_fire": 0.9984,
+      "grayscale_prob_fire": 0.946,
+      "clean_pred": 1,
+      "grayscale_pred": 1,
+      "changed": false
+    },
+    {
+      "filename": "no_fire/abc321.jpg",
+      "true_label": 0,
+      "clean_prob_fire": 0.0917,
+      "grayscale_prob_fire": 0.2779,
+      "clean_pred": 0,
+      "grayscale_pred": 0,
+      "changed": false
+    },
+    {
+      "filename": "no_fire/nofire_0316.jpg",
+      "true_label": 0,
+      "clean_prob_fire": 0.0269,
+      "grayscale_prob_fire": 0.0542,
+      "clean_pred": 0,
+      "grayscale_pred": 0,
+      "changed": false
+    },
+    {
+      "filename": "no_fire/abc262.jpg",
+      "true_label": 0,
+      "clean_prob_fire": 0.0298,
+      "grayscale_prob_fire": 0.1576,
+      "clean_pred": 0,
+      "grayscale_pred": 0,
+      "changed": false
+    },
+    {
+      "filename": "fire/abc034.jpg",
+      "true_label": 1,
+      "clean_prob_fire": 0.9997,
+      "grayscale_prob_fire": 0.9965,
+      "clean_pred": 1,
+      "grayscale_pred": 1,
+      "changed": false
+    },
+    {
+      "filename": "no_fire/nofire_0688.jpg",
+      "true_label": 0,
+      "clean_prob_fire": 0.1428,
+      "grayscale_prob_fire": 0.8846,
+      "clean_pred": 0,
+      "grayscale_pred": 1,
+      "changed": true
+    },
+    {
+      "filename": "no_fire/nofire_0504.jpg",
+      "true_label": 0,
+      "clean_prob_fire": 0.7972,
+      "grayscale_prob_fire": 0.9554,
+      "clean_pred": 1,
+      "grayscale_pred": 1,
+      "changed": false
+    },
+    {
+      "filename": "fire/fire_0057.jpg",
+      "true_label": 1,
+      "clean_prob_fire": 0.9949,
+      "grayscale_prob_fire": 0.9118,
+      "clean_pred": 1,
+      "grayscale_pred": 1,
+      "changed": false
+    },
+    {
+      "filename": "no_fire/nofire_0717.jpg",
+      "true_label": 0,
+      "clean_prob_fire": 0.0091,
+      "grayscale_prob_fire": 0.1558,
+      "clean_pred": 0,
+      "grayscale_pred": 0,
+      "changed": false
+    },
+    {
+      "filename": "no_fire/nofire_0348.jpg",
+      "true_label": 0,
+      "clean_prob_fire": 0.2325,
+      "grayscale_prob_fire": 0.183,
+      "clean_pred": 0,
+      "grayscale_pred": 0,
+      "changed": false
+    },
+    {
+      "filename": "no_fire/nofire_0258.jpg",
+      "true_label": 0,
+      "clean_prob_fire": 0.0081,
+      "grayscale_prob_fire": 0.1242,
+      "clean_pred": 0,
+      "grayscale_pred": 0,
+      "changed": false
+    },
+    {
+      "filename": "no_fire/nofire_0244.jpg",
+      "true_label": 0,
+      "clean_prob_fire": 0.0114,
+      "grayscale_prob_fire": 0.0552,
+      "clean_pred": 0,
+      "grayscale_pred": 0,
+      "changed": false
+    },
+    {
+      "filename": "fire/fire_0676.jpg",
+      "true_label": 1,
+      "clean_prob_fire": 0.9945,
+      "grayscale_prob_fire": 0.9938,
+      "clean_pred": 1,
+      "grayscale_pred": 1,
+      "changed": false
+    },
+    {
+      "filename": "no_fire/abc212.jpg",
+      "true_label": 0,
+      "clean_prob_fire": 0.1073,
+      "grayscale_prob_fire": 0.6218,
+      "clean_pred": 0,
+      "grayscale_pred": 1,
+      "changed": true
+    },
+    {
+      "filename": "fire/fire_0102.jpg",
+      "true_label": 1,
+      "clean_prob_fire": 0.9999,
+      "grayscale_prob_fire": 0.9623,
+      "clean_pred": 1,
+      "grayscale_pred": 1,
+      "changed": false
+    },
+    {
+      "filename": "no_fire/nofire_0023.jpg",
+      "true_label": 0,
+      "clean_prob_fire": 0.0594,
+      "grayscale_prob_fire": 0.7907,
+      "clean_pred": 0,
+      "grayscale_pred": 1,
+      "changed": true
+    },
+    {
+      "filename": "no_fire/abc297.jpg",
+      "true_label": 0,
+      "clean_prob_fire": 0.0151,
+      "grayscale_prob_fire": 0.1026,
+      "clean_pred": 0,
+      "grayscale_pred": 0,
+      "changed": false
+    },
+    {
+      "filename": "no_fire/nofire_0248.jpg",
+      "true_label": 0,
+      "clean_prob_fire": 0.2507,
+      "grayscale_prob_fire": 0.9143,
+      "clean_pred": 0,
+      "grayscale_pred": 1,
+      "changed": true
+    },
+    {
+      "filename": "fire/fire_0275.jpg",
+      "true_label": 1,
+      "clean_prob_fire": 0.9942,
+      "grayscale_prob_fire": 0.7016,
+      "clean_pred": 1,
+      "grayscale_pred": 1,
+      "changed": false
+    },
+    {
+      "filename": "fire/fire_0556.jpg",
+      "true_label": 1,
+      "clean_prob_fire": 1.0,
+      "grayscale_prob_fire": 0.997,
+      "clean_pred": 1,
+      "grayscale_pred": 1,
+      "changed": false
+    },
+    {
+      "filename": "no_fire/nofire_0100.jpg",
+      "true_label": 0,
+      "clean_prob_fire": 0.0124,
+      "grayscale_prob_fire": 0.0322,
+      "clean_pred": 0,
+      "grayscale_pred": 0,
+      "changed": false
+    },
+    {
+      "filename": "no_fire/abc271.jpg",
+      "true_label": 0,
+      "clean_prob_fire": 0.2488,
+      "grayscale_prob_fire": 0.4103,
+      "clean_pred": 0,
+      "grayscale_pred": 0,
+      "changed": false
+    },
+    {
+      "filename": "no_fire/nofire_0130.jpg",
+      "true_label": 0,
+      "clean_prob_fire": 0.1542,
+      "grayscale_prob_fire": 0.867,
+      "clean_pred": 0,
+      "grayscale_pred": 1,
+      "changed": true
+    },
+    {
+      "filename": "fire/fire_0348.jpg",
+      "true_label": 1,
+      "clean_prob_fire": 0.9724,
+      "grayscale_prob_fire": 0.9566,
+      "clean_pred": 1,
+      "grayscale_pred": 1,
+      "changed": false
+    },
+    {
+      "filename": "fire/fire_0655.jpg",
+      "true_label": 1,
+      "clean_prob_fire": 0.9994,
+      "grayscale_prob_fire": 0.9067,
+      "clean_pred": 1,
+      "grayscale_pred": 1,
+      "changed": false
+    },
+    {
+      "filename": "fire/abc140.jpg",
+      "true_label": 1,
+      "clean_prob_fire": 1.0,
+      "grayscale_prob_fire": 0.994,
+      "clean_pred": 1,
+      "grayscale_pred": 1,
+      "changed": false
+    },
+    {
+      "filename": "fire/fire_0662.jpg",
+      "true_label": 1,
+      "clean_prob_fire": 0.9873,
+      "grayscale_prob_fire": 0.3972,
+      "clean_pred": 1,
+      "grayscale_pred": 0,
+      "changed": true
+    },
+    {
+      "filename": "no_fire/nofire_0697.jpg",
+      "true_label": 0,
+      "clean_prob_fire": 0.0069,
+      "grayscale_prob_fire": 0.2279,
+      "clean_pred": 0,
+      "grayscale_pred": 0,
+      "changed": false
+    },
+    {
+      "filename": "no_fire/nofire_0013.jpg",
+      "true_label": 0,
+      "clean_prob_fire": 0.1032,
+      "grayscale_prob_fire": 0.0769,
+      "clean_pred": 0,
+      "grayscale_pred": 0,
+      "changed": false
+    },
+    {
+      "filename": "fire/fire_0496.jpg",
+      "true_label": 1,
+      "clean_prob_fire": 0.9971,
+      "grayscale_prob_fire": 0.7604,
+      "clean_pred": 1,
+      "grayscale_pred": 1,
+      "changed": false
+    },
+    {
+      "filename": "no_fire/nofire_0662.jpg",
+      "true_label": 0,
+      "clean_prob_fire": 0.0049,
+      "grayscale_prob_fire": 0.0859,
+      "clean_pred": 0,
+      "grayscale_pred": 0,
+      "changed": false
+    },
+    {
+      "filename": "no_fire/nofire_0044.jpg",
+      "true_label": 0,
+      "clean_prob_fire": 0.0004,
+      "grayscale_prob_fire": 0.3806,
+      "clean_pred": 0,
+      "grayscale_pred": 0,
+      "changed": false
+    },
+    {
+      "filename": "no_fire/nofire_0559.jpg",
+      "true_label": 0,
+      "clean_prob_fire": 0.0105,
+      "grayscale_prob_fire": 0.0152,
+      "clean_pred": 0,
+      "grayscale_pred": 0,
+      "changed": false
+    },
+    {
+      "filename": "no_fire/nofire_0355.jpg",
+      "true_label": 0,
+      "clean_prob_fire": 0.7076,
+      "grayscale_prob_fire": 0.9163,
+      "clean_pred": 1,
+      "grayscale_pred": 1,
+      "changed": false
+    },
+    {
+      "filename": "fire/fire_0619.jpg",
+      "true_label": 1,
+      "clean_prob_fire": 0.9983,
+      "grayscale_prob_fire": 0.8612,
+      "clean_pred": 1,
+      "grayscale_pred": 1,
+      "changed": false
+    },
+    {
+      "filename": "no_fire/abc211.jpg",
+      "true_label": 0,
+      "clean_prob_fire": 0.0488,
+      "grayscale_prob_fire": 0.9051,
+      "clean_pred": 0,
+      "grayscale_pred": 1,
+      "changed": true
+    },
+    {
+      "filename": "no_fire/nofire_0737.jpg",
+      "true_label": 0,
+      "clean_prob_fire": 0.0592,
+      "grayscale_prob_fire": 0.6054,
+      "clean_pred": 0,
+      "grayscale_pred": 1,
+      "changed": true
+    },
+    {
+      "filename": "no_fire/nofire_0628.jpg",
+      "true_label": 0,
+      "clean_prob_fire": 0.0181,
+      "grayscale_prob_fire": 0.0695,
+      "clean_pred": 0,
+      "grayscale_pred": 0,
+      "changed": false
+    },
+    {
+      "filename": "fire/abc118.jpg",
+      "true_label": 1,
+      "clean_prob_fire": 0.9954,
+      "grayscale_prob_fire": 0.9987,
+      "clean_pred": 1,
+      "grayscale_pred": 1,
+      "changed": false
+    },
+    {
+      "filename": "fire/fire_0704.jpg",
+      "true_label": 1,
+      "clean_prob_fire": 0.9833,
+      "grayscale_prob_fire": 0.9677,
+      "clean_pred": 1,
+      "grayscale_pred": 1,
+      "changed": false
+    },
+    {
+      "filename": "no_fire/nofire_0713.jpg",
+      "true_label": 0,
+      "clean_prob_fire": 0.014,
+      "grayscale_prob_fire": 0.0254,
+      "clean_pred": 0,
+      "grayscale_pred": 0,
+      "changed": false
+    },
+    {
+      "filename": "no_fire/nofire_0275.jpg",
+      "true_label": 0,
+      "clean_prob_fire": 0.0057,
+      "grayscale_prob_fire": 0.135,
+      "clean_pred": 0,
+      "grayscale_pred": 0,
+      "changed": false
+    },
+    {
+      "filename": "no_fire/nofire_0172.jpg",
+      "true_label": 0,
+      "clean_prob_fire": 0.79,
+      "grayscale_prob_fire": 0.9806,
+      "clean_pred": 1,
+      "grayscale_pred": 1,
+      "changed": false
+    },
+    {
+      "filename": "no_fire/nofire_0632.jpg",
+      "true_label": 0,
+      "clean_prob_fire": 0.0288,
+      "grayscale_prob_fire": 0.0707,
+      "clean_pred": 0,
+      "grayscale_pred": 0,
+      "changed": false
+    },
+    {
+      "filename": "no_fire/abc243.jpg",
+      "true_label": 0,
+      "clean_prob_fire": 0.1335,
+      "grayscale_prob_fire": 0.2461,
+      "clean_pred": 0,
+      "grayscale_pred": 0,
+      "changed": false
+    },
+    {
+      "filename": "fire/fire_0474.jpg",
+      "true_label": 1,
+      "clean_prob_fire": 1.0,
+      "grayscale_prob_fire": 0.9963,
+      "clean_pred": 1,
+      "grayscale_pred": 1,
+      "changed": false
+    },
+    {
+      "filename": "fire/fire_0675.jpg",
+      "true_label": 1,
+      "clean_prob_fire": 1.0,
+      "grayscale_prob_fire": 0.9981,
+      "clean_pred": 1,
+      "grayscale_pred": 1,
+      "changed": false
+    },
+    {
+      "filename": "fire/fire_0055.jpg",
+      "true_label": 1,
+      "clean_prob_fire": 0.9991,
+      "grayscale_prob_fire": 0.9836,
+      "clean_pred": 1,
+      "grayscale_pred": 1,
+      "changed": false
+    },
+    {
+      "filename": "fire/fire_0350.jpg",
+      "true_label": 1,
+      "clean_prob_fire": 1.0,
+      "grayscale_prob_fire": 0.9999,
+      "clean_pred": 1,
+      "grayscale_pred": 1,
+      "changed": false
+    },
+    {
+      "filename": "fire/fire_0158.jpg",
+      "true_label": 1,
+      "clean_prob_fire": 0.9995,
+      "grayscale_prob_fire": 0.8831,
+      "clean_pred": 1,
+      "grayscale_pred": 1,
+      "changed": false
+    },
+    {
+      "filename": "fire/fire_0445.jpg",
+      "true_label": 1,
+      "clean_prob_fire": 0.9782,
+      "grayscale_prob_fire": 0.9548,
+      "clean_pred": 1,
+      "grayscale_pred": 1,
+      "changed": false
+    },
+    {
+      "filename": "fire/fire_0075.jpg",
+      "true_label": 1,
+      "clean_prob_fire": 1.0,
+      "grayscale_prob_fire": 0.9882,
+      "clean_pred": 1,
+      "grayscale_pred": 1,
+      "changed": false
+    },
+    {
+      "filename": "fire/fire_0026.jpg",
+      "true_label": 1,
+      "clean_prob_fire": 0.9999,
+      "grayscale_prob_fire": 0.9986,
+      "clean_pred": 1,
+      "grayscale_pred": 1,
+      "changed": false
+    },
+    {
+      "filename": "fire/fire_0611.jpg",
+      "true_label": 1,
+      "clean_prob_fire": 0.8965,
+      "grayscale_prob_fire": 0.7148,
+      "clean_pred": 1,
+      "grayscale_pred": 1,
+      "changed": false
+    },
+    {
+      "filename": "fire/fire_0224.jpg",
+      "true_label": 1,
+      "clean_prob_fire": 0.9998,
+      "grayscale_prob_fire": 0.9892,
+      "clean_pred": 1,
+      "grayscale_pred": 1,
+      "changed": false
+    },
+    {
+      "filename": "fire/fire_0630.jpg",
+      "true_label": 1,
+      "clean_prob_fire": 1.0,
+      "grayscale_prob_fire": 0.9993,
+      "clean_pred": 1,
+      "grayscale_pred": 1,
+      "changed": false
+    },
+    {
+      "filename": "no_fire/abc296.jpg",
+      "true_label": 0,
+      "clean_prob_fire": 0.0605,
+      "grayscale_prob_fire": 0.064,
+      "clean_pred": 0,
+      "grayscale_pred": 0,
+      "changed": false
+    },
+    {
+      "filename": "no_fire/nofire_0520.jpg",
+      "true_label": 0,
+      "clean_prob_fire": 0.0269,
+      "grayscale_prob_fire": 0.2477,
+      "clean_pred": 0,
+      "grayscale_pred": 0,
+      "changed": false
+    },
+    {
+      "filename": "no_fire/nofire_0236.jpg",
+      "true_label": 0,
+      "clean_prob_fire": 0.0694,
+      "grayscale_prob_fire": 0.9419,
+      "clean_pred": 0,
+      "grayscale_pred": 1,
+      "changed": true
+    },
+    {
+      "filename": "no_fire/nofire_0246.jpg",
+      "true_label": 0,
+      "clean_prob_fire": 0.1159,
+      "grayscale_prob_fire": 0.3294,
+      "clean_pred": 0,
+      "grayscale_pred": 0,
+      "changed": false
+    },
+    {
+      "filename": "fire/fire_0257.jpg",
+      "true_label": 1,
+      "clean_prob_fire": 0.9997,
+      "grayscale_prob_fire": 0.9716,
+      "clean_pred": 1,
+      "grayscale_pred": 1,
+      "changed": false
+    },
+    {
+      "filename": "no_fire/abc290.jpg",
+      "true_label": 0,
+      "clean_prob_fire": 0.0684,
+      "grayscale_prob_fire": 0.1586,
+      "clean_pred": 0,
+      "grayscale_pred": 0,
+      "changed": false
+    },
+    {
+      "filename": "fire/fire_0505.jpg",
+      "true_label": 1,
+      "clean_prob_fire": 1.0,
+      "grayscale_prob_fire": 0.997,
+      "clean_pred": 1,
+      "grayscale_pred": 1,
+      "changed": false
+    },
+    {
+      "filename": "no_fire/nofire_0108.jpg",
+      "true_label": 0,
+      "clean_prob_fire": 0.0094,
+      "grayscale_prob_fire": 0.1148,
+      "clean_pred": 0,
+      "grayscale_pred": 0,
+      "changed": false
+    },
+    {
+      "filename": "fire/fire_0413.jpg",
+      "true_label": 1,
+      "clean_prob_fire": 0.6104,
+      "grayscale_prob_fire": 0.8489,
+      "clean_pred": 1,
+      "grayscale_pred": 1,
+      "changed": false
+    },
+    {
+      "filename": "no_fire/nofire_0270.jpg",
+      "true_label": 0,
+      "clean_prob_fire": 0.0468,
+      "grayscale_prob_fire": 0.1046,
+      "clean_pred": 0,
+      "grayscale_pred": 0,
+      "changed": false
+    },
+    {
+      "filename": "fire/abc040.jpg",
+      "true_label": 1,
+      "clean_prob_fire": 0.9999,
+      "grayscale_prob_fire": 0.9977,
+      "clean_pred": 1,
+      "grayscale_pred": 1,
+      "changed": false
+    },
+    {
+      "filename": "fire/fire_0617.jpg",
+      "true_label": 1,
+      "clean_prob_fire": 0.9998,
+      "grayscale_prob_fire": 0.8398,
+      "clean_pred": 1,
+      "grayscale_pred": 1,
+      "changed": false
+    },
+    {
+      "filename": "fire/fire_0291.jpg",
+      "true_label": 1,
+      "clean_prob_fire": 1.0,
+      "grayscale_prob_fire": 0.9875,
+      "clean_pred": 1,
+      "grayscale_pred": 1,
+      "changed": false
+    },
+    {
+      "filename": "fire/abc005.jpg",
+      "true_label": 1,
+      "clean_prob_fire": 0.9918,
+      "grayscale_prob_fire": 0.7531,
+      "clean_pred": 1,
+      "grayscale_pred": 1,
+      "changed": false
+    },
+    {
+      "filename": "no_fire/nofire_0187.jpg",
+      "true_label": 0,
+      "clean_prob_fire": 0.1422,
+      "grayscale_prob_fire": 0.8659,
+      "clean_pred": 0,
+      "grayscale_pred": 1,
+      "changed": true
+    },
+    {
+      "filename": "no_fire/nofire_0728.jpg",
+      "true_label": 0,
+      "clean_prob_fire": 0.0067,
+      "grayscale_prob_fire": 0.0083,
+      "clean_pred": 0,
+      "grayscale_pred": 0,
+      "changed": false
+    },
+    {
+      "filename": "fire/abc165.jpg",
+      "true_label": 1,
+      "clean_prob_fire": 0.998,
+      "grayscale_prob_fire": 0.9765,
+      "clean_pred": 1,
+      "grayscale_pred": 1,
+      "changed": false
+    },
+    {
+      "filename": "no_fire/nofire_0223.jpg",
+      "true_label": 0,
+      "clean_prob_fire": 0.1695,
+      "grayscale_prob_fire": 0.4653,
+      "clean_pred": 0,
+      "grayscale_pred": 0,
+      "changed": false
+    },
+    {
+      "filename": "no_fire/abc253.jpg",
+      "true_label": 0,
+      "clean_prob_fire": 0.031,
+      "grayscale_prob_fire": 0.0712,
+      "clean_pred": 0,
+      "grayscale_pred": 0,
+      "changed": false
+    },
+    {
+      "filename": "fire/fire_0679.jpg",
+      "true_label": 1,
+      "clean_prob_fire": 0.998,
+      "grayscale_prob_fire": 0.9899,
+      "clean_pred": 1,
+      "grayscale_pred": 1,
+      "changed": false
+    },
+    {
+      "filename": "no_fire/nofire_0315.jpg",
+      "true_label": 0,
+      "clean_prob_fire": 0.0883,
+      "grayscale_prob_fire": 0.3931,
+      "clean_pred": 0,
+      "grayscale_pred": 0,
+      "changed": false
+    },
+    {
+      "filename": "no_fire/nofire_0341.jpg",
+      "true_label": 0,
+      "clean_prob_fire": 0.016,
+      "grayscale_prob_fire": 0.1082,
+      "clean_pred": 0,
+      "grayscale_pred": 0,
+      "changed": false
+    },
+    {
+      "filename": "no_fire/abc225.jpg",
+      "true_label": 0,
+      "clean_prob_fire": 0.1073,
+      "grayscale_prob_fire": 0.6062,
+      "clean_pred": 0,
+      "grayscale_pred": 1,
+      "changed": true
+    },
+    {
+      "filename": "no_fire/nofire_0058.jpg",
+      "true_label": 0,
+      "clean_prob_fire": 0.0147,
+      "grayscale_prob_fire": 0.4925,
+      "clean_pred": 0,
+      "grayscale_pred": 0,
+      "changed": false
+    },
+    {
+      "filename": "fire/fire_0153.jpg",
+      "true_label": 1,
+      "clean_prob_fire": 0.9993,
+      "grayscale_prob_fire": 0.9787,
+      "clean_pred": 1,
+      "grayscale_pred": 1,
+      "changed": false
+    },
+    {
+      "filename": "fire/abc078.jpg",
+      "true_label": 1,
+      "clean_prob_fire": 0.972,
+      "grayscale_prob_fire": 0.3548,
+      "clean_pred": 1,
+      "grayscale_pred": 0,
+      "changed": true
+    },
+    {
+      "filename": "no_fire/abc218.jpg",
+      "true_label": 0,
+      "clean_prob_fire": 0.001,
+      "grayscale_prob_fire": 0.1796,
+      "clean_pred": 0,
+      "grayscale_pred": 0,
+      "changed": false
+    },
+    {
+      "filename": "fire/fire_0209.jpg",
+      "true_label": 1,
+      "clean_prob_fire": 0.9998,
+      "grayscale_prob_fire": 0.9844,
+      "clean_pred": 1,
+      "grayscale_pred": 1,
+      "changed": false
+    },
+    {
+      "filename": "no_fire/nofire_0417.jpg",
+      "true_label": 0,
+      "clean_prob_fire": 0.0315,
+      "grayscale_prob_fire": 0.0459,
+      "clean_pred": 0,
+      "grayscale_pred": 0,
+      "changed": false
+    },
+    {
+      "filename": "fire/fire_0386.jpg",
+      "true_label": 1,
+      "clean_prob_fire": 0.9999,
+      "grayscale_prob_fire": 0.9998,
+      "clean_pred": 1,
+      "grayscale_pred": 1,
+      "changed": false
+    },
+    {
+      "filename": "fire/fire_0427.jpg",
+      "true_label": 1,
+      "clean_prob_fire": 0.9601,
+      "grayscale_prob_fire": 0.8346,
+      "clean_pred": 1,
+      "grayscale_pred": 1,
+      "changed": false
+    },
+    {
+      "filename": "fire/fire_0420.jpg",
+      "true_label": 1,
+      "clean_prob_fire": 0.9975,
+      "grayscale_prob_fire": 0.9778,
+      "clean_pred": 1,
+      "grayscale_pred": 1,
+      "changed": false
+    },
+    {
+      "filename": "fire/fire_0121.jpg",
+      "true_label": 1,
+      "clean_prob_fire": 0.5622,
+      "grayscale_prob_fire": 0.6736,
+      "clean_pred": 1,
+      "grayscale_pred": 1,
+      "changed": false
+    },
+    {
+      "filename": "fire/abc004.jpg",
+      "true_label": 1,
+      "clean_prob_fire": 0.9981,
+      "grayscale_prob_fire": 0.8749,
+      "clean_pred": 1,
+      "grayscale_pred": 1,
+      "changed": false
+    },
+    {
+      "filename": "fire/fire_0853.jpg",
+      "true_label": 1,
+      "clean_prob_fire": 0.9898,
+      "grayscale_prob_fire": 0.8673,
+      "clean_pred": 1,
+      "grayscale_pred": 1,
+      "changed": false
+    },
+    {
+      "filename": "no_fire/nofire_0605.jpg",
+      "true_label": 0,
+      "clean_prob_fire": 0.0066,
+      "grayscale_prob_fire": 0.3718,
+      "clean_pred": 0,
+      "grayscale_pred": 0,
+      "changed": false
+    },
+    {
+      "filename": "no_fire/nofire_0145.jpg",
+      "true_label": 0,
+      "clean_prob_fire": 0.0345,
+      "grayscale_prob_fire": 0.1392,
+      "clean_pred": 0,
+      "grayscale_pred": 0,
+      "changed": false
+    },
+    {
+      "filename": "no_fire/abc205.jpg",
+      "true_label": 0,
+      "clean_prob_fire": 0.0517,
+      "grayscale_prob_fire": 0.8582,
+      "clean_pred": 0,
+      "grayscale_pred": 1,
+      "changed": true
+    },
+    {
+      "filename": "no_fire/nofire_0170.jpg",
+      "true_label": 0,
+      "clean_prob_fire": 0.0196,
+      "grayscale_prob_fire": 0.782,
+      "clean_pred": 0,
+      "grayscale_pred": 1,
+      "changed": true
+    },
+    {
+      "filename": "fire/fire_0005.jpg",
+      "true_label": 1,
+      "clean_prob_fire": 0.9975,
+      "grayscale_prob_fire": 0.9598,
+      "clean_pred": 1,
+      "grayscale_pred": 1,
+      "changed": false
+    },
+    {
+      "filename": "fire/fire_0150.jpg",
+      "true_label": 1,
+      "clean_prob_fire": 0.999,
+      "grayscale_prob_fire": 0.8745,
+      "clean_pred": 1,
+      "grayscale_pred": 1,
+      "changed": false
+    },
+    {
+      "filename": "fire/fire_0637.jpg",
+      "true_label": 1,
+      "clean_prob_fire": 1.0,
+      "grayscale_prob_fire": 0.9993,
+      "clean_pred": 1,
+      "grayscale_pred": 1,
+      "changed": false
+    },
+    {
+      "filename": "no_fire/abc312.jpg",
+      "true_label": 0,
+      "clean_prob_fire": 0.0167,
+      "grayscale_prob_fire": 0.0599,
+      "clean_pred": 0,
+      "grayscale_pred": 0,
+      "changed": false
+    },
+    {
+      "filename": "no_fire/nofire_0471.jpg",
+      "true_label": 0,
+      "clean_prob_fire": 0.0153,
+      "grayscale_prob_fire": 0.0736,
+      "clean_pred": 0,
+      "grayscale_pred": 0,
+      "changed": false
+    },
+    {
+      "filename": "no_fire/nofire_0127.jpg",
+      "true_label": 0,
+      "clean_prob_fire": 0.0335,
+      "grayscale_prob_fire": 0.5097,
+      "clean_pred": 0,
+      "grayscale_pred": 1,
+      "changed": true
+    },
+    {
+      "filename": "no_fire/abc293.jpg",
+      "true_label": 0,
+      "clean_prob_fire": 0.0293,
+      "grayscale_prob_fire": 0.2767,
+      "clean_pred": 0,
+      "grayscale_pred": 0,
+      "changed": false
+    },
+    {
+      "filename": "fire/fire_0690.jpg",
+      "true_label": 1,
+      "clean_prob_fire": 0.9989,
+      "grayscale_prob_fire": 0.8039,
+      "clean_pred": 1,
+      "grayscale_pred": 1,
+      "changed": false
+    },
+    {
+      "filename": "fire/fire_0382.jpg",
+      "true_label": 1,
+      "clean_prob_fire": 0.9997,
+      "grayscale_prob_fire": 0.958,
+      "clean_pred": 1,
+      "grayscale_pred": 1,
+      "changed": false
+    },
+    {
+      "filename": "fire/fire_0211.jpg",
+      "true_label": 1,
+      "clean_prob_fire": 0.9979,
+      "grayscale_prob_fire": 0.961,
+      "clean_pred": 1,
+      "grayscale_pred": 1,
+      "changed": false
+    },
+    {
+      "filename": "no_fire/nofire_0057.jpg",
+      "true_label": 0,
+      "clean_prob_fire": 0.018,
+      "grayscale_prob_fire": 0.4965,
+      "clean_pred": 0,
+      "grayscale_pred": 0,
+      "changed": false
+    },
+    {
+      "filename": "no_fire/nofire_0152.jpg",
+      "true_label": 0,
+      "clean_prob_fire": 0.1402,
+      "grayscale_prob_fire": 0.2722,
+      "clean_pred": 0,
+      "grayscale_pred": 0,
+      "changed": false
+    },
+    {
+      "filename": "no_fire/abc231.jpg",
+      "true_label": 0,
+      "clean_prob_fire": 0.013,
+      "grayscale_prob_fire": 0.3798,
+      "clean_pred": 0,
+      "grayscale_pred": 0,
+      "changed": false
+    },
+    {
+      "filename": "no_fire/nofire_0581.jpg",
+      "true_label": 0,
+      "clean_prob_fire": 0.0056,
+      "grayscale_prob_fire": 0.0816,
+      "clean_pred": 0,
+      "grayscale_pred": 0,
+      "changed": false
+    },
+    {
+      "filename": "no_fire/nofire_0311.jpg",
+      "true_label": 0,
+      "clean_prob_fire": 0.0717,
+      "grayscale_prob_fire": 0.2648,
+      "clean_pred": 0,
+      "grayscale_pred": 0,
+      "changed": false
+    },
+    {
+      "filename": "fire/fire_0478.jpg",
+      "true_label": 1,
+      "clean_prob_fire": 1.0,
+      "grayscale_prob_fire": 0.9994,
+      "clean_pred": 1,
+      "grayscale_pred": 1,
+      "changed": false
+    },
+    {
+      "filename": "fire/fire_0269.jpg",
+      "true_label": 1,
+      "clean_prob_fire": 0.9697,
+      "grayscale_prob_fire": 0.7517,
+      "clean_pred": 1,
+      "grayscale_pred": 1,
+      "changed": false
+    },
+    {
+      "filename": "fire/fire_0477.jpg",
+      "true_label": 1,
+      "clean_prob_fire": 1.0,
+      "grayscale_prob_fire": 0.956,
+      "clean_pred": 1,
+      "grayscale_pred": 1,
+      "changed": false
+    },
+    {
+      "filename": "no_fire/nofire_0633.jpg",
+      "true_label": 0,
+      "clean_prob_fire": 0.0036,
+      "grayscale_prob_fire": 0.0295,
+      "clean_pred": 0,
+      "grayscale_pred": 0,
+      "changed": false
+    },
+    {
+      "filename": "fire/fire_0114.jpg",
+      "true_label": 1,
+      "clean_prob_fire": 0.9773,
+      "grayscale_prob_fire": 0.0838,
+      "clean_pred": 1,
+      "grayscale_pred": 0,
+      "changed": true
+    },
+    {
+      "filename": "no_fire/nofire_0349.jpg",
+      "true_label": 0,
+      "clean_prob_fire": 0.1401,
+      "grayscale_prob_fire": 0.5132,
+      "clean_pred": 0,
+      "grayscale_pred": 1,
+      "changed": true
+    },
+    {
+      "filename": "no_fire/nofire_0235.jpg",
+      "true_label": 0,
+      "clean_prob_fire": 0.3115,
+      "grayscale_prob_fire": 0.9657,
+      "clean_pred": 0,
+      "grayscale_pred": 1,
+      "changed": true
+    },
+    {
+      "filename": "fire/fire_0154.jpg",
+      "true_label": 1,
+      "clean_prob_fire": 0.9973,
+      "grayscale_prob_fire": 0.937,
+      "clean_pred": 1,
+      "grayscale_pred": 1,
+      "changed": false
+    },
+    {
+      "filename": "no_fire/abc319.jpg",
+      "true_label": 0,
+      "clean_prob_fire": 0.0392,
+      "grayscale_prob_fire": 0.4556,
+      "clean_pred": 0,
+      "grayscale_pred": 0,
+      "changed": false
+    },
+    {
+      "filename": "fire/fire_0201.jpg",
+      "true_label": 1,
+      "clean_prob_fire": 0.8671,
+      "grayscale_prob_fire": 0.8918,
+      "clean_pred": 1,
+      "grayscale_pred": 1,
+      "changed": false
+    },
+    {
+      "filename": "no_fire/nofire_0412.jpg",
+      "true_label": 0,
+      "clean_prob_fire": 0.0788,
+      "grayscale_prob_fire": 0.396,
+      "clean_pred": 0,
+      "grayscale_pred": 0,
+      "changed": false
+    },
+    {
+      "filename": "no_fire/nofire_0700.jpg",
+      "true_label": 0,
+      "clean_prob_fire": 0.0019,
+      "grayscale_prob_fire": 0.1138,
+      "clean_pred": 0,
+      "grayscale_pred": 0,
+      "changed": false
+    },
+    {
+      "filename": "no_fire/nofire_0073.jpg",
+      "true_label": 0,
+      "clean_prob_fire": 0.0119,
+      "grayscale_prob_fire": 0.4404,
+      "clean_pred": 0,
+      "grayscale_pred": 0,
+      "changed": false
+    },
+    {
+      "filename": "fire/abc010.jpg",
+      "true_label": 1,
+      "clean_prob_fire": 1.0,
+      "grayscale_prob_fire": 1.0,
+      "clean_pred": 1,
+      "grayscale_pred": 1,
+      "changed": false
+    },
+    {
+      "filename": "no_fire/nofire_0576.jpg",
+      "true_label": 0,
+      "clean_prob_fire": 0.2302,
+      "grayscale_prob_fire": 0.7135,
+      "clean_pred": 0,
+      "grayscale_pred": 1,
+      "changed": true
+    },
+    {
+      "filename": "fire/fire_0181.jpg",
+      "true_label": 1,
+      "clean_prob_fire": 0.9999,
+      "grayscale_prob_fire": 0.9992,
+      "clean_pred": 1,
+      "grayscale_pred": 1,
+      "changed": false
+    },
+    {
+      "filename": "fire/fire_0251.jpg",
+      "true_label": 1,
+      "clean_prob_fire": 0.9997,
+      "grayscale_prob_fire": 0.9833,
+      "clean_pred": 1,
+      "grayscale_pred": 1,
+      "changed": false
+    },
+    {
+      "filename": "fire/abc090.jpg",
+      "true_label": 1,
+      "clean_prob_fire": 1.0,
+      "grayscale_prob_fire": 0.9959,
+      "clean_pred": 1,
+      "grayscale_pred": 1,
+      "changed": false
+    },
+    {
+      "filename": "fire/fire_0705.jpg",
+      "true_label": 1,
+      "clean_prob_fire": 1.0,
+      "grayscale_prob_fire": 0.9977,
+      "clean_pred": 1,
+      "grayscale_pred": 1,
+      "changed": false
+    },
+    {
+      "filename": "fire/fire_0580.jpg",
+      "true_label": 1,
+      "clean_prob_fire": 0.9999,
+      "grayscale_prob_fire": 0.999,
+      "clean_pred": 1,
+      "grayscale_pred": 1,
+      "changed": false
+    },
+    {
+      "filename": "no_fire/nofire_0377.jpg",
+      "true_label": 0,
+      "clean_prob_fire": 0.2921,
+      "grayscale_prob_fire": 0.8248,
+      "clean_pred": 0,
+      "grayscale_pred": 1,
+      "changed": true
+    },
+    {
+      "filename": "no_fire/nofire_0323.jpg",
+      "true_label": 0,
+      "clean_prob_fire": 0.1616,
+      "grayscale_prob_fire": 0.2797,
+      "clean_pred": 0,
+      "grayscale_pred": 0,
+      "changed": false
+    },
+    {
+      "filename": "no_fire/nofire_0284.jpg",
+      "true_label": 0,
+      "clean_prob_fire": 0.0702,
+      "grayscale_prob_fire": 0.1726,
+      "clean_pred": 0,
+      "grayscale_pred": 0,
+      "changed": false
+    },
+    {
+      "filename": "no_fire/nofire_0312.jpg",
+      "true_label": 0,
+      "clean_prob_fire": 0.0754,
+      "grayscale_prob_fire": 0.1817,
+      "clean_pred": 0,
+      "grayscale_pred": 0,
+      "changed": false
+    },
+    {
+      "filename": "fire/fire_0433.jpg",
+      "true_label": 1,
+      "clean_prob_fire": 0.8783,
+      "grayscale_prob_fire": 0.7586,
+      "clean_pred": 1,
+      "grayscale_pred": 1,
+      "changed": false
+    },
+    {
+      "filename": "no_fire/nofire_0422.jpg",
+      "true_label": 0,
+      "clean_prob_fire": 0.429,
+      "grayscale_prob_fire": 0.4365,
+      "clean_pred": 0,
+      "grayscale_pred": 0,
+      "changed": false
+    },
+    {
+      "filename": "fire/fire_0591.jpg",
+      "true_label": 1,
+      "clean_prob_fire": 0.9977,
+      "grayscale_prob_fire": 0.4781,
+      "clean_pred": 1,
+      "grayscale_pred": 0,
+      "changed": true
+    },
+    {
+      "filename": "fire/fire_0609.jpg",
+      "true_label": 1,
+      "clean_prob_fire": 0.9996,
+      "grayscale_prob_fire": 0.9968,
+      "clean_pred": 1,
+      "grayscale_pred": 1,
+      "changed": false
+    },
+    {
+      "filename": "fire/fire_0707.jpg",
+      "true_label": 1,
+      "clean_prob_fire": 0.9988,
+      "grayscale_prob_fire": 0.989,
+      "clean_pred": 1,
+      "grayscale_pred": 1,
+      "changed": false
+    },
+    {
+      "filename": "no_fire/nofire_0556.jpg",
+      "true_label": 0,
+      "clean_prob_fire": 0.0411,
+      "grayscale_prob_fire": 0.0376,
+      "clean_pred": 0,
+      "grayscale_pred": 0,
+      "changed": false
+    },
+    {
+      "filename": "no_fire/abc255.jpg",
+      "true_label": 0,
+      "clean_prob_fire": 0.4465,
+      "grayscale_prob_fire": 0.8418,
+      "clean_pred": 0,
+      "grayscale_pred": 1,
+      "changed": true
+    },
+    {
+      "filename": "fire/abc075.jpg",
+      "true_label": 1,
+      "clean_prob_fire": 0.9907,
+      "grayscale_prob_fire": 0.9448,
+      "clean_pred": 1,
+      "grayscale_pred": 1,
+      "changed": false
+    },
+    {
+      "filename": "no_fire/nofire_0626.jpg",
+      "true_label": 0,
+      "clean_prob_fire": 0.0007,
+      "grayscale_prob_fire": 0.0404,
+      "clean_pred": 0,
+      "grayscale_pred": 0,
+      "changed": false
+    },
+    {
+      "filename": "fire/fire_0132.jpg",
+      "true_label": 1,
+      "clean_prob_fire": 0.9984,
+      "grayscale_prob_fire": 0.9244,
+      "clean_pred": 1,
+      "grayscale_pred": 1,
+      "changed": false
+    },
+    {
+      "filename": "no_fire/nofire_0648.jpg",
+      "true_label": 0,
+      "clean_prob_fire": 0.0648,
+      "grayscale_prob_fire": 0.6243,
+      "clean_pred": 0,
+      "grayscale_pred": 1,
+      "changed": true
+    },
+    {
+      "filename": "fire/abc139.jpg",
+      "true_label": 1,
+      "clean_prob_fire": 0.9998,
+      "grayscale_prob_fire": 0.9951,
+      "clean_pred": 1,
+      "grayscale_pred": 1,
+      "changed": false
+    },
+    {
+      "filename": "fire/fire_0573.jpg",
+      "true_label": 1,
+      "clean_prob_fire": 0.9955,
+      "grayscale_prob_fire": 0.9878,
+      "clean_pred": 1,
+      "grayscale_pred": 1,
+      "changed": false
+    },
+    {
+      "filename": "no_fire/nofire_0449.jpg",
+      "true_label": 0,
+      "clean_prob_fire": 0.1796,
+      "grayscale_prob_fire": 0.2206,
+      "clean_pred": 0,
+      "grayscale_pred": 0,
+      "changed": false
+    },
+    {
+      "filename": "no_fire/nofire_0421.jpg",
+      "true_label": 0,
+      "clean_prob_fire": 0.0884,
+      "grayscale_prob_fire": 0.8703,
+      "clean_pred": 0,
+      "grayscale_pred": 1,
+      "changed": true
+    },
+    {
+      "filename": "fire/fire_0091.jpg",
+      "true_label": 1,
+      "clean_prob_fire": 0.9987,
+      "grayscale_prob_fire": 0.9235,
+      "clean_pred": 1,
+      "grayscale_pred": 1,
+      "changed": false
+    },
+    {
+      "filename": "no_fire/abc282.jpg",
+      "true_label": 0,
+      "clean_prob_fire": 0.075,
+      "grayscale_prob_fire": 0.2766,
+      "clean_pred": 0,
+      "grayscale_pred": 0,
+      "changed": false
+    },
+    {
+      "filename": "no_fire/nofire_0558.jpg",
+      "true_label": 0,
+      "clean_prob_fire": 0.0424,
+      "grayscale_prob_fire": 0.1232,
+      "clean_pred": 0,
+      "grayscale_pred": 0,
+      "changed": false
+    },
+    {
+      "filename": "no_fire/nofire_0365.jpg",
+      "true_label": 0,
+      "clean_prob_fire": 0.003,
+      "grayscale_prob_fire": 0.0217,
+      "clean_pred": 0,
+      "grayscale_pred": 0,
+      "changed": false
+    },
+    {
+      "filename": "fire/fire_0060.jpg",
+      "true_label": 1,
+      "clean_prob_fire": 0.967,
+      "grayscale_prob_fire": 0.8961,
+      "clean_pred": 1,
+      "grayscale_pred": 1,
+      "changed": false
+    },
+    {
+      "filename": "fire/fire_0335.jpg",
+      "true_label": 1,
+      "clean_prob_fire": 0.9868,
+      "grayscale_prob_fire": 0.9836,
+      "clean_pred": 1,
+      "grayscale_pred": 1,
+      "changed": false
+    },
+    {
+      "filename": "no_fire/nofire_0367.jpg",
+      "true_label": 0,
+      "clean_prob_fire": 0.0835,
+      "grayscale_prob_fire": 0.2563,
+      "clean_pred": 0,
+      "grayscale_pred": 0,
+      "changed": false
+    },
+    {
+      "filename": "fire/fire_0564.jpg",
+      "true_label": 1,
+      "clean_prob_fire": 1.0,
+      "grayscale_prob_fire": 0.9744,
+      "clean_pred": 1,
+      "grayscale_pred": 1,
+      "changed": false
+    },
+    {
+      "filename": "no_fire/nofire_0200.jpg",
+      "true_label": 0,
+      "clean_prob_fire": 0.0907,
+      "grayscale_prob_fire": 0.7115,
+      "clean_pred": 0,
+      "grayscale_pred": 1,
+      "changed": true
+    },
+    {
+      "filename": "fire/fire_0182.jpg",
+      "true_label": 1,
+      "clean_prob_fire": 0.9961,
+      "grayscale_prob_fire": 0.8984,
+      "clean_pred": 1,
+      "grayscale_pred": 1,
+      "changed": false
+    },
+    {
+      "filename": "no_fire/nofire_0503.jpg",
+      "true_label": 0,
+      "clean_prob_fire": 0.1334,
+      "grayscale_prob_fire": 0.5337,
+      "clean_pred": 0,
+      "grayscale_pred": 1,
+      "changed": true
+    },
+    {
+      "filename": "fire/fire_0161.jpg",
+      "true_label": 1,
+      "clean_prob_fire": 1.0,
+      "grayscale_prob_fire": 0.9996,
+      "clean_pred": 1,
+      "grayscale_pred": 1,
+      "changed": false
+    },
+    {
+      "filename": "no_fire/nofire_0518.jpg",
+      "true_label": 0,
+      "clean_prob_fire": 0.0415,
+      "grayscale_prob_fire": 0.1133,
+      "clean_pred": 0,
+      "grayscale_pred": 0,
+      "changed": false
+    },
+    {
+      "filename": "no_fire/nofire_0098.jpg",
+      "true_label": 0,
+      "clean_prob_fire": 0.0099,
+      "grayscale_prob_fire": 0.4913,
+      "clean_pred": 0,
+      "grayscale_pred": 0,
+      "changed": false
+    },
+    {
+      "filename": "no_fire/abc204.jpg",
+      "true_label": 0,
+      "clean_prob_fire": 0.0904,
+      "grayscale_prob_fire": 0.76,
+      "clean_pred": 0,
+      "grayscale_pred": 1,
+      "changed": true
+    },
+    {
+      "filename": "no_fire/nofire_0586.jpg",
+      "true_label": 0,
+      "clean_prob_fire": 0.1708,
+      "grayscale_prob_fire": 0.0791,
+      "clean_pred": 0,
+      "grayscale_pred": 0,
+      "changed": false
+    },
+    {
+      "filename": "fire/fire_0068.jpg",
+      "true_label": 1,
+      "clean_prob_fire": 0.9889,
+      "grayscale_prob_fire": 0.8755,
+      "clean_pred": 1,
+      "grayscale_pred": 1,
+      "changed": false
+    },
+    {
+      "filename": "no_fire/nofire_0242.jpg",
+      "true_label": 0,
+      "clean_prob_fire": 0.0926,
+      "grayscale_prob_fire": 0.6468,
+      "clean_pred": 0,
+      "grayscale_pred": 1,
+      "changed": true
+    },
+    {
+      "filename": "no_fire/nofire_0292.jpg",
+      "true_label": 0,
+      "clean_prob_fire": 0.4649,
+      "grayscale_prob_fire": 0.8388,
+      "clean_pred": 0,
+      "grayscale_pred": 1,
+      "changed": true
+    },
+    {
+      "filename": "no_fire/nofire_0649.jpg",
+      "true_label": 0,
+      "clean_prob_fire": 0.0299,
+      "grayscale_prob_fire": 0.0918,
+      "clean_pred": 0,
+      "grayscale_pred": 0,
+      "changed": false
+    },
+    {
+      "filename": "fire/fire_0439.jpg",
+      "true_label": 1,
+      "clean_prob_fire": 0.9993,
+      "grayscale_prob_fire": 0.9616,
+      "clean_pred": 1,
+      "grayscale_pred": 1,
+      "changed": false
+    },
+    {
+      "filename": "fire/fire_0151.jpg",
+      "true_label": 1,
+      "clean_prob_fire": 0.9945,
+      "grayscale_prob_fire": 0.9878,
+      "clean_pred": 1,
+      "grayscale_pred": 1,
+      "changed": false
+    },
+    {
+      "filename": "fire/fire_0152.jpg",
+      "true_label": 1,
+      "clean_prob_fire": 0.9984,
+      "grayscale_prob_fire": 0.7319,
+      "clean_pred": 1,
+      "grayscale_pred": 1,
+      "changed": false
+    },
+    {
+      "filename": "no_fire/nofire_0639.jpg",
+      "true_label": 0,
+      "clean_prob_fire": 0.0067,
+      "grayscale_prob_fire": 0.0541,
+      "clean_pred": 0,
+      "grayscale_pred": 0,
+      "changed": false
+    },
+    {
+      "filename": "no_fire/nofire_0675.jpg",
+      "true_label": 0,
+      "clean_prob_fire": 0.0038,
+      "grayscale_prob_fire": 0.0146,
+      "clean_pred": 0,
+      "grayscale_pred": 0,
+      "changed": false
+    },
+    {
+      "filename": "fire/fire_0438.jpg",
+      "true_label": 1,
+      "clean_prob_fire": 0.9999,
+      "grayscale_prob_fire": 0.9953,
+      "clean_pred": 1,
+      "grayscale_pred": 1,
+      "changed": false
+    },
+    {
+      "filename": "fire/abc168.jpg",
+      "true_label": 1,
+      "clean_prob_fire": 0.9642,
+      "grayscale_prob_fire": 0.9794,
+      "clean_pred": 1,
+      "grayscale_pred": 1,
+      "changed": false
+    },
+    {
+      "filename": "fire/fire_0278.jpg",
+      "true_label": 1,
+      "clean_prob_fire": 0.9857,
+      "grayscale_prob_fire": 0.8213,
+      "clean_pred": 1,
+      "grayscale_pred": 1,
+      "changed": false
+    },
+    {
+      "filename": "fire/fire_0542.jpg",
+      "true_label": 1,
+      "clean_prob_fire": 0.9999,
+      "grayscale_prob_fire": 0.9762,
+      "clean_pred": 1,
+      "grayscale_pred": 1,
+      "changed": false
+    },
+    {
+      "filename": "fire/fire_0832.jpg",
+      "true_label": 1,
+      "clean_prob_fire": 0.9987,
+      "grayscale_prob_fire": 0.9724,
+      "clean_pred": 1,
+      "grayscale_pred": 1,
+      "changed": false
+    },
+    {
+      "filename": "fire/fire_0668.jpg",
+      "true_label": 1,
+      "clean_prob_fire": 0.9992,
+      "grayscale_prob_fire": 0.9699,
+      "clean_pred": 1,
+      "grayscale_pred": 1,
+      "changed": false
+    },
+    {
+      "filename": "fire/fire_0273.jpg",
+      "true_label": 1,
+      "clean_prob_fire": 0.9853,
+      "grayscale_prob_fire": 0.8945,
+      "clean_pred": 1,
+      "grayscale_pred": 1,
+      "changed": false
+    },
+    {
+      "filename": "no_fire/nofire_0457.jpg",
+      "true_label": 0,
+      "clean_prob_fire": 0.1093,
+      "grayscale_prob_fire": 0.1668,
+      "clean_pred": 0,
+      "grayscale_pred": 0,
+      "changed": false
+    },
+    {
+      "filename": "no_fire/nofire_0109.jpg",
+      "true_label": 0,
+      "clean_prob_fire": 0.1405,
+      "grayscale_prob_fire": 0.6121,
+      "clean_pred": 0,
+      "grayscale_pred": 1,
+      "changed": true
+    },
+    {
+      "filename": "fire/abc006.jpg",
+      "true_label": 1,
+      "clean_prob_fire": 0.9996,
+      "grayscale_prob_fire": 0.9989,
+      "clean_pred": 1,
+      "grayscale_pred": 1,
+      "changed": false
+    },
+    {
+      "filename": "fire/fire_0109.jpg",
+      "true_label": 1,
+      "clean_prob_fire": 0.9826,
+      "grayscale_prob_fire": 0.2392,
+      "clean_pred": 1,
+      "grayscale_pred": 0,
+      "changed": true
+    },
+    {
+      "filename": "fire/fire_0093.jpg",
+      "true_label": 1,
+      "clean_prob_fire": 0.9999,
+      "grayscale_prob_fire": 0.9958,
+      "clean_pred": 1,
+      "grayscale_pred": 1,
+      "changed": false
+    },
+    {
+      "filename": "no_fire/nofire_0202.jpg",
+      "true_label": 0,
+      "clean_prob_fire": 0.0006,
+      "grayscale_prob_fire": 0.0167,
+      "clean_pred": 0,
+      "grayscale_pred": 0,
+      "changed": false
+    },
+    {
+      "filename": "fire/abc137.jpg",
+      "true_label": 1,
+      "clean_prob_fire": 0.9997,
+      "grayscale_prob_fire": 0.9528,
+      "clean_pred": 1,
+      "grayscale_pred": 1,
+      "changed": false
+    },
+    {
+      "filename": "no_fire/nofire_0048.jpg",
+      "true_label": 0,
+      "clean_prob_fire": 0.0428,
+      "grayscale_prob_fire": 0.759,
+      "clean_pred": 0,
+      "grayscale_pred": 1,
+      "changed": true
+    },
+    {
+      "filename": "fire/fire_0677.jpg",
+      "true_label": 1,
+      "clean_prob_fire": 0.9968,
+      "grayscale_prob_fire": 0.975,
+      "clean_pred": 1,
+      "grayscale_pred": 1,
+      "changed": false
+    },
+    {
+      "filename": "fire/fire_0123.jpg",
+      "true_label": 1,
+      "clean_prob_fire": 1.0,
+      "grayscale_prob_fire": 0.9934,
+      "clean_pred": 1,
+      "grayscale_pred": 1,
+      "changed": false
+    }
+  ],
+  "limitations": [
+    "Grayscale removes hue and saturation jointly.",
+    "Grayscale also changes brightness/contrast distributions.",
+    "The model was not trained on grayscale images.",
+    "Therefore degradation can reflect distribution shift rather than shortcut reliance.",
+    "Results establish sensitivity to color removal, not causality.",
+    "Results apply only to this frozen model and this test distribution.",
+    "This is not an OOD benchmark."
+  ]
+}
